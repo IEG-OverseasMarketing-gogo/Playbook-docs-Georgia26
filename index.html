@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IEG — 소싱 실행 가이드 & 시범단 캠페인</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Bricolage+Grotesque:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,7 +27,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-weight: 300;
   line-height: 1.6;
   overflow-x: hidden;
@@ -43,12 +43,12 @@ nav {
   display: flex; align-items: center; gap: 6px;
 }
 .nav-logo {
-  font-family: 'Bricolage Grotesque', sans-serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-weight: 700; font-size: 14px; color: var(--navy);
   margin-right: auto; letter-spacing: .02em;
 }
 nav a {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
   color: var(--muted); text-decoration: none;
   padding: 5px 10px; border-radius: 3px;
@@ -67,20 +67,20 @@ nav a:hover { background: var(--border); color: var(--ink); }
   content: 'SOURCING\ACAMPAIGN';
   white-space: pre;
   position: absolute; right: -20px; top: -20px;
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 130px; line-height: .85;
   color: rgba(255,255,255,.04);
   pointer-events: none;
 }
 .hero-eyebrow {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
   color: #93C5FD; margin-bottom: 20px;
   display: flex; align-items: center; gap: 10px;
 }
 .hero-eyebrow::before { content:''; width:24px; height:1px; background:#93C5FD; }
 .hero h1 {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: clamp(42px, 6vw, 76px);
   line-height: 1.0; color: #fff; font-weight: 400;
   margin-bottom: 16px;
@@ -90,7 +90,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 
 .hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
 .chip {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
   padding: 7px 14px; border-radius: 2px;
   border: 1px solid rgba(255,255,255,.18);
@@ -104,14 +104,14 @@ nav a:hover { background: var(--border); color: var(--ink); }
   scroll-margin-top: 52px;
 }
 .sec-label {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 12px;
   display: flex; align-items: center; gap: 10px;
 }
 .sec-label::before { content:''; width:20px; height:1px; background:var(--muted); }
 .sec h2 {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: clamp(28px, 4vw, 46px); line-height: 1.05;
   color: var(--navy); font-weight: 400; margin-bottom: 8px;
 }
@@ -142,7 +142,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
   margin-bottom: 24px;
 }
 .kit-code {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
   margin-bottom: 6px;
 }
@@ -152,7 +152,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 .kb4 .kit-code { color: var(--c4); }
 
 .kit-title {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 22px; color: var(--navy); font-weight: 400;
   margin-bottom: 4px;
 }
@@ -170,7 +170,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 .step-num {
   width: 22px; height: 22px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; font-size: 9px; font-weight: 500;
   flex-shrink: 0; margin-top: 2px; color: #fff;
 }
 .kb1 .step-num { background: var(--c1); }
@@ -185,7 +185,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 }
 .step-detail { font-size: 12px; color: var(--muted); line-height: 1.5; }
 .step-detail code {
-  font-family: 'DM Mono', monospace; font-size: 11px;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; font-size: 11px;
   background: var(--border); padding: 1px 6px; border-radius: 2px;
   color: var(--ink);
 }
@@ -208,7 +208,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 }
 .email-dot { width: 8px; height: 8px; border-radius: 50%; }
 .email-label {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
   color: #fff; font-weight: 500;
 }
@@ -216,7 +216,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
   padding: 12px 20px; background: #FAFAFA;
   border-bottom: 1px solid var(--border);
   font-size: 11px; color: var(--muted);
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
 }
 .email-meta span { color: var(--ink); font-weight: 500; }
 .email-body {
@@ -231,7 +231,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
   display: flex; gap: 8px;
 }
 .btn-copy {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
   padding: 7px 14px; border-radius: 2px;
   cursor: pointer; transition: all .2s;
@@ -250,7 +250,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 .campaign-header .sec-label::before { background: #93C5FD; }
 .campaign-header .sec-label { color: #93C5FD; }
 .campaign-header h2 {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: clamp(30px, 4vw, 50px);
   color: #fff; font-weight: 400;
   margin-bottom: 8px; line-height: 1.05;
@@ -280,12 +280,12 @@ nav a:hover { background: var(--border); color: var(--ink); }
 .rmp5::after { background: var(--navy); }
 
 .rm-period {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 8px;
 }
 .rm-title {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 18px; color: var(--navy); font-weight: 400;
   margin-bottom: 14px;
 }
@@ -304,7 +304,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 .rm-kpi {
   margin-top: 14px; padding-top: 14px;
   border-top: 1px solid var(--border);
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 10px; color: var(--muted);
 }
 .rm-kpi strong { display: block; font-size: 18px; font-weight: 500; margin-bottom: 2px; }
@@ -326,12 +326,12 @@ nav a:hover { background: var(--border); color: var(--ink); }
   background: var(--white);
 }
 .tc-eyebrow {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 10px;
 }
 .tc-title {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 20px; color: var(--navy); font-weight: 400;
   margin-bottom: 14px;
 }
@@ -358,13 +358,13 @@ nav a:hover { background: var(--border); color: var(--ink); }
   display: flex; align-items: center; justify-content: space-between;
 }
 .prof-email-label {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 10px; letter-spacing: .12em; color: #93C5FD;
 }
 .prof-email-meta {
   padding: 12px 20px; background: #FAFAFA;
   border-bottom: 1px solid var(--border);
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 11px; color: var(--muted);
 }
 .prof-email-meta span { color: var(--ink); }
@@ -386,7 +386,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 }
 .li-header {
   background: #0A66C2; padding: 12px 20px;
-  font-family: 'DM Mono', monospace; font-size: 10px;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; font-size: 10px;
   color: #fff; letter-spacing: .1em;
   display: flex; align-items: center; gap: 8px;
 }
@@ -403,7 +403,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
   padding: 28px;
 }
 .checklist-box h3 {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 20px; color: var(--navy); font-weight: 400;
   margin-bottom: 16px;
 }
@@ -432,11 +432,11 @@ nav a:hover { background: var(--border); color: var(--ink); }
 }
 .kpi-item:last-child { border-right: none; }
 .kpi-num {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 40px; line-height: 1; color: #93C5FD;
 }
 .kpi-label {
-  font-family: 'DM Mono', monospace;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
   font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
   color: #64748B;
 }
@@ -479,7 +479,7 @@ nav a:hover { background: var(--border); color: var(--ink); }
 <div class="hero">
   <div class="hero-eyebrow">IEG Mini-Lab · HI-TEC 2026 실행 플레이북</div>
   <h1>소싱 실행 가이드<br>&amp; <em>시범단 캠페인</em></h1>
-  <p class="hero-sub">4종 키트 소싱 방법·검색어·담당자 이메일부터 미국 커뮤니티 칼리지 교수 시밤단 모집·운영·확산까지 단계별 실행 플레이북.</p>
+  <p class="hero-sub">4종 키트 소싱 방법·검색어·담당자 이메일부터 미국 커뮤니티 칼리지 교수 시범단 모집·운영·확산까지 단계별 실행 플레이북.</p>
   <div class="hero-chips">
     <div class="chip">4종 키트 소싱 가이드</div>
     <div class="chip">공급사 문의 이메일 4종</div>
@@ -969,7 +969,7 @@ IEG Corp.</div>
 <!-- ════════════ PART 3: 시범단 캠페인 ════════════ -->
 <div class="campaign-header" id="campaign">
   <div class="sec-label">Part 03 — 시범단 캠페인 전략</div>
-  <h2>미국 커뮤니티 칼리지 교수<br><em>시밤단 20명</em> 운영 플레이북</h2>
+  <h2>미국 커뮤니티 칼리지 교수<br><em>시범단 20명</em> 운영 플레이북</h2>
   <p>HI-TEC 2025 Fellows 명단 분석 결과, 메카트로닉스·HVAC·자동화 교수진이 전국에 걸쳐 분포. 이들을 타겟으로 한 체계적 모집·운영·확산 전략.</p>
 </div>
 
@@ -1010,9 +1010,9 @@ IEG Corp.</div>
       <div class="rm-period">Week 5–6 · 6월 1주</div>
       <div class="rm-title">키트 발송 & 킥오프</div>
       <div class="rm-items">
-        <div class="rm-item">시밤단 20명 확정 → 키트 Dropshipping 직배송</div>
+        <div class="rm-item">시범단 20명 확정 → 키트 Dropshipping 직배송</div>
         <div class="rm-item">Zoom 킥오프 세션 (1시간) — IEG 소개 + 키트 사용법 오리엔테이션</div>
-        <div class="rm-item">전용 Slack 채널 개설 (시밤단 커뮤니티)</div>
+        <div class="rm-item">전용 Slack 채널 개설 (시범단 커뮤니티)</div>
         <div class="rm-item">Emotii QR 코드 활성화 (5개 언어 디지털 가이드 접속)</div>
         <div class="rm-item">콘텐츠 미션 #1 공지: "언박싱 영상 업로드"</div>
       </div>
@@ -1025,9 +1025,9 @@ IEG Corp.</div>
       <div class="rm-items">
         <div class="rm-item">Zoom 부트캠프 3일 — 키트 조립 → PLC 제어 → 고장진단 실습</div>
         <div class="rm-item">콘텐츠 미션 #2: "수업 시연 영상 촬영 & LinkedIn 업로드"</div>
-        <div class="rm-item">Emotii 다국어 커리큘럼 2차시 완성 → 시밤단에 먼저 제공</div>
+        <div class="rm-item">Emotii 다국어 커리큘럼 2차시 완성 → 시범단에 먼저 제공</div>
         <div class="rm-item">HI-TEC 발표 후보자 1–2명 선정 (가장 인게이지먼트 높은 교수)</div>
-        <div class="rm-item">시밤단 중간 피드백 설문 → 키트 개선점 수렴</div>
+        <div class="rm-item">시범단 중간 피드백 설문 → 키트 개선점 수렴</div>
       </div>
       <div class="rm-kpi"><strong>40+</strong> SNS 콘텐츠 누적</div>
     </div>
@@ -1037,7 +1037,7 @@ IEG Corp.</div>
       <div class="rm-title">HI-TEC & 확산</div>
       <div class="rm-items">
         <div class="rm-item">HI-TEC 2026 부스 운영 — 4종 키트 현장 시연</div>
-        <div class="rm-item">시밤단 교수 발표: "미니어처 키트 활용 수업 사례" 세션</div>
+        <div class="rm-item">시범단 교수 발표: "미니어처 키트 활용 수업 사례" 세션</div>
         <div class="rm-item">현장 체험 신청서 → B2B 리드 200+ 확보</div>
         <div class="rm-item">시범단 후기 영상 HI-TEC 기간 집중 업로드</div>
         <div class="rm-item">사후: 대형 장비 구매 의향 교수 → IEG 영업팀 연결</div>
@@ -1050,7 +1050,7 @@ IEG Corp.</div>
 <!-- ════════ 세부 전술 ════════ -->
 <section class="sec" id="tactics">
   <div class="sec-label">Part 04 — 세부 전술</div>
-  <h2>시밤단 모집·운영·확산<br>세부 전술 매뉴얼</h2>
+  <h2>시범단 모집·운영·확산<br>세부 전술 매뉴얼</h2>
   <p class="sec-intro">각 단계별 구체적 액션 아이템과 운영 노하우.</p>
 
   <div class="tactic-row">
@@ -1079,7 +1079,7 @@ IEG Corp.</div>
 
     <div class="tactic-card">
       <div class="tc-eyebrow">전술 02 — 혜택 패키지</div>
-      <div class="tc-title">시밤단에게 주는 것</div>
+      <div class="tc-title">시범단에게 주는 것</div>
       <div class="tc-items">
         <div class="tc-item">
           <div class="tc-bullet" style="background:#0057FF">1</div>
@@ -1095,7 +1095,7 @@ IEG Corp.</div>
         </div>
         <div class="tc-item">
           <div class="tc-bullet" style="background:#6B28C2">4</div>
-          <span><strong>HI-TEC 발표 기회</strong> — 가장 우수한 시밤단 1명 → IEG 후원으로 HI-TEC 2026 세션 발표자로 추천. 여행경비 지원 검토.</span>
+          <span><strong>HI-TEC 발표 기회</strong> — 가장 우수한 시범단 1명 → IEG 후원으로 HI-TEC 2026 세션 발표자로 추천. 여행경비 지원 검토.</span>
         </div>
       </div>
     </div>
@@ -1131,7 +1131,7 @@ IEG Corp.</div>
       <div class="tc-items">
         <div class="tc-item">
           <div class="tc-bullet" style="background:#0A66C2">Li</div>
-          <span><strong>LinkedIn</strong> — 모집 공고 + 시밤단 활동 공유 주 채널. IEG 영문 페이지 팔로워 증가 목표. 교수·관리자 타겟에 최적.</span>
+          <span><strong>LinkedIn</strong> — 모집 공고 + 시범단 활동 공유 주 채널. IEG 영문 페이지 팔로워 증가 목표. 교수·관리자 타겟에 최적.</span>
         </div>
         <div class="tc-item">
           <div class="tc-bullet" style="background:#FF0000">YT</div>
@@ -1170,14 +1170,14 @@ IEG Corp.</div>
 <!-- ════════ 교수 컨택 이메일 ════════ -->
 <section class="sec" id="prof-email">
   <div class="sec-label">Part 05 — 교수 컨택 템플릿</div>
-  <h2>시밤단 모집<br>LinkedIn DM + 이메일</h2>
+  <h2>시범단 모집<br>LinkedIn DM + 이메일</h2>
   <p class="sec-intro">HI-TEC 참가 교수, 메카트로닉스/HVAC 담당 교수 대상 개인 컨택 템플릿.</p>
 
   <!-- LinkedIn DM -->
   <div class="linkedin-card" style="margin-bottom:16px">
     <div class="li-header">
       🔵 LinkedIn Direct Message — 시범단 모집 DM (200자 이내 초간단 버전)
-      <button class="btn-copy" onclick="copyEmail('liDM', this)" style="margin-left:auto; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); color:#fff; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em; padding:5px 10px; cursor:pointer; border-radius:2px;">복사</button>
+      <button class="btn-copy" onclick="copyEmail('liDM', this)" style="margin-left:auto; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); color:#fff; font-family:'Malgun Gothic','맑은 고딕',sans-serif; font-size:9px; letter-spacing:.1em; padding:5px 10px; cursor:pointer; border-radius:2px;">복사</button>
     </div>
     <div class="li-body" id="liDM">Hi [Professor Name],
 
@@ -1192,7 +1192,7 @@ Interested? I'd love to connect. 🙌</div>
   <div class="prof-email-wrap">
     <div class="prof-email-top">
       <span class="prof-email-label">📧 교수 공식 이메일 — 시범단 모집 (풀 버전)</span>
-      <button class="btn-copy" onclick="copyEmail('profEmail', this)" style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); color:#fff; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em; padding:6px 12px; cursor:pointer; border-radius:2px;">복사</button>
+      <button class="btn-copy" onclick="copyEmail('profEmail', this)" style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); color:#fff; font-family:'Malgun Gothic','맑은 고딕',sans-serif; font-size:9px; letter-spacing:.1em; padding:6px 12px; cursor:pointer; border-radius:2px;">복사</button>
     </div>
     <div class="prof-email-meta">
       Subject: <span>Free Hands-On Training Kit for Your HVAC/Mechatronics Class — IEG Mini-Lab Pilot Program</span>
@@ -1264,8 +1264,8 @@ P.S. We're also looking for one pilot professor to share their experience at HI-
 </section>
 
 <footer style="background:var(--navy); padding:36px 48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-  <div style="font-family:'Instrument Serif',serif; font-size:20px; color:#fff; font-weight:400;">IEG Mini-Lab · 실행 플레이북</div>
-  <div style="font-family:'DM Mono',monospace; font-size:10px; color:#475569; letter-spacing:.08em;">HI-TEC 2026 · Houston TX · © 2026 IEG Corp. · 대외비</div>
+  <div style="font-family:'Malgun Gothic','맑은 고딕',sans-serif; font-size:20px; color:#fff; font-weight:400;">IEG Mini-Lab · 실행 플레이북</div>
+  <div style="font-family:'Malgun Gothic','맑은 고딕',sans-serif; font-size:10px; color:#475569; letter-spacing:.08em;">HI-TEC 2026 · Houston TX · © 2026 IEG Corp. · 대외비</div>
 </footer>
 
 <script>
