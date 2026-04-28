@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEG — 소싱 실행 가이드 & 시밤단 캠페인</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Bricolage+Grotesque:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:     #F7F5F0;
+  --ink:    #1A1714;
+  --muted:  #6B6560;
+  --border: #E0DBD3;
+  --c1: #0057FF; --c1l: #EEF3FF;
+  --c2: #C94A00; --c2l: #FFF0E8;
+  --c3: #1A7A3C; --c3l: #E8F5EE;
+  --c4: #6B28C2; --c4l: #F2EBFF;
+  --cg: #2D5A8E; --cgl: #EBF2FA;
+  --white: #FFFFFF;
+  --navy: #1B2D4F;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(247,245,240,.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px; height: 52px;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-logo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: 14px; color: var(--navy);
+  margin-right: auto; letter-spacing: .02em;
+}
+nav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  padding: 5px 10px; border-radius: 3px;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+nav a:hover { background: var(--border); color: var(--ink); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--navy);
+  padding: 80px 48px 72px;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: 'SOURCING\ACAMPAIGN';
+  white-space: pre;
+  position: absolute; right: -20px; top: -20px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 130px; line-height: .85;
+  color: rgba(255,255,255,.04);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: #93C5FD; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content:''; width:24px; height:1px; background:#93C5FD; }
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(42px, 6vw, 76px);
+  line-height: 1.0; color: #fff; font-weight: 400;
+  margin-bottom: 16px;
+}
+.hero h1 em { font-style: italic; color: #93C5FD; }
+.hero-sub { font-size: 15px; color: #94A3B8; max-width: 520px; margin-bottom: 48px; }
+
+.hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 2px;
+  border: 1px solid rgba(255,255,255,.18);
+  color: #CBD5E1; white-space: nowrap;
+}
+
+/* ── SECTION WRAPPER ── */
+.sec {
+  padding: 72px 48px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 52px;
+}
+.sec-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sec-label::before { content:''; width:20px; height:1px; background:var(--muted); }
+.sec h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 46px); line-height: 1.05;
+  color: var(--navy); font-weight: 400; margin-bottom: 8px;
+}
+.sec-intro { font-size: 14px; color: var(--muted); max-width: 600px; margin-bottom: 48px; }
+
+/* ── KIT SOURCING CARDS ── */
+.kit-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--border);
+  margin-bottom: 48px;
+}
+.kit-block {
+  background: var(--white);
+  padding: 40px 36px;
+  position: relative; overflow: hidden;
+}
+.kit-block::before {
+  content: '';
+  position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+}
+.kb1::before { background: var(--c1); }
+.kb2::before { background: var(--c2); }
+.kb3::before { background: var(--c3); }
+.kb4::before { background: var(--c4); }
+
+.kit-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.kit-code {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.kb1 .kit-code { color: var(--c1); }
+.kb2 .kit-code { color: var(--c2); }
+.kb3 .kit-code { color: var(--c3); }
+.kb4 .kit-code { color: var(--c4); }
+
+.kit-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px; color: var(--navy); font-weight: 400;
+  margin-bottom: 4px;
+}
+.kit-emoji { font-size: 28px; }
+
+/* Step timeline inside kit block */
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex; gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 500;
+  flex-shrink: 0; margin-top: 2px; color: #fff;
+}
+.kb1 .step-num { background: var(--c1); }
+.kb2 .step-num { background: var(--c2); }
+.kb3 .step-num { background: var(--c3); }
+.kb4 .step-num { background: var(--c4); }
+
+.step-content {}
+.step-action {
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  margin-bottom: 4px;
+}
+.step-detail { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.step-detail code {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  background: var(--border); padding: 1px 6px; border-radius: 2px;
+  color: var(--ink);
+}
+.step-detail a {
+  color: var(--c1); text-decoration: none; border-bottom: 1px solid rgba(0,87,255,.3);
+}
+.step-detail a:hover { border-color: var(--c1); }
+
+/* ── EMAIL TEMPLATES ── */
+.email-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.email-card {
+  border: 1px solid var(--border);
+  border-radius: 6px; overflow: hidden;
+}
+.email-header {
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.email-dot { width: 8px; height: 8px; border-radius: 50%; }
+.email-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: #fff; font-weight: 500;
+}
+.email-meta {
+  padding: 12px 20px; background: #FAFAFA;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+.email-meta span { color: var(--ink); font-weight: 500; }
+.email-body {
+  padding: 20px;
+  font-size: 12.5px; line-height: 1.75; color: var(--ink);
+  white-space: pre-wrap;
+  background: var(--white);
+}
+.email-actions {
+  padding: 12px 20px; border-top: 1px solid var(--border);
+  background: #FAFAFA;
+  display: flex; gap: 8px;
+}
+.btn-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 2px;
+  cursor: pointer; transition: all .2s;
+  border: 1px solid var(--border); background: var(--white); color: var(--ink);
+}
+.btn-copy:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.btn-copy.copied { background: var(--c3); color: #fff; border-color: var(--c3); }
+
+/* ── CAMPAIGN SECTION ── */
+.campaign-header {
+  background: var(--navy);
+  padding: 56px 48px 48px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 52px;
+}
+.campaign-header .sec-label::before { background: #93C5FD; }
+.campaign-header .sec-label { color: #93C5FD; }
+.campaign-header h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(30px, 4vw, 50px);
+  color: #fff; font-weight: 400;
+  margin-bottom: 8px; line-height: 1.05;
+}
+.campaign-header h2 em { font-style: italic; color: #93C5FD; }
+.campaign-header p { font-size: 14px; color: #94A3B8; max-width: 580px; }
+
+/* Campaign roadmap */
+.roadmap-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0; background: var(--border);
+  margin-bottom: 48px;
+}
+.rm-phase {
+  background: var(--white);
+  padding: 28px 24px 24px;
+  position: relative;
+}
+.rm-phase::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.rmp1::after { background: var(--c1); }
+.rmp2::after { background: var(--c2); }
+.rmp3::after { background: var(--c3); }
+.rmp4::after { background: var(--c4); }
+.rmp5::after { background: var(--navy); }
+
+.rm-period {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
+.rm-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px; color: var(--navy); font-weight: 400;
+  margin-bottom: 14px;
+}
+.rm-items { display: flex; flex-direction: column; gap: 8px; }
+.rm-item {
+  font-size: 11.5px; color: var(--muted); line-height: 1.5;
+  display: flex; gap: 6px;
+}
+.rm-item::before { content: '→'; color: inherit; flex-shrink: 0; font-size: 10px; margin-top: 1px; }
+.rmp1 .rm-item::before { color: var(--c1); }
+.rmp2 .rm-item::before { color: var(--c2); }
+.rmp3 .rm-item::before { color: var(--c3); }
+.rmp4 .rm-item::before { color: var(--c4); }
+.rmp5 .rm-item::before { color: var(--navy); }
+
+.rm-kpi {
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+}
+.rm-kpi strong { display: block; font-size: 18px; font-weight: 500; margin-bottom: 2px; }
+.rmp1 .rm-kpi strong { color: var(--c1); }
+.rmp2 .rm-kpi strong { color: var(--c2); }
+.rmp3 .rm-kpi strong { color: var(--c3); }
+.rmp4 .rm-kpi strong { color: var(--c4); }
+.rmp5 .rm-kpi strong { color: var(--navy); }
+
+/* Campaign tactics */
+.tactic-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-bottom: 16px;
+}
+.tactic-card {
+  padding: 28px 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
+}
+.tc-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.tc-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px; color: var(--navy); font-weight: 400;
+  margin-bottom: 14px;
+}
+.tc-items { display: flex; flex-direction: column; gap: 8px; }
+.tc-item {
+  font-size: 13px; color: var(--ink); line-height: 1.55;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.tc-bullet {
+  width: 18px; height: 18px; border-radius: 50%;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: #fff; font-weight: 600; margin-top: 2px;
+}
+
+/* Professor email */
+.prof-email-wrap {
+  background: var(--white);
+  border: 1px solid var(--border); border-radius: 6px;
+  overflow: hidden; margin-bottom: 16px;
+}
+.prof-email-top {
+  background: var(--navy);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.prof-email-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; color: #93C5FD;
+}
+.prof-email-meta {
+  padding: 12px 20px; background: #FAFAFA;
+  border-bottom: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--muted);
+}
+.prof-email-meta span { color: var(--ink); }
+.prof-email-body {
+  padding: 24px 20px;
+  font-size: 13px; line-height: 1.8; color: var(--ink);
+  white-space: pre-wrap;
+}
+.prof-email-foot {
+  padding: 12px 20px; border-top: 1px solid var(--border);
+  background: #FAFAFA; display: flex; gap: 8px;
+}
+
+/* LinkedIn DM */
+.linkedin-card {
+  background: var(--white);
+  border: 1px solid var(--border); border-radius: 6px;
+  overflow: hidden;
+}
+.li-header {
+  background: #0A66C2; padding: 12px 20px;
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: #fff; letter-spacing: .1em;
+  display: flex; align-items: center; gap: 8px;
+}
+.li-body {
+  padding: 20px;
+  font-size: 13px; line-height: 1.75; color: var(--ink);
+  white-space: pre-wrap;
+}
+
+/* Checklist box */
+.checklist-box {
+  background: var(--white);
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 28px;
+}
+.checklist-box h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 20px; color: var(--navy); font-weight: 400;
+  margin-bottom: 16px;
+}
+.cl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cl-item {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 12.5px; color: var(--ink); padding: 8px 12px;
+  border: 1px solid var(--border); border-radius: 4px;
+  background: #FAFAFA;
+}
+.cl-box {
+  width: 16px; height: 16px; border: 1px solid var(--border);
+  border-radius: 2px; flex-shrink: 0; margin-top: 2px; background: #fff;
+}
+
+/* KPI summary strip */
+.kpi-strip {
+  background: var(--navy);
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.kpi-item {
+  padding: 32px 28px;
+  border-right: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.kpi-item:last-child { border-right: none; }
+.kpi-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 40px; line-height: 1; color: #93C5FD;
+}
+.kpi-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+  color: #64748B;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  nav a { display: none; }
+  .sec { padding: 48px 20px; }
+  .hero { padding: 56px 20px 48px; }
+  .kit-grid, .email-grid, .tactic-row, .cl-grid { grid-template-columns: 1fr; }
+  .roadmap-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .campaign-header { padding: 48px 20px; }
+}
+
+/* ── Animations ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.hero > * { animation: fadeUp .6s ease both; }
+.hero > *:nth-child(2) { animation-delay: .1s; }
+.hero > *:nth-child(3) { animation-delay: .2s; }
+.hero > *:nth-child(4) { animation-delay: .3s; }
+.hero > *:nth-child(5) { animation-delay: .4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">IEG Mini-Lab · 실행 가이드</div>
+  <a href="#sourcing">소싱 가이드</a>
+  <a href="#emails">문의 메일</a>
+  <a href="#campaign">시밤단 캠페인</a>
+  <a href="#roadmap">캠페인 로드맵</a>
+  <a href="#tactics">세부 전술</a>
+  <a href="#prof-email">교수 컨택</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">IEG Mini-Lab · HI-TEC 2026 실행 플레이북</div>
+  <h1>소싱 실행 가이드<br>&amp; <em>시밤단 캠페인</em></h1>
+  <p class="hero-sub">4종 키트 소싱 방법·검색어·담당자 이메일부터 미국 커뮤니티 칼리지 교수 시밤단 모집·운영·확산까지 단계별 실행 플레이북.</p>
+  <div class="hero-chips">
+    <div class="chip">4종 키트 소싱 가이드</div>
+    <div class="chip">공급사 문의 이메일 4종</div>
+    <div class="chip">시밤단 20명 모집 전략</div>
+    <div class="chip">90일 캠페인 로드맵</div>
+    <div class="chip">교수 LinkedIn DM 템플릿</div>
+  </div>
+</div>
+
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+  <div class="kpi-item">
+    <span class="kpi-num">4</span>
+    <span class="kpi-label">공급사 채널</span>
+  </div>
+  <div class="kpi-item">
+    <span class="kpi-num">20</span>
+    <span class="kpi-label">시밤단 모집 목표</span>
+  </div>
+  <div class="kpi-item">
+    <span class="kpi-num">90일</span>
+    <span class="kpi-label">HI-TEC까지</span>
+  </div>
+  <div class="kpi-item">
+    <span class="kpi-num">200+</span>
+    <span class="kpi-label">B2B 리드 목표</span>
+  </div>
+</div>
+
+<!-- ════════════ PART 1: 소싱 실행 가이드 ════════════ -->
+<section class="sec" id="sourcing">
+  <div class="sec-label">Part 01 — 소싱 실행 가이드</div>
+  <h2>4종 키트, 어디서 어떻게<br>소싱하나</h2>
+  <p class="sec-intro">플랫폼 접속 → 검색어 입력 → 공급사 필터링 → 샘플 발주 → OEM 협상까지 단계별 행동 지침.</p>
+
+  <div class="kit-grid">
+
+    <!-- KIT 01 HVAC -->
+    <div class="kit-block kb1">
+      <div class="kit-head">
+        <div>
+          <div class="kit-code">IEG-ML-01 · HVAC</div>
+          <div class="kit-title">Portable HVAC Trainer</div>
+        </div>
+        <div class="kit-emoji">❄️</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-action">Dolang Skills 공식 사이트 접속 (1순위)</div>
+            <div class="step-detail">
+              <a href="https://www.dolangskills.com" target="_blank">dolangskills.com</a> → 상단 메뉴 <code>Products → HVAC Training</code> 클릭<br>
+              제품 코드: <code>DLZL-AC01</code> (Split AC Trainer) 또는 <code>DLZL-CPG01</code> (컴프레서 트러블슈팅)<br>
+              "Get the latest price" 버튼 클릭 → 이메일 폼 작성 (12시간 내 응답)
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-action">Alibaba 동시 검색 (가격 비교용)</div>
+            <div class="step-detail">
+              <a href="https://www.alibaba.com" target="_blank">alibaba.com</a> 접속 후 검색어 입력:<br>
+              <code>"portable HVAC trainer kit CE OEM"</code><br>
+              <code>"refrigeration trainer vocational education"</code><br>
+              필터: Supplier type → <strong>Verified Supplier</strong> / Min. Order → <strong>1 unit</strong> / Certification → <strong>CE</strong>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-action">공급사 필터링 기준</div>
+            <div class="step-detail">
+              ✓ CE 인증서 번호 확인 (EU EUDAMED 조회)<br>
+              ✓ ISO 9001 유효기간 확인<br>
+              ✓ Trade Assurance 공급사 우선 선택<br>
+              ✓ 영문 매뉴얼·부품 도면 제공 여부 확인
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-action">샘플 발주 → OEM 협상</div>
+            <div class="step-detail">
+              MOQ 1 set 샘플 발주 → 품질 확인 후 OEM 협상<br>
+              OEM 요청 사항: IEG 로고 레이저각인 + 전용 박스 패키징<br>
+              결제 조건: <code>30% 선불 / 70% 선적 전 T/T</code><br>
+              목표 원가: <strong>$120–200/unit</strong> (판매가 $280–420)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KIT 02 PLC -->
+    <div class="kit-block kb2">
+      <div class="kit-head">
+        <div>
+          <div class="kit-code">IEG-ML-02 · PLC</div>
+          <div class="kit-title">Smart Factory Sorter</div>
+        </div>
+        <div class="kit-emoji">⚙️</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-action">PLCCable.com 접속 (미국산 — HI-TEC 전시용)</div>
+            <div class="step-detail">
+              <a href="https://www.plccable.com/mini-machine/" target="_blank">plccable.com/mini-machine/</a> → Mini Machine Deluxe Conveyor 시리즈<br>
+              이메일: <code>support@plccable.com</code> / 전화: <code>704-893-5002</code><br>
+              학교·칼리지 NET30 조건 협상 가능 ($500 min. purchase)<br>
+              납기: 미니어처 머신 2–4주 소요
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-action">Alibaba 병행 소싱 (대량 발주용)</div>
+            <div class="step-detail">
+              검색어: <code>"mini PLC sorter trainer Siemens OEM"</code><br>
+              <code>"modular PLC training kit industrial sensor"</code><br>
+              주요 공급사: Wenzhou Choieo Technology / Jinan Minrry<br>
+              PLC 브랜드 지원 여부 확인: <strong>Siemens S7-1200 / Mitsubishi FX3U / Omron</strong>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-action">IEG 제어보드 설계 (Lock-in 핵심)</div>
+            <div class="step-detail">
+              기성품 하드웨어 소싱 후 IEG 전용 제어보드만 자체 설계<br>
+              → 대형 MPS 장비와 100% 호환 로직 구현<br>
+              → PCB 설계 외주: 한국 내 PCB 제조사 (코리아서킷 등)<br>
+              → 이 보드가 복제 불가 경쟁력 = Lock-in 핵심
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-action">발주 전 최종 체크</div>
+            <div class="step-detail">
+              ✓ 24VDC I/O 호환 여부 (모든 PLC 브랜드 연결 가능)<br>
+              ✓ 영문 래더 로직 예제 프로그램 포함 여부<br>
+              ✓ 부품 단독 교체 가능 (모듈형 구조) 확인<br>
+              목표 원가: <strong>$80–150/unit</strong> (판매가 $180–320)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KIT 03 Pneumatic -->
+    <div class="kit-block kb3">
+      <div class="kit-head">
+        <div>
+          <div class="kit-code">IEG-ML-03 · Pneumatic</div>
+          <div class="kit-title">Pneumatic Logic Kit</div>
+        </div>
+        <div class="kit-emoji">💨</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-action">Alibaba — Henan/Shandong 제조사 검색</div>
+            <div class="step-detail">
+              검색어: <code>"electro-pneumatic training kit ISO9001"</code><br>
+              <code>"pneumatic logic circuit educational trainer"</code><br>
+              필터: MOQ ≤ 1 unit / CE + ISO9001 인증 / 응답시간 &lt;24h<br>
+              주요 지역: Henan Province / Shandong Province 제조사
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-action">Mars Lab Equipment (인도) — ODA 타겟용</div>
+            <div class="step-detail">
+              인도산 → ODA 프로젝트 조달 시 "Made in India" 프리미엄<br>
+              검색: <a href="https://www.marslabequipment.com" target="_blank">marslabequipment.com</a><br>
+              또는 IndiaMart에서 <code>"pneumatic training kit manufacturer India"</code> 검색<br>
+              가격: $35–65/unit (ODA 최저가 달성 가능)
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-action">소형 컴프레서 번들 여부 확인 필수</div>
+            <div class="step-detail">
+              키트에 소형 에어컴프레서 포함 여부 확인<br>
+              미포함 시: 미국 Home Depot "California Air Compressor" 추천 (PLCCable 검증)<br>
+              전원 불필요 키트 vs 전동 보조 키트 2가지 버전 소싱 권장
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-action">샘플 MOQ 1 unit — 가장 빠른 검증 가능</div>
+            <div class="step-detail">
+              ✓ AND / OR / NOT 게이트 회로 구성 가능 여부 실제 테스트<br>
+              ✓ 밸브 내구성: 1,000회 이상 작동 테스트 영상 요청<br>
+              ✓ QR 코드 부착 위치 및 Emotii 가이드 연동 방식 협의<br>
+              목표 원가: <strong>$40–70/unit</strong> (판매가 $90–150)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KIT 04 Mechanical -->
+    <div class="kit-block kb4">
+      <div class="kit-head">
+        <div>
+          <div class="kit-code">IEG-ML-04 · Mechanical</div>
+          <div class="kit-title">Assembly Challenge Kit</div>
+        </div>
+        <div class="kit-emoji">🔩</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-action">Global Sources 전문 바이어 플랫폼 활용</div>
+            <div class="step-detail">
+              <a href="https://www.globalsources.com" target="_blank">globalsources.com</a> → 검색:<br>
+              <code>"mechanical training kit gear linkage OEM"</code><br>
+              <code>"engineering education kit aluminum ABS"</code><br>
+              전시회 검증 공급사 위주 → 샘플 납기 2–3주
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-action">Alibaba — Zhejiang STEM 키트 제조사</div>
+            <div class="step-detail">
+              검색어: <code>"gear ratio education kit ABS aluminum OEM"</code><br>
+              <code>"4-bar linkage mechanism kit vocational"</code><br>
+              소재 확인: <strong>고강도 ABS + 아노다이징 알루미늄</strong> (5,000회+ 내구성)<br>
+              Zhejiang/Jiangsu Province 제조사 집중 탐색
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-action">국내 CNC 설계 + 중국 양산 하이브리드</div>
+            <div class="step-detail">
+              알루미늄 핵심 파트만 국내 CNC 정밀가공 설계<br>
+              → 중국 파트너사에 도면 제공 → 양산 발주<br>
+              "IEG Designed in Korea" 포지셔닝으로 유럽·일본 프리미엄 전략<br>
+              바이코리아(<a href="https://www.buykorea.org" target="_blank">buykorea.org</a>)에서 역발굴도 가능
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-action">디지털 트윈 연동 확인</div>
+            <div class="step-detail">
+              ✓ 조립도 CAD 파일 (STEP/IGES) 포함 여부 → 디지털 트윈 연동용<br>
+              ✓ 기어비 비율 (1:2, 1:4, 1:8) 3종 실습 가능 여부<br>
+              ✓ 캠 프로파일 교체 가능 모듈 구조 여부<br>
+              목표 원가: <strong>$40–90/unit</strong> (판매가 $120–200)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /kit-grid -->
+</section>
+
+<!-- ════════════ PART 2: 문의 이메일 ════════════ -->
+<section class="sec" id="emails">
+  <div class="sec-label">Part 02 — 공급사 문의 메일</div>
+  <h2>복사해서 바로 쓰는<br>RFQ 이메일 4종</h2>
+  <p class="sec-intro">각 공급사에 맞춰 최적화된 영문 견적 요청 메일. [bracket] 부분만 실제 정보로 교체하세요.</p>
+
+  <div class="email-grid">
+
+    <!-- EMAIL 01: Dolang -->
+    <div class="email-card">
+      <div class="email-header" style="background:#0057FF">
+        <div class="email-dot" style="background:#fff; opacity:.6"></div>
+        <div class="email-label">01 · Dolang Skills (HVAC Trainer)</div>
+      </div>
+      <div class="email-meta">
+        <div>To: <span>export@dolangskills.com</span> (웹사이트 Contact Form 병행)</div>
+        <div>Subject: <span>RFQ — Portable HVAC Trainer Kit · OEM Sample Request (IEG Corp., South Korea)</span></div>
+      </div>
+      <div class="email-body" id="email1">Dear Dolang Skills Export Team,
+
+My name is [Your Name], and I represent IEG Corp. (Industrial Education Group), a South Korean industrial training equipment company expanding into the US community college market.
+
+We are preparing for the HI-TEC 2026 Conference (July, Houston TX) and are sourcing portable HVAC trainer kits for our new "IEG Mini-Lab" product line.
+
+We are specifically interested in:
+• Product: DLZL-CPG01 Air Conditioner Training Kit (or DLZL-AC01)
+• Quantity: 1 sample unit initially, with potential OEM order of 50–100 units
+• OEM Customization: IEG logo laser engraving + custom packaging
+• Certifications required: CE + ISO9001 (please include certificate numbers)
+• Curriculum materials: English-language teacher guide + student workbook
+
+We would like to receive:
+1. Sample unit pricing and availability
+2. OEM MOQ and unit price at quantities of 50 / 100 units
+3. Lead time for sample and OEM orders
+4. CE and ISO9001 certificate copies
+
+We are also interested in understanding compatibility options for integrating your training systems with Siemens S7-1200 PLC controllers.
+
+Please reply to this email or contact me directly at:
+Name: [Your Name] | Title: [Your Title]
+Email: [your@ieg.com] | Phone: [+82-XX-XXXX-XXXX]
+Company: IEG Corp. | Website: [www.ieg.com]
+
+We look forward to a long-term partnership.
+
+Best regards,
+[Your Name]
+IEG Corp. — Global EdTech Division</div>
+      <div class="email-actions">
+        <button class="btn-copy" onclick="copyEmail('email1', this)">📋 복사하기</button>
+      </div>
+    </div>
+
+    <!-- EMAIL 02: PLCCable -->
+    <div class="email-card">
+      <div class="email-header" style="background:#C94A00">
+        <div class="email-dot" style="background:#fff; opacity:.6"></div>
+        <div class="email-label">02 · PLCCable.com (PLC Sorter)</div>
+      </div>
+      <div class="email-meta">
+        <div>To: <span>support@plccable.com</span></div>
+        <div>Subject: <span>Bulk Order Inquiry — Mini Machine Deluxe Series · Educational Partnership (IEG Corp.)</span></div>
+      </div>
+      <div class="email-body" id="email2">Hello PLCCable Team,
+
+My name is [Your Name] from IEG Corp., a South Korean industrial training equipment company. We are currently building a new educational product line called "IEG Mini-Lab" targeting US community colleges and vocational schools.
+
+We discovered your Mini Machine Deluxe PLC Trainers and believe they would be an excellent fit for our curriculum.
+
+We are interested in:
+• Product: Miniature Machine Deluxe – Conveyor Part Detection series
+• Initial order: 3–5 units for evaluation and HI-TEC 2026 demonstration
+• Potential ongoing orders: 20–50 units per quarter (for resale to US colleges)
+• PLC brand: We'd like units compatible with both Allen-Bradley MicroLogix and Siemens S7-1200
+
+Specific questions:
+1. Do you offer institutional pricing (NET30) for international resellers?
+2. Can you provide customization (adding our IEG branding/documentation)?
+3. What is the current lead time for 5 units?
+4. Do you offer any partnership or reseller agreement for EdTech companies?
+
+We are planning to showcase these trainers at HI-TEC 2026 in Houston (July 2026) to approximately 500+ community college professors and administrators.
+
+Contact:
+Name: [Your Name] | Title: [Your Title]
+Email: [your@ieg.com] | Phone: [+82-XX-XXXX-XXXX]
+
+We look forward to hearing from you.
+
+Best regards,
+[Your Name]
+IEG Corp.</div>
+      <div class="email-actions">
+        <button class="btn-copy" onclick="copyEmail('email2', this)">📋 복사하기</button>
+      </div>
+    </div>
+
+    <!-- EMAIL 03: Pneumatic (Alibaba) -->
+    <div class="email-card">
+      <div class="email-header" style="background:#1A7A3C">
+        <div class="email-dot" style="background:#fff; opacity:.6"></div>
+        <div class="email-label">03 · Alibaba 공급사 (Pneumatic Kit)</div>
+      </div>
+      <div class="email-meta">
+        <div>To: <span>[Alibaba 메시지 기능 또는 공급사 이메일]</span></div>
+        <div>Subject: <span>RFQ — Electro-Pneumatic Training Kit · OEM Sample · CE+ISO9001 Required</span></div>
+      </div>
+      <div class="email-body" id="email3">Dear Sales Manager,
+
+We are IEG Corp. from South Korea, an industrial training equipment company expanding into the US and global vocational education market.
+
+We are looking to source electro-pneumatic logic training kits for our new "IEG Mini-Lab" product line, targeting US community colleges and international ODA programs.
+
+Product Requirements:
+• Type: Electro-pneumatic logic circuit trainer (AND/OR/NOT gate construction)
+• Power: Prefer air-only operation (no electrical power required) OR low-voltage option
+• Components: Directional valves, flow controls, pressure regulators, circuit board
+• Size: Desktop/portable — must fit in a carry-on luggage size case
+
+We need:
+1. Sample price for 1 unit (with full component set)
+2. OEM price for 50 / 100 / 200 units
+3. CE certification number and ISO9001 certificate (mandatory)
+4. Can you provide OEM packaging with our logo (IEG Corp.)?
+5. Do you support direct shipping (dropshipping) to US addresses?
+6. Lead time for sample and bulk orders
+
+Additional request:
+• Please provide English product manual and component parts list
+• Video of the kit demonstrating AND/OR/NOT gate circuit construction
+
+Our budget target: USD $40–70 per unit for OEM orders of 100+ units.
+
+Contact:
+Name: [Your Name] | IEG Corp.
+Email: [your@ieg.com]
+WeChat/WhatsApp: [optional]
+
+Please send quotation at your earliest convenience.
+
+Best regards,
+[Your Name]
+IEG Corp. — Global Sourcing Team</div>
+      <div class="email-actions">
+        <button class="btn-copy" onclick="copyEmail('email3', this)">📋 복사하기</button>
+      </div>
+    </div>
+
+    <!-- EMAIL 04: Mechanical (Global Sources) -->
+    <div class="email-card">
+      <div class="email-header" style="background:#6B28C2">
+        <div class="email-dot" style="background:#fff; opacity:.6"></div>
+        <div class="email-label">04 · Global Sources (Mechanical Kit)</div>
+      </div>
+      <div class="email-meta">
+        <div>To: <span>[Global Sources 공급사 메시지 또는 이메일]</span></div>
+        <div>Subject: <span>RFQ — Mechanical Assembly Training Kit · Gear/Linkage/Cam · OEM for EdTech (IEG Corp.)</span></div>
+      </div>
+      <div class="email-body" id="email4">Dear Export Manager,
+
+Greetings from IEG Corp., South Korea. We are a leading industrial training equipment company developing a new desktop engineering lab series ("IEG Mini-Lab") for the US community college and international vocational education markets.
+
+We are sourcing mechanical assembly training kits with the following specifications:
+
+Product Specifications:
+• Type: Mechanical mechanism training kit
+• Must include: Gear ratio experiments (spur/bevel/worm), 4-bar linkage mechanism, cam profile assembly
+• Material: High-impact ABS plastic + anodized aluminum (premium durability)
+• Durability target: 5,000+ assembly/disassembly cycles
+• Size: Portable — desktop use, fits in a standard shipping box
+
+Required:
+1. CE / RoHS certification (mandatory for US and European markets)
+2. Sample pricing for 1 set
+3. OEM pricing for 50 / 100 / 200 sets
+4. Can you provide CAD files (STEP/IGES) for the components? (We need for digital twin integration)
+5. OEM branding: IEG logo + custom color scheme possible?
+6. Direct shipping to USA / Europe available?
+
+Our target OEM price: USD $40–90 per set (quantity 100+)
+Intended markets: USA, Europe, Japan, South Korea
+
+We plan to present this product at HI-TEC 2026 (July, Houston TX), a major US community college conference.
+
+Contact information:
+Name: [Your Name]
+Title: [Sourcing Manager / International Business]
+Company: IEG Corp. | Email: [your@ieg.com]
+Phone: [+82-XX-XXXX-XXXX]
+
+Looking forward to your quotation and product catalog.
+
+Best regards,
+[Your Name]
+IEG Corp.</div>
+      <div class="email-actions">
+        <button class="btn-copy" onclick="copyEmail('email4', this)">📋 복사하기</button>
+      </div>
+    </div>
+
+  </div><!-- /email-grid -->
+</section>
+
+<!-- ════════════ PART 3: 시밤단 캠페인 ════════════ -->
+<div class="campaign-header" id="campaign">
+  <div class="sec-label">Part 03 — 시밤단 캠페인 전략</div>
+  <h2>미국 커뮤니티 칼리지 교수<br><em>시밤단 20명</em> 운영 플레이북</h2>
+  <p>HI-TEC 2025 Fellows 명단 분석 결과, 메카트로닉스·HVAC·자동화 교수진이 전국에 걸쳐 분포. 이들을 타겟으로 한 체계적 모집·운영·확산 전략.</p>
+</div>
+
+<!-- 캠페인 로드맵 -->
+<section class="sec" id="roadmap" style="padding-top:48px">
+  <div class="sec-label">Campaign Roadmap — 90일</div>
+  <h2>5월 → 7월 HI-TEC<br>단계별 로드맵</h2>
+  <p class="sec-intro">각 단계별 핵심 활동, KPI, 담당자 액션을 명시한 90일 실행 캘린더.</p>
+
+  <div class="roadmap-grid">
+    <div class="rm-phase rmp1">
+      <div class="rm-period">Week 1–2 · 5월 1주</div>
+      <div class="rm-title">모집 준비</div>
+      <div class="rm-items">
+        <div class="rm-item">LinkedIn 아이지 영문 페이지 개설·최적화</div>
+        <div class="rm-item">HI-TEC 2025 Fellows 명단 스크래핑 (메카트로닉스·HVAC·자동화 전공 우선)</div>
+        <div class="rm-item">시밤단 모집 공고 영문 게시물 제작 (LinkedIn + Twitter/X)</div>
+        <div class="rm-item">신청 구글폼 제작 (학교·전공·수강인원·SNS 채널 수집)</div>
+        <div class="rm-item">키트 배송용 샘플 1–3개 발주 (Dolang + PLCCable)</div>
+      </div>
+      <div class="rm-kpi"><strong>50+</strong> LinkedIn 게시물 노출 목표</div>
+    </div>
+
+    <div class="rm-phase rmp2">
+      <div class="rm-period">Week 3–4 · 5월 2–3주</div>
+      <div class="rm-title">적극 모집</div>
+      <div class="rm-items">
+        <div class="rm-item">개인 LinkedIn DM 발송 — 1차 100명 타겟 (메카트로닉스·HVAC 교수)</div>
+        <div class="rm-item">HI-TEC 2025 세션 발표자 개인 컨택 (highimpact-tec.org/fellows-2025)</div>
+        <div class="rm-item">미국 HVAC Excellence / ESCO Institute 커뮤니티 포스팅</div>
+        <div class="rm-item">Facebook Groups: "Community College Faculty" "HVAC Instructors" 포스팅</div>
+        <div class="rm-item">조기 신청자 혜택: "Early Bird — 키트 비용 크레딧 150% 제공"</div>
+      </div>
+      <div class="rm-kpi"><strong>20명</strong> 시밤단 최종 선발</div>
+    </div>
+
+    <div class="rm-phase rmp3">
+      <div class="rm-period">Week 5–6 · 6월 1주</div>
+      <div class="rm-title">키트 발송 & 킥오프</div>
+      <div class="rm-items">
+        <div class="rm-item">시밤단 20명 확정 → 키트 Dropshipping 직배송</div>
+        <div class="rm-item">Zoom 킥오프 세션 (1시간) — IEG 소개 + 키트 사용법 오리엔테이션</div>
+        <div class="rm-item">전용 Slack 채널 개설 (시밤단 커뮤니티)</div>
+        <div class="rm-item">Emotii QR 코드 활성화 (5개 언어 디지털 가이드 접속)</div>
+        <div class="rm-item">콘텐츠 미션 #1 공지: "언박싱 영상 업로드"</div>
+      </div>
+      <div class="rm-kpi"><strong>20개</strong> 언박싱 영상 목표</div>
+    </div>
+
+    <div class="rm-phase rmp4">
+      <div class="rm-period">Week 7–9 · 6월 2–4주</div>
+      <div class="rm-title">부트캠프 운영</div>
+      <div class="rm-items">
+        <div class="rm-item">Zoom 부트캠프 3일 — 키트 조립 → PLC 제어 → 고장진단 실습</div>
+        <div class="rm-item">콘텐츠 미션 #2: "수업 시연 영상 촬영 & LinkedIn 업로드"</div>
+        <div class="rm-item">Emotii 다국어 커리큘럼 2차시 완성 → 시밤단에 먼저 제공</div>
+        <div class="rm-item">HI-TEC 발표 후보자 1–2명 선정 (가장 인게이지먼트 높은 교수)</div>
+        <div class="rm-item">시밤단 중간 피드백 설문 → 키트 개선점 수렴</div>
+      </div>
+      <div class="rm-kpi"><strong>40+</strong> SNS 콘텐츠 누적</div>
+    </div>
+
+    <div class="rm-phase rmp5">
+      <div class="rm-period">Week 10–13 · 7월 HI-TEC</div>
+      <div class="rm-title">HI-TEC & 확산</div>
+      <div class="rm-items">
+        <div class="rm-item">HI-TEC 2026 부스 운영 — 4종 키트 현장 시연</div>
+        <div class="rm-item">시밤단 교수 발표: "미니어처 키트 활용 수업 사례" 세션</div>
+        <div class="rm-item">현장 체험 신청서 → B2B 리드 200+ 확보</div>
+        <div class="rm-item">시밤단 후기 영상 HI-TEC 기간 집중 업로드</div>
+        <div class="rm-item">사후: 대형 장비 구매 의향 교수 → IEG 영업팀 연결</div>
+      </div>
+      <div class="rm-kpi"><strong>200+</strong> B2B 리드 확보</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 세부 전술 ════════ -->
+<section class="sec" id="tactics">
+  <div class="sec-label">Part 04 — 세부 전술</div>
+  <h2>시밤단 모집·운영·확산<br>세부 전술 매뉴얼</h2>
+  <p class="sec-intro">각 단계별 구체적 액션 아이템과 운영 노하우.</p>
+
+  <div class="tactic-row">
+    <div class="tactic-card">
+      <div class="tc-eyebrow">전술 01 — 타겟 선정</div>
+      <div class="tc-title">누구를 뽑을 것인가</div>
+      <div class="tc-items">
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#0057FF">A</div>
+          <span><strong>Group A (HVAC)</strong> — 냉동공조·빌딩자동화 전공 교수. HI-TEC 2025 Fellows 중 Yasameen Alkhayyat (Jacksonville), Dr. Andres Cardenas (St. Petersburg College) 등 실명 확인 가능.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#C94A00">B</div>
+          <span><strong>Group B (Mechatronics)</strong> — PLC·로봇·자동화 전공 교수. Jason Klipp (North Arkansas College), Ryan Hartter (Blackhawk Technical) 등 HI-TEC Fellows 명단 활용.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#1A7A3C">C</div>
+          <span><strong>EdTech 인플루언서</strong> — LinkedIn 팔로워 1,000명+ 교수·강사. YouTube에 수업 영상 업로드 이력 있는 분 우선.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#6B28C2">D</div>
+          <span><strong>선발 기준</strong> — 현직 교수 (adjunct 포함) + 최소 1개 SNS 채널 운영 + 수강생 10명+ 보유. 온라인 부트캠프 참여 가능한 시간대 확인.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tactic-card">
+      <div class="tc-eyebrow">전술 02 — 혜택 패키지</div>
+      <div class="tc-title">시밤단에게 주는 것</div>
+      <div class="tc-items">
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#0057FF">1</div>
+          <span><strong>무료 키트</strong> — $90–420 상당 키트 무료 제공 (배송 포함). 단, SNS 후기 최소 2개 업로드 조건.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#C94A00">2</div>
+          <span><strong>크레딧 보상</strong> — 후기 영상 업로드 시 향후 대형 장비 구매 시 키트 원가 200% 크레딧 제공.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#1A7A3C">3</div>
+          <span><strong>16주 커리큘럼 패키지</strong> — Emotii 다국어 AI 가이드 + 교사용 수업 지도안 + 평가 루브릭 무료 제공.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#6B28C2">4</div>
+          <span><strong>HI-TEC 발표 기회</strong> — 가장 우수한 시밤단 1명 → IEG 후원으로 HI-TEC 2026 세션 발표자로 추천. 여행경비 지원 검토.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tactic-row">
+    <div class="tactic-card">
+      <div class="tc-eyebrow">전술 03 — 콘텐츠 미션</div>
+      <div class="tc-title">시밤단이 만들어야 할 것</div>
+      <div class="tc-items">
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#0057FF">M1</div>
+          <span><strong>언박싱 영상</strong> (1–2분) — 키트 수령 후 1주 이내. LinkedIn + YouTube Shorts. 해시태그: #IEGMiniLab #HVACTraining #PLCTrainer</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#C94A00">M2</div>
+          <span><strong>수업 시연 영상</strong> (3–5분) — 실제 수업에서 키트 사용 장면. 학생 반응 포함. 부트캠프 완료 후 2주 이내.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#1A7A3C">M3</div>
+          <span><strong>LinkedIn 후기 포스트</strong> — 텍스트 + 사진. "IEG Mini-Lab를 수업에 도입한 이유" 형식. 500자+ 권장.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#6B28C2">M4</div>
+          <span><strong>학생 작품 쇼케이스</strong> (선택) — 학생이 만든 PLC 프로그램 / 메카니컬 조립 결과물. UGC 2차 생산.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tactic-card">
+      <div class="tc-eyebrow">전술 04 — 운영 채널</div>
+      <div class="tc-title">어디서 운영하나</div>
+      <div class="tc-items">
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#0A66C2">Li</div>
+          <span><strong>LinkedIn</strong> — 모집 공고 + 시밤단 활동 공유 주 채널. IEG 영문 페이지 팔로워 증가 목표. 교수·관리자 타겟에 최적.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#FF0000">YT</div>
+          <span><strong>YouTube</strong> — 시밤단 영상 재업로드 + IEG 공식 채널 플레이리스트 구성. HI-TEC 이후 지속 트래픽 유입.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#25D366">WA</div>
+          <span><strong>Slack / WhatsApp</strong> — 시밤단 내부 커뮤니티 채널. 빠른 Q&A + 키트 트러블슈팅 지원 + 커리큘럼 자료 공유.</span>
+        </div>
+        <div class="tc-item">
+          <div class="tc-bullet" style="background:#1DA1F2">Zo</div>
+          <span><strong>Zoom</strong> — 킥오프 세션 + 3일 부트캠프 + 월별 Q&A 세션. 녹화 후 YouTube 업로드.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supplier verification checklist -->
+  <div class="checklist-box">
+    <h3>공급사 최종 발주 전 체크리스트</h3>
+    <div class="cl-grid">
+      <div class="cl-item"><div class="cl-box"></div><span>CE 인증서 번호 EU EUDAMED 조회 완료</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>ISO 9001 유효기간 2026년 이후 확인</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>MOQ 1 set 샘플 실물 수령 및 품질 확인</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>OEM 로고·패키징 가능 여부 서면 확인</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>미국 직배송(Dropshipping) 가능 국가 목록 확인</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>영문 매뉴얼 + 부품 도면 파일 수령</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>납기 보증 + AS 조건 (최소 12개월) 협상 완료</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>결제 조건 30%선불/70%선적전 합의</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>QR 코드 + Emotii 가이드 동봉 방식 합의</span></div>
+      <div class="cl-item"><div class="cl-box"></div><span>대체 부품 단독 구매 가능 여부 확인</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 교수 컨택 이메일 ════════ -->
+<section class="sec" id="prof-email">
+  <div class="sec-label">Part 05 — 교수 컨택 템플릿</div>
+  <h2>시밤단 모집<br>LinkedIn DM + 이메일</h2>
+  <p class="sec-intro">HI-TEC 참가 교수, 메카트로닉스/HVAC 담당 교수 대상 개인 컨택 템플릿.</p>
+
+  <!-- LinkedIn DM -->
+  <div class="linkedin-card" style="margin-bottom:16px">
+    <div class="li-header">
+      🔵 LinkedIn Direct Message — 시밤단 모집 DM (200자 이내 초간단 버전)
+      <button class="btn-copy" onclick="copyEmail('liDM', this)" style="margin-left:auto; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); color:#fff; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em; padding:5px 10px; cursor:pointer; border-radius:2px;">복사</button>
+    </div>
+    <div class="li-body" id="liDM">Hi [Professor Name],
+
+I'm [Your Name] from IEG Corp. (Korea) — we're building "IEG Mini-Lab," a desktop HVAC/PLC training kit for US community colleges.
+
+We're selecting 20 pilot professors to test the kit for free before our HI-TEC 2026 launch. You'd get a free kit + 16-week curriculum, just share your experience on LinkedIn.
+
+Interested? I'd love to connect. 🙌</div>
+  </div>
+
+  <!-- Full professor email -->
+  <div class="prof-email-wrap">
+    <div class="prof-email-top">
+      <span class="prof-email-label">📧 교수 공식 이메일 — 시밤단 모집 (풀 버전)</span>
+      <button class="btn-copy" onclick="copyEmail('profEmail', this)" style="background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); color:#fff; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em; padding:6px 12px; cursor:pointer; border-radius:2px;">복사</button>
+    </div>
+    <div class="prof-email-meta">
+      Subject: <span>Free Hands-On Training Kit for Your HVAC/Mechatronics Class — IEG Mini-Lab Pilot Program</span>
+    </div>
+    <div class="prof-email-body" id="profEmail">Dear Professor [Last Name],
+
+My name is [Your Name], and I represent IEG Corp., a South Korean industrial training equipment company with 20+ years of experience in HVAC and mechatronics education systems.
+
+I came across your profile through the HI-TEC conference community and was impressed by your work in [HVAC/Mechatronics/Automation] education at [College Name].
+
+Why I'm reaching out:
+We are launching "IEG Mini-Lab" — a series of compact, desktop-sized training kits that bring real industrial HVAC, PLC, and mechanical assembly training to classrooms without the cost and space barriers of full-scale equipment.
+
+We are selecting 20 pilot professors across the US to:
+✓ Receive a free training kit ($150–400 value) shipped directly to you
+✓ Access a complete 16-week curriculum with multilingual AI guides (via Emotii)
+✓ Join a 3-day Zoom bootcamp with IEG engineers
+✓ Share your classroom experience on LinkedIn (2 posts minimum)
+
+What you get in return:
+• Free kit (your choice of HVAC or PLC/Mechatronics model)
+• Full digital curriculum package (teacher guide + student workbook + assessment rubrics)
+• 200% kit cost credit toward any future IEG equipment purchase
+• Potential to present your experience at HI-TEC 2026 (Houston, July 2026) — we may sponsor your presentation
+
+We believe IEG Mini-Lab can genuinely help your students get hands-on experience they couldn't access before. The PLC logic written on our mini kit runs identically on full-scale industrial equipment — a bridge your students will appreciate.
+
+If you're interested, please fill out our brief application form:
+[Application Form Link — Google Form]
+
+Or simply reply to this email and I'll send you all the details.
+
+Best regards,
+[Your Name]
+Global EdTech Partnership Manager | IEG Corp.
+Email: [your@ieg.com] | LinkedIn: [Your LinkedIn URL]
+Website: [www.ieg.com]
+
+P.S. We're also looking for one pilot professor to share their experience at HI-TEC 2026. If selected, IEG will support your conference participation.</div>
+  </div>
+
+  <!-- HI-TEC target professor list -->
+  <div class="tactic-card" style="margin-top:16px">
+    <div class="tc-eyebrow">실제 컨택 타겟 — HI-TEC 2025 Fellows 분석</div>
+    <div class="tc-title">우선 컨택 추천 교수 프로필</div>
+    <div class="tc-items">
+      <div class="tc-item">
+        <div class="tc-bullet" style="background:#0057FF">1</div>
+        <span><strong>Yasameen Alkhayyat</strong> — Advanced Manufacturing, Florida State College at Jacksonville. HVAC/제조 교수. HI-TEC 2025 Fellow. → <em>HVAC 키트 최우선 타겟</em></span>
+      </div>
+      <div class="tc-item">
+        <div class="tc-bullet" style="background:#C94A00">2</div>
+        <span><strong>Dr. Andres M. Cardenas</strong> — Electronics & Mechatronics, St. Petersburg College. → <em>PLC 키트 최우선 타겟</em></span>
+      </div>
+      <div class="tc-item">
+        <div class="tc-bullet" style="background:#1A7A3C">3</div>
+        <span><strong>Jason Klipp</strong> — Automation & Systems Integration, North Arkansas College. → <em>PLC/Pneumatic 키트 타겟</em></span>
+      </div>
+      <div class="tc-item">
+        <div class="tc-bullet" style="background:#6B28C2">4</div>
+        <span><strong>Ryan Hartter</strong> — Electro-Mechanical Instructor, Blackhawk Technical College. → <em>Mechanical Assembly 키트 타겟</em></span>
+      </div>
+      <div class="tc-item">
+        <div class="tc-bullet" style="background:#2D5A8E">+</div>
+        <span><strong>추가 발굴 방법</strong> — LinkedIn 검색: <code>"HVAC instructor community college"</code> / <code>"mechatronics professor site:linkedin.com"</code> / HI-TEC 세션 발표자 명단 직접 크롤링</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--navy); padding:36px 48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+  <div style="font-family:'Instrument Serif',serif; font-size:20px; color:#fff; font-weight:400;">IEG Mini-Lab · 실행 플레이북</div>
+  <div style="font-family:'DM Mono',monospace; font-size:10px; color:#475569; letter-spacing:.08em;">HI-TEC 2026 · Houston TX · © 2026 IEG Corp. · 대외비</div>
+</footer>
+
+<script>
+function copyEmail(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ 복사됨';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
