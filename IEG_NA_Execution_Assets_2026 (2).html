@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEG North America — 실행 산출물 키트 2026</title>
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --surface2: #f0ede6;
+    --border: #e2ddd6;
+    --border2: #ccc8c0;
+    --text: #1a1917;
+    --text2: #5a5852;
+    --text3: #9a9890;
+    --blue: #1a56e8;
+    --blue-bg: #eef2fd;
+    --blue-text: #1a3fa8;
+    --green: #16a05a;
+    --green-bg: #eafaf2;
+    --green-text: #0d6b3c;
+    --amber: #c47a12;
+    --amber-bg: #fef7e6;
+    --amber-text: #8a5500;
+    --red: #d63030;
+    --red-bg: #fff0f0;
+    --red-text: #9b1c1c;
+    --accent: #1a1917;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .page { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ── Top bar ── */
+  .topbar {
+    background: var(--accent);
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 12px; }
+  .topbar-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
+  .topbar-title { font-size: 12px; color: rgba(255,255,255,0.55); }
+  .topbar-date { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 48px 0 36px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: var(--text3); font-weight: 400; }
+  .hero-desc { font-size: 14px; color: var(--text2); line-height: 1.7; max-width: 640px; margin-bottom: 20px; }
+  .hero-meta { display: flex; gap: 20px; }
+  .hero-meta-item { font-size: 12px; color: var(--text3); }
+  .hero-meta-item strong { color: var(--text2); font-weight: 500; }
+
+  /* ── TOC nav ── */
+  .toc {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .toc-btn {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 6px 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .15s;
+  }
+  .toc-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── Section ── */
+  .section { margin-bottom: 56px; }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .section-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 2px;
+  }
+  .section-title { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .section-desc { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 20px; }
+
+  /* ── Template card ── */
+  .tmpl {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .tmpl-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 14px 18px 12px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .tmpl-meta { flex: 1; }
+  .tmpl-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 4px;
+  }
+  .tmpl-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 99px;
+  }
+  .tag-blue { background: var(--blue-bg); color: var(--blue-text); }
+  .tag-green { background: var(--green-bg); color: var(--green-text); }
+  .tag-amber { background: var(--amber-bg); color: var(--amber-text); }
+  .tag-red { background: var(--red-bg); color: var(--red-text); }
+
+  .copy-btn {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text2);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all .15s;
+  }
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .copy-btn.copied { background: var(--green-bg); color: var(--green-text); border-color: var(--green); }
+
+  .tmpl-body { padding: 16px 18px; }
+
+  .tmpl-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .note {
+    background: var(--amber-bg);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--amber-text);
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+  .note strong { font-weight: 600; }
+
+  /* ── Script sections ── */
+  .script-block {
+    border-left: 3px solid var(--border2);
+    padding-left: 16px;
+    margin-bottom: 22px;
+  }
+  .script-phase {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 3px;
+  }
+  .script-phase-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .script-duration {
+    display: inline-block;
+    font-size: 10px;
+    background: var(--surface2);
+    color: var(--text3);
+    border-radius: 99px;
+    padding: 2px 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+  }
+  .script-content {
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: var(--text2);
+  }
+  .script-content .speaker { font-weight: 600; color: var(--text); }
+  .script-content .ko { color: var(--text); }
+  .script-content .en { color: var(--text3); font-size: 11.5px; }
+  .script-content .dir { font-style: italic; color: var(--text3); }
+  .script-content ul { padding-left: 16px; margin: 4px 0; }
+  .script-content li { margin-bottom: 2px; }
+
+  /* ── Hook rows ── */
+  .hook-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .hook-row:last-child { border-bottom: none; }
+  .hook-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue-bg);
+    color: var(--blue-text);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .hook-body strong { font-size: 13px; font-weight: 600; display: block; margin-bottom: 3px; }
+  .hook-body span { font-size: 12px; color: var(--text2); }
+
+  /* ── Grid ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .info-card {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+  .info-card .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text3); margin-bottom: 5px; }
+  .info-card .val { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .info-card p { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+  /* ── Timeline (roadmap summary) ── */
+  .timeline { position: relative; padding-left: 28px; }
+  .tl-line { position: absolute; left: 8px; top: 6px; bottom: 0; width: 1px; background: var(--border2); }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-dot {
+    position: absolute; left: -24px; top: 5px;
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 2px solid var(--border2); background: var(--surface);
+  }
+  .tl-dot.now { background: var(--blue); border-color: var(--blue); }
+  .tl-month { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); margin-bottom: 3px; }
+  .tl-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .tl-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+  /* ── Divider ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .footer-left p { font-size: 12px; color: var(--text3); line-height: 1.7; }
+  .footer-left strong { color: var(--text2); font-weight: 500; }
+  .footer-right { font-size: 11px; color: var(--text3); text-align: right; }
+
+  /* ── Print ── */
+  @media print {
+    .topbar { position: static; }
+    .toc { display: none; }
+    .tmpl { break-inside: avoid; }
+    .section { break-before: page; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 22px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-logo">IEG Co., Ltd.</span>
+    <span class="topbar-title">North America · 실행 산출물 키트</span>
+  </div>
+  <span class="topbar-date">2026.04 — CONFIDENTIAL</span>
+</div>
+
+<div class="page">
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <div class="hero-eyebrow">IEG Overseas Marketing Team · HI-TEC 2026–2027 Strategy</div>
+    <h1>실행 산출물 키트<br><span>LinkedIn DM · Emotii 스크립트 · YouTube · TikTok</span></h1>
+    <p class="hero-desc">
+      TikTok Shop · LinkedIn · YouTube · Emotii 플랫폼을 활용해 조지아·앨라배마 지역 기술대학 교원 및 행정 리더와 관계를 형성하고, 2027 HI-TEC 공동 발표 파트너를 확보하기 위한 실행 자료 전체 모음입니다. 아래 각 템플릿은 복사 후 즉시 사용 가능하도록 작성되었습니다.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>담당자:</strong> Kelly Cho (kellycho824@ieg.kr)</div>
+      <div class="hero-meta-item"><strong>최종 목표:</strong> 2027 HI-TEC 공동 발표 CFP 제출</div>
+      <div class="hero-meta-item"><strong>핵심 행사:</strong> HI-TEC 2026 · 7/26–30 · Austin, TX</div>
+    </div>
+  </div>
+
+  <!-- ── TOC ── -->
+  <div class="toc">
+    <a href="#s1" class="toc-btn">01 · 실행 타임라인</a>
+    <a href="#s2" class="toc-btn">02 · LinkedIn DM 템플릿</a>
+    <a href="#s3" class="toc-btn">03 · Emotii 챌린지 스크립트</a>
+    <a href="#s4" class="toc-btn">04 · YouTube 채널 설명문</a>
+    <a href="#s5" class="toc-btn">05 · TikTok 훅 & 해시태그</a>
+    <a href="#s6" class="toc-btn">06 · Follow-up 이메일</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       Section 1 — 실행 타임라인
+  ══════════════════════════════════════ -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div>
+        <div class="section-num">Section 01</div>
+        <div class="section-title">실행 타임라인 — 지금부터 2027 CFP까지</div>
+      </div>
+    </div>
+    <p class="section-desc">
+      이 문서의 모든 실행 산출물이 연결되는 큰 그림 타임라인입니다. 각 단계의 선행 조건을 반드시 확인하세요.
+    </p>
+
+    <div class="timeline">
+      <div class="tl-line"></div>
+      <div class="tl-item">
+        <div class="tl-dot now"></div>
+        <div class="tl-month">2026년 5월 · 지금</div>
+        <div class="tl-title">채널 개설 & 첫 콘텐츠 배포</div>
+        <div class="tl-desc">YouTube 채널 개설 / TikTok 비즈니스 계정 등록 / Emotii 챌린지 1회차 / LinkedIn 아웃리치 시작 (주 5–10건 DM)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-month">2026년 6월</div>
+        <div class="tl-title">유료 광고 개시 & SACA 멤버십 신청</div>
+        <div class="tl-desc">TikTok 지역 광고 런칭(조지아·앨라배마) / SACA 멤버십 신청 시작 (완료까지 6–8주 소요) / LinkedIn 뉴스레터 1호 발송</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-month">2026년 7월 · HI-TEC 주간</div>
+        <div class="tl-title">HI-TEC 2026 현장 관계 형성 (7/26–30, Austin)</div>
+        <div class="tl-desc">교원·강사 명함 수집 → LinkedIn 즉시 연결 / 부스 운영 / LOI 체결 추진 / HI-TEC 현장 영상 TikTok 실시간 업로드</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-month">2026년 8월</div>
+        <div class="tl-title">파트너 기관 MOU/LOI 체결 (목표: 1개교)</div>
+        <div class="tl-desc">HI-TEC 연결 교원 화상 미팅 추진 / 파트너 기관 확정 / SACA 멤버십 완료 확인</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-month">2026년 10월</div>
+        <div class="tl-title">SACA Silver 첫 코호트 개강 → 수업 영상 촬영</div>
+        <div class="tl-desc">개강 후 1–2주 내 수업 장면 영상 공개 / YouTube·LinkedIn 배포 / Follow-up C 이메일 발송 타이밍</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-month">2026년 11–12월</div>
+        <div class="tl-title">2027 HI-TEC CFP 공동 발표 주제 합의</div>
+        <div class="tl-desc">파트너 교원과 발표 주제 확정 / Abstract 초안 작성 / 파일럿 코호트 성과 데이터 수집</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-month">2027년 2월</div>
+        <div class="tl-title">2027 HI-TEC CFP 공동 제출 🎯</div>
+        <div class="tl-desc">IEG Kelly Cho + 파트너 교원 공동 발표자로 CFP 제출 / 제출 직후 LinkedIn 공개 발표</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       Section 2 — LinkedIn DM
+  ══════════════════════════════════════ -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div>
+        <div class="section-num">Section 02</div>
+        <div class="section-title">LinkedIn DM 템플릿 4종</div>
+      </div>
+    </div>
+    <p class="section-desc">
+      타깃 온도 순서: Template A(Cold) → B(영상 공유) → C(HI-TEC 이후 Warm) → D(Brent Stubbs 소개 요청). <span style="background:var(--amber-bg);color:var(--amber-text);padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;">[대괄호]</span> 표시 항목은 발송 전 반드시 개인화하세요.
+    </p>
+
+    <!-- DM A -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Template A — Cold Outreach</div>
+          <div class="tmpl-title">학과장·산학협력 디렉터 대상 첫 DM</div>
+          <div class="tags">
+            <span class="tag tag-red">T1 의사결정자</span>
+            <span class="tag tag-blue">첫 접촉</span>
+            <span class="tag tag-green">영어</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('dm-a', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="dm-a">Hi [First Name],
+
+I noticed [Institution Name] is positioned right in the heart of the HMGMA/Kia Georgia manufacturing corridor — the workforce demand coming out of that ecosystem is extraordinary.
+
+I'm Kelly Cho, Overseas Marketing Manager at IEG Co., Ltd., a South Korean Smart Factory training equipment manufacturer. We've mapped our systems against the full SACA Gold certification track (C-201 through C-214) and believe we can help [Institution Name] establish a SACA Authorized Testing Center at a fraction of what Amatrol or Festo would cost.
+
+I'd love to share a 5-minute equipment demo video — would a quick 20-minute call this week work?
+
+Best,
+Kelly Cho | IEG Co., Ltd.
+kellycho824@ieg.kr | www.ieg.kr</pre>
+        <div class="note">
+          <strong>사용 팁:</strong> LinkedIn에서 상대방 프로필을 먼저 읽고 최근 게시물에 댓글 1개 달기 → 2–3일 후 DM 발송하면 수락률 ↑. Connection Request 메모에는 이 메시지의 첫 두 문장만 넣는 것이 효과적.
+        </div>
+      </div>
+    </div>
+
+    <!-- DM B -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Template B — 콘텐츠 공유</div>
+          <div class="tmpl-title">교원·강사 대상 YouTube 영상 공유 DM</div>
+          <div class="tags">
+            <span class="tag tag-blue">T2 교원</span>
+            <span class="tag tag-amber">영상 링크 첨부</span>
+            <span class="tag tag-green">영어</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('dm-b', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="dm-b">Hi [First Name],
+
+As someone teaching [Automation / PLC / Mechatronics] at [Institution], I thought you'd find this interesting — I just uploaded a video showing our Mitsubishi Q-series PLC system running through SACA C-207 assessment tasks entirely. No Amatrol needed.
+
+[YouTube link]
+
+We're IEG, a Korean Smart Factory trainer manufacturer. Happy to send you a full SACA module-to-equipment mapping PDF if useful.
+
+Are you currently planning for any SACA certification pathway at [Institution]?
+
+Kelly Cho | IEG Co., Ltd.</pre>
+        <div class="note">
+          <strong>사용 시점:</strong> YouTube에 C-207 영상 업로드 직후. 교수 이름·학교명·가르치는 과목을 반드시 확인 후 발송. 질문으로 마무리해야 답장률이 높음.
+        </div>
+      </div>
+    </div>
+
+    <!-- DM C -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Template C — HI-TEC 이후</div>
+          <div class="tmpl-title">HI-TEC 2026 만남 이후 Warm Follow-up DM</div>
+          <div class="tags">
+            <span class="tag tag-green">Warm Outreach</span>
+            <span class="tag tag-blue">HI-TEC 이후</span>
+            <span class="tag tag-amber">영어</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('dm-c', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="dm-c">Hi [First Name],
+
+It was great connecting at HI-TEC in Austin last week! I really appreciated your thoughts on [specific topic they mentioned — e.g. VFD training gaps, cobot integration].
+
+As promised, I'm sharing our SACA equipment mapping report — it shows exactly how IEG's system covers each assessment task across the Gold track.
+
+[Link to PDF / Google Drive]
+
+We'd love to explore what a SACA ATC partnership could look like for [Institution Name]. Would a 30-minute call in the next two weeks work for you?
+
+Looking forward,
+Kelly Cho | IEG Co., Ltd.
+kellycho824@ieg.kr</pre>
+        <div class="note">
+          <strong>핵심 원칙:</strong> 현장에서 나눈 대화의 구체적 내용을 한 문장 이상 언급해야 합니다. "좋은 만남이었습니다"만 쓰면 스팸처럼 읽힘. HI-TEC 기간 중 노트 앱에 대화 키워드를 메모해 두세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- DM D -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Template D — 핵심 연결고리</div>
+          <div class="tmpl-title">Brent Stubbs (HMGMA CAO) 대상 소개 요청 DM</div>
+          <div class="tags">
+            <span class="tag tag-red">최우선 관계</span>
+            <span class="tag tag-blue">1촌 → 소개 요청</span>
+            <span class="tag tag-amber">영어</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('dm-d', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="dm-d">Hi Brent,
+
+I hope things are going well at HMGMA — the scale of what's being built in Bryan County is genuinely impressive.
+
+I'm Kelly at IEG, a Korean Smart Factory training equipment manufacturer. We've been working on aligning our systems with the SACA Gold certification track specifically to serve the workforce pipeline HMGMA needs — bilingual (Korean-English) curriculum included.
+
+We're in conversations with several Georgia technical colleges about establishing SACA Authorized Testing Centers. If there's a workforce development counterpart on your team or at Quick Start you'd feel comfortable introducing us to, we'd be very grateful.
+
+Happy to share a one-pager first if helpful.
+
+Thank you,
+Kelly Cho | IEG Co., Ltd.</pre>
+        <div class="note">
+          <strong>주의:</strong> 소개 요청은 직접 영업 없이 "소개 가능하다면"으로 마무리. Brent의 LinkedIn 최근 포스팅에 먼저 진성 댓글 2–3회 달고 → 1촌 연결 수락 확인 후 DM 발송.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       Section 3 — Emotii Script
+  ══════════════════════════════════════ -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div>
+        <div class="section-num">Section 03</div>
+        <div class="section-title">Emotii 챌린지 스크립트 — Session 1</div>
+      </div>
+    </div>
+    <p class="section-desc">
+      전체 진행 시간 약 45분. 핵심 클립(15분 분량)은 TikTok·LinkedIn 배포용으로 별도 편집합니다. TikTok 편집 포인트는 각 단계에 표시되어 있습니다.
+    </p>
+
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Session 1 — 시즌 1 개막</div>
+          <div class="tmpl-title">Mitsubishi PLC GX Works3 기초 실습 챌린지</div>
+          <div class="tags">
+            <span class="tag tag-blue">한국어·영어·스페인어</span>
+            <span class="tag tag-amber">총 45분</span>
+            <span class="tag tag-green">TikTok 클립 소스</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('emotii-full', this)">전체 복사</button>
+      </div>
+      <div class="tmpl-body" id="emotii-full">
+
+        <div class="script-block">
+          <div class="script-phase">Opening · 0:00–3:00</div>
+          <div class="script-phase-title">인트로 — 3개 언어 동시 웰컴</div>
+          <span class="script-duration">3분 | ⭐ TikTok 클립 구간 (0:00–0:30)</span>
+          <div class="script-content">
+            <p class="dir">[화면: IEG 쇼룸, Mitsubishi Q-series PLC 패널 클로즈업. 강사 등장.]</p>
+            <br>
+            <p><span class="speaker">강사 (한국어):</span></p>
+            <p class="ko">"안녕하세요, IEG 스마트 팩토리 아카데미의 첫 번째 Emotii 챌린지에 오신 걸 환영합니다. 오늘 우리는 GX Works3로 실제 PLC 래더 다이어그램을 작성하고, 시뮬레이션까지 완주할 겁니다. 조지아, 앨라배마, 어디서든 보고 계신 분들 — 같이 해봅시다."</p>
+            <br>
+            <p><span class="speaker">영어 오버레이 자막 (화면 하단):</span></p>
+            <p class="en">"Welcome to IEG's first Emotii challenge. Today we're writing a real PLC ladder diagram in GX Works3 and simulating it live. Whether you're watching from Georgia or anywhere in the world — let's go."</p>
+            <br>
+            <p><span class="speaker">스페인어 오버레이 자막 (화면 상단):</span></p>
+            <p class="en">"Bienvenidos al primer reto de IEG en Emotii. Hoy vamos a programar un diagrama de escalera PLC real y simularlo en vivo."</p>
+          </div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-phase">Context · 3:00–6:00</div>
+          <div class="script-phase-title">장비·SACA 연결 설명 (신뢰 구축)</div>
+          <span class="script-duration">3분</span>
+          <div class="script-content">
+            <p><span class="speaker">강사 (한국어, 영어 자막 병행):</span></p>
+            <p class="ko">"제 옆에 있는 이 장비가 IEG 3432 메카트로닉스 시스템 트레이너입니다. 미국 SACA 골드 인증 시험 — 특히 C-207 PLC 모듈에 완벽히 대응하는 장비입니다. 유럽 경쟁사 장비 가격의 약 7분의 1로 동일한 실습 환경을 구현합니다."</p>
+            <br>
+            <p class="dir">[화면: 장비 전체 샷 → GX Works3 소프트웨어 화면 전환]</p>
+            <br>
+            <p class="ko">"오늘 우리가 만들 프로그램은 간단한 스타트-스톱 컨베이어 제어 회로입니다. SACA C-202 모듈, 전동기 제어의 기초이기도 합니다."</p>
+          </div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-phase">Core Demo · 6:00–30:00</div>
+          <div class="script-phase-title">실습 본편 — 래더 다이어그램 작성 & 시뮬레이션</div>
+          <span class="script-duration">24분 | ⭐ TikTok 클립 구간 (29:45–30:00 — 실장비 구동)</span>
+          <div class="script-content">
+            <p><strong>[단계 1 · 6:00–12:00] 새 프로젝트 생성</strong></p>
+            <ul>
+              <li class="ko">GX Works3 실행 → New Project → QCPU 선택</li>
+              <li class="ko">"Q03UDV" 모델 선택 — "이게 우리 장비에 들어 있는 실제 CPU입니다"</li>
+              <li class="ko">Simple Project → Ladder 선택</li>
+              <li class="dir">→ 화면 녹화 + 강사 손 클로즈업 교차편집</li>
+            </ul>
+            <br>
+            <p><strong>[단계 2 · 12:00–20:00] 래더 작성</strong></p>
+            <ul>
+              <li class="ko">X0 (START 버튼) — NO 접점 입력</li>
+              <li class="ko">X1 (STOP 버튼) — NC 접점 입력</li>
+              <li class="ko">Y0 (컨베이어 모터) — 코일 출력</li>
+              <li class="ko">Y0 자기유지 회로 추가 (Seal-in contact)</li>
+              <li class="ko">"자기유지가 없으면 버튼에서 손을 떼는 순간 모터가 꺼집니다 — 이게 래더의 핵심 개념입니다"</li>
+            </ul>
+            <br>
+            <p><strong>[단계 3 · 20:00–28:00] 컴파일 & 시뮬레이션</strong></p>
+            <ul>
+              <li class="ko">Convert → Compile → 오류 없음 확인</li>
+              <li class="ko">Debug → Simulation 모드 진입</li>
+              <li class="ko">X0 강제 ON → Y0 점등 확인 (자기유지 동작)</li>
+              <li class="ko">X1 ON → Y0 소등 확인</li>
+              <li class="ko">"실제 장비에 다운로드하면 이게 컨베이어를 움직입니다"</li>
+            </ul>
+            <br>
+            <p><strong>[단계 4 · 28:00–30:00] 실장비 적용 데모 ⭐ 핵심 클립</strong></p>
+            <ul>
+              <li class="ko">USB 케이블로 PLC 패널에 연결</li>
+              <li class="ko">Write to PLC → 프로그램 다운로드</li>
+              <li class="ko">실제 버튼 조작 → 컨베이어 벨트 구동</li>
+              <li class="dir">→ 이 15초 클립이 TikTok 메인 훅 영상이 됩니다. 반드시 클로즈업 별도 촬영.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-phase">Challenge · 30:00–40:00</div>
+          <div class="script-phase-title">챌린지 과제 발표 & 참여 유도</div>
+          <span class="script-duration">10분 | ⭐ TikTok 클립 구간 (30:00–31:00)</span>
+          <div class="script-content">
+            <p><span class="speaker">강사:</span></p>
+            <p class="ko">"자, 이제 여러분 차례입니다. 오늘 챌린지 과제는 딱 하나입니다: 지금 배운 스타트-스톱 회로에 타이머(T0)를 추가해서 — 스타트 버튼을 누르면 5초 후에 자동으로 모터가 멈추게 만들어 보세요."</p>
+            <br>
+            <p class="en">[영어 자막]: "Your challenge: modify today's circuit so the motor automatically stops 5 seconds after starting. Add a timer — T0."</p>
+            <br>
+            <p class="ko">"GX Works3가 없어도 괜찮습니다. 래더 다이어그램을 손으로 그려서 사진으로 올려도 됩니다. TikTok이나 LinkedIn에 '#IEGPLCChallenge' 해시태그와 함께 올려주세요. 다음 세션에서 가장 깔끔한 답안을 같이 리뷰하겠습니다."</p>
+          </div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-phase">Closing · 40:00–45:00</div>
+          <div class="script-phase-title">마무리 & CTA</div>
+          <span class="script-duration">5분</span>
+          <div class="script-content">
+            <p><span class="speaker">강사:</span></p>
+            <p class="ko">"오늘 세션 함께해 주셔서 감사합니다. 이 장비로 SACA Gold 인증까지 어떻게 가는지 궁금한 분들은 — 화면에 나오는 링크로 IEG 파트너십 제안서를 다운로드하세요. 조지아나 앨라배마 기술대학 관계자 분들은 LinkedIn에서 Kelly Cho를 검색해서 직접 연락 주세요. 다음 세션은 2주 후, 주제는 C-209 공압 시스템입니다."</p>
+            <br>
+            <p class="dir">[화면 하단 고정 자막]</p>
+            <p class="en">www.ieg.kr | kellycho824@ieg.kr | #IEGPLCChallenge #SACACertification #MitsubishiPLC</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>TikTok 편집 가이드 — 3개 클립 추출 포인트:</strong><br>
+          ① 오프닝 3개 언어 웰컴 (0:00–0:30) — 글로벌 포지셔닝 어필<br>
+          ② 실장비 컨베이어 구동 순간 (29:45–30:00) — 임팩트 훅. 반드시 클로즈업 별도 촬영<br>
+          ③ 챌린지 과제 발표 (30:00–31:00) — 참여 유도 CTA<br>
+          위 3개 클립을 합쳐 60초 TikTok 영상으로 편집. 나머지는 YouTube 풀버전으로 업로드.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       Section 4 — YouTube
+  ══════════════════════════════════════ -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div>
+        <div class="section-num">Section 04</div>
+        <div class="section-title">YouTube 채널 설명문 & 트레일러 스크립트</div>
+      </div>
+    </div>
+    <p class="section-desc">YouTube Studio → 채널 설정에 바로 붙여넣기 가능한 텍스트입니다.</p>
+
+    <!-- 채널 기본 -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">채널 기본 설정</div>
+          <div class="tmpl-title">채널 이름 · 핸들 · About 설명 (최대 1,000자)</div>
+          <div class="tags">
+            <span class="tag tag-blue">YouTube Studio</span>
+            <span class="tag tag-green">즉시 사용</span>
+          </div>
+        </div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-label" style="margin-bottom:6px;">채널 이름</div>
+        <pre class="tmpl-text" id="yt-name" style="margin-bottom:16px;">IEG Smart Factory Academy</pre>
+        <button class="copy-btn" onclick="cp('yt-name', this)" style="margin-bottom:20px;">복사</button>
+
+        <div class="tmpl-label" style="margin-bottom:6px;margin-top:4px;">채널 핸들 (Handle)</div>
+        <pre class="tmpl-text" id="yt-handle" style="margin-bottom:16px;">@IEGSmartFactory</pre>
+        <button class="copy-btn" onclick="cp('yt-handle', this)" style="margin-bottom:20px;">복사</button>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <div class="tmpl-label">채널 설명 (About)</div>
+          <button class="copy-btn" onclick="cp('yt-about', this)">복사</button>
+        </div>
+        <pre class="tmpl-text" id="yt-about">IEG Smart Factory Academy is the official YouTube channel of IEG Co., Ltd. — a South Korean manufacturer of Industry 4.0 training equipment built for technical colleges, workforce development programs, and Smart Factory certification programs.
+
+🏭 What we cover:
+· Mitsubishi PLC programming (GX Works3 tutorials, ladder logic, simulation)
+· SACA Gold certification prep — C-201 through C-214 module walkthroughs
+· Smart Factory systems: MPS trainers, collaborative robots, pneumatics, vision systems
+· Industry 4.0 workforce development for the U.S. automotive manufacturing corridor
+
+🎯 Who this channel is for:
+· Technical college instructors and program directors (Georgia, Alabama, and beyond)
+· Students pursuing SACA Silver & Gold certification
+· Workforce development professionals at institutions like Quick Start, AIDT
+· Engineers at Hyundai, Kia, and Korean automotive supplier facilities in the U.S.
+
+📋 SACA Certification Resources:
+IEG equipment covers 11 of 14 SACA Gold modules immediately — we publish the full mapping report in every relevant video description.
+
+🌐 Languages: English | 한국어 | Español
+🔗 Partnership inquiries: kellycho824@ieg.kr | www.ieg.kr
+📍 Based in Seongnam, South Korea | Serving North America, Southeast Asia & beyond</pre>
+      </div>
+    </div>
+
+    <!-- 트레일러 -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">채널 트레일러 스크립트</div>
+          <div class="tmpl-title">신규 방문자 자동 재생 트레일러 (60초)</div>
+          <div class="tags">
+            <span class="tag tag-amber">60초</span>
+            <span class="tag tag-blue">미구독자 자동 재생</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('yt-trailer', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="yt-trailer">[화면: 공장 자동화 라인 B-roll → IEG 장비 클로즈업 → 강사 등장]
+
+"If you're at a technical college in Georgia or Alabama — or anywhere in the U.S. — and you're thinking about SACA certification, this channel is built for you.
+
+I'm Kelly from IEG Smart Factory Academy. We make the training equipment. And on this channel, we walk through every SACA module, live, on our actual systems.
+
+[화면: GX Works3 PLC 시뮬레이션 → 컨베이어 구동 → Rainbow Robotics 코봇 작동]
+
+Mitsubishi PLC. Pneumatics. Cobots. Vision systems. SACA Gold — all of it, without the Amatrol price tag.
+
+New tutorials every two weeks. Subscribe, and hit the bell — your next SACA module walkthrough is already uploaded."
+
+[화면: 구독 버튼 애니메이션 → 채널 로고]</pre>
+        <div class="note">
+          <strong>제작 팁:</strong> 트레일러는 미구독자에게만 자동 재생됩니다. 실제 장비 작동 B-roll을 30초 이상 포함시켜야 신뢰도가 올라갑니다. 한국어·스페인어 자막 추가 권장.
+        </div>
+      </div>
+    </div>
+
+    <!-- 영상 설명 템플릿 -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">영상 설명 공통 템플릿</div>
+          <div class="tmpl-title">SACA 모듈 워크스루 영상 설명란 — SEO 최적화</div>
+          <div class="tags">
+            <span class="tag tag-green">모든 영상 공통 사용</span>
+            <span class="tag tag-blue">SEO 최적화</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('yt-desc', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="yt-desc">In this video, we walk through [SACA Module Code] — [Module Name] — using IEG's Smart Factory Training System. No Amatrol. No Festo. Just the actual assessment tasks, on our actual equipment.
+
+📋 TIMESTAMPS
+0:00 Intro & equipment overview
+[X:XX] [Topic 1]
+[X:XX] [Topic 2]
+[X:XX] Live simulation / hands-on demo
+[X:XX] Key takeaways for SACA exam prep
+
+📥 FREE RESOURCES
+· SACA Equipment Mapping Report (IEG C-201 to C-214): [Google Drive Link]
+· Partnership Proposal PDF: [Link]
+· SACA official site: www.saca.org
+
+🏫 FOR INSTRUCTORS & PROGRAM DIRECTORS
+If you're exploring SACA ATC establishment at your institution, we'd love to connect.
+📧 kellycho824@ieg.kr | 🌐 www.ieg.kr
+
+🔍 RELATED PLAYLISTS
+· SACA Gold Full Track — C-201 to C-214
+· Mitsubishi PLC GX Works3 Tutorials
+· Smart Factory Career Path (Georgia & Alabama)
+
+#MitsubishiPLC #SACACertification #SmartFactory #GXWorks3 #IndustryAutomation
+#TechnicalCollege #WorkforceDevelopment #PLCProgramming #SACA #GeorgiaTech</pre>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <div class="lbl">재생목록 구성 (4개)</div>
+        <div class="val">플레이리스트</div>
+        <p>① SACA Gold Full Track (C-201–C-214)<br>② Mitsubishi PLC GX Works3 Tutorials<br>③ Smart Factory Career Path (GA & AL)<br>④ Emotii Challenge Archive</p>
+      </div>
+      <div class="info-card">
+        <div class="lbl">SEO 우선순위 키워드</div>
+        <div class="val">10개 키워드</div>
+        <p>"Mitsubishi PLC tutorial" / "SACA certification" / "GX Works3 ladder logic" / "smart factory training Georgia" / "SACA ATC equipment" / "PLC programming beginner"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       Section 5 — TikTok
+  ══════════════════════════════════════ -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div>
+        <div class="section-num">Section 05</div>
+        <div class="section-title">TikTok 오프닝 훅 & 해시태그 세트</div>
+      </div>
+    </div>
+    <p class="section-desc">
+      TikTok은 처음 1–3초 훅이 시청 완료율을 결정합니다. 타깃별로 최적화된 훅 문구와 해시태그 조합을 제공합니다.
+    </p>
+
+    <!-- 학생 훅 -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Opening Hooks — 학생 타깃 T3</div>
+          <div class="tmpl-title">커리어 Path 영상용 첫 3초 훅</div>
+          <div class="tags">
+            <span class="tag tag-blue">18–24세 학생</span>
+            <span class="tag tag-amber">HMGMA 취업 연결</span>
+          </div>
+        </div>
+      </div>
+      <div class="tmpl-body">
+        <div class="hook-row">
+          <div class="hook-num">1</div>
+          <div class="hook-body">
+            <strong>"HMGMA에서 일하고 싶으면 이 자격증 따야 합니다" (자막 + 보이스)</strong>
+            <span>한국어 강사 + 영어 자막 조합. SACA Silver → HMGMA 취업 경로 영상에 사용. 조지아·앨라배마 기술대학생 타깃.</span>
+          </div>
+        </div>
+        <div class="hook-row">
+          <div class="hook-num">2</div>
+          <div class="hook-body">
+            <strong>"POV: You just got certified in SACA Gold at your community college"</strong>
+            <span>영어 원어민 보이스오버. 졸업 후 HMGMA 입사 스토리라인. 재학생 공감 유도.</span>
+          </div>
+        </div>
+        <div class="hook-row">
+          <div class="hook-num">3</div>
+          <div class="hook-body">
+            <strong>"This PLC just started a conveyor belt — I programmed it in 10 minutes"</strong>
+            <span>실장비 구동 영상과 함께 사용. 기술적 호기심 자극. 댓글 "how??" 유도형 훅.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 교원 훅 -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Opening Hooks — 교원·강사 타깃 T2</div>
+          <div class="tmpl-title">SACA 장비 비교 영상용 첫 3초 훅</div>
+          <div class="tags">
+            <span class="tag tag-red">교원·구매 담당자</span>
+            <span class="tag tag-green">가성비 강조</span>
+          </div>
+        </div>
+      </div>
+      <div class="tmpl-body">
+        <div class="hook-row">
+          <div class="hook-num">1</div>
+          <div class="hook-body">
+            <strong>"Amatrol quote came in at $85K. We did the same thing for $12K."</strong>
+            <span>가격 충격 훅. 교원·구매 담당자 정지 유도. 다음 영상으로 이어지는 클리프행어형. 조지아·앨라배마 지역 유료 부스팅 필수.</span>
+          </div>
+        </div>
+        <div class="hook-row">
+          <div class="hook-num">2</div>
+          <div class="hook-body">
+            <strong>"11 out of 14 SACA Gold modules — covered. One inverter module away from all 14."</strong>
+            <span>구체적인 숫자로 신뢰도 즉시 구축. 제안서 PDF 다운로드 CTA로 연결.</span>
+          </div>
+        </div>
+        <div class="hook-row">
+          <div class="hook-num">3</div>
+          <div class="hook-body">
+            <strong>"Your institution can become a SACA Authorized Testing Center. Here's how."</strong>
+            <span>직접 이익 제안형 훅. 학과장·총장 타깃. LinkedIn에서도 동일하게 사용 가능.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 해시태그 -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">해시태그 세트 — 영상 유형별</div>
+          <div class="tmpl-title">각 5–8개 조합 사용 권장</div>
+        </div>
+        <button class="copy-btn" onclick="cp('hashtags', this)">전체 복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="hashtags">【PLC Tutorial 영상】
+#MitsubishiPLC #GXWorks3 #PLCProgramming #LadderLogic #SACACertification #SmartFactory #AutomationTraining
+
+【SACA 모듈 워크스루 영상】
+#SACACertification #SACAgold #SmartAutomation #IndustryAutomation #TechnicalCollege #WorkforceDevelopment #HMGMA
+
+【커리어 Path 영상 (학생 타깃)】
+#GeorgiaTech #AlabamaTech #HMGMAjobs #SmartFactory #CareerInAutomation #SACACertified #KiaGeorgia
+
+【Emotii 챌린지 영상】
+#IEGPLCChallenge #EmotiiChallenge #MultilingualSTEM #SmartFactoryChallenge #MitsubishiPLC
+
+【공통 브랜드 태그 — 모든 영상 필수 포함】
+#IEGSmartFactory #SACACertification #SmartFactoryTraining</pre>
+      </div>
+    </div>
+
+    <!-- 60초 영상 구성 -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">60초 영상 표준 구조</div>
+          <div class="tmpl-title">TikTok / YouTube Shorts 공통 포맷</div>
+        </div>
+        <button class="copy-btn" onclick="cp('tiktok-format', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="tiktok-format">0:00–0:03  훅 — 시청자를 멈추게 하는 한 문장 (위 훅 목록에서 선택)
+0:03–0:10  문제 제기 — "기술대학에서 SACA 장비 예산이 부족하다면?"
+0:10–0:45  핵심 데모 — 실장비 구동, PLC 시뮬레이션, 또는 가격 비교 장면
+0:45–0:55  결론 — "이게 IEG로 가능합니다"
+0:55–1:00  CTA — "파트너십 문의 링크는 bio에 / #IEGPLCChallenge 참여하세요"
+
+업로드 최적 시간 (미국 동부 기준):
+· 화요일·목요일 오후 6–8시 ET
+· 조지아·앨라배마 지역 유료 부스팅: 영상당 $50–100</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       Section 6 — Follow-up Emails
+  ══════════════════════════════════════ -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <div>
+        <div class="section-num">Section 06</div>
+        <div class="section-title">Follow-up 이메일 템플릿 3종</div>
+      </div>
+    </div>
+    <p class="section-desc">
+      화상 미팅 후 · 제안서 발송 후 무응답 · 2027 공동 발표 제안 — 각 상황별 이메일 템플릿입니다.
+    </p>
+
+    <!-- FU A -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Follow-up A</div>
+          <div class="tmpl-title">화상 미팅 후 24시간 이내 이메일</div>
+          <div class="tags">
+            <span class="tag tag-green">Warm</span>
+            <span class="tag tag-blue">이메일</span>
+            <span class="tag tag-amber">미팅 후 즉시</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('fu-a', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="fu-a">Subject: IEG x [Institution] — Resources from today's call + next steps
+
+Hi [First Name],
+
+Thank you for the time today — it was genuinely useful to understand [specific point from conversation, e.g., "your current Amatrol situation" or "the SACA timeline you're working toward"].
+
+As promised, here are the resources we discussed:
+
+1. SACA Equipment Mapping Report (C-201 to C-214): [Link]
+2. IEG Partnership Proposal PDF: [Link]
+3. Funding options overview (Georgia Quick Start / Perkins V / WIOA): [Link or brief summary]
+
+Next step we agreed on: [e.g., "I'll send an equipment demo video for C-207 by Friday" / "You'll check with your dean on SACA membership budget"]
+
+I'll follow up in two weeks if I don't hear from you — no pressure.
+
+Best,
+Kelly Cho
+IEG Co., Ltd. | kellycho824@ieg.kr | +82-31-698-2210</pre>
+        <div class="note">
+          <strong>핵심:</strong> 미팅에서 나눈 대화의 구체적 내용과 합의한 다음 단계를 반드시 명시. 당일 혹은 익일 발송. "제가 X 해드리겠습니다"라고 약속한 것은 48시간 내 이행.
+        </div>
+      </div>
+    </div>
+
+    <!-- FU B -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Follow-up B</div>
+          <div class="tmpl-title">제안서 발송 후 7일, 무응답 시 Gentle Nudge</div>
+          <div class="tags">
+            <span class="tag tag-amber">Gentle Nudge</span>
+            <span class="tag tag-blue">이메일 또는 LinkedIn DM</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('fu-b', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="fu-b">Subject: Quick share — IEG C-209 Pneumatics demo (3 min)
+
+Hi [First Name],
+
+Just a quick note — I sent over the SACA partnership proposal last week and wanted to make sure it landed okay.
+
+No rush at all, but I did want to share one thing: we just uploaded a short video showing the IEG system running through the C-209 pneumatics assessment tasks — might be useful context if you're evaluating equipment options.
+
+[YouTube link — 3 min]
+
+Happy to answer any questions whenever timing works.
+
+Kelly</pre>
+        <div class="note">
+          <strong>원칙:</strong> 이 메시지는 영상 링크 하나로 가치를 제공합니다. "아직 보셨나요?"라는 표현은 절대 사용 금지. 2주 후 한 번 더 넛지 가능하나 3회 이상은 역효과.
+        </div>
+      </div>
+    </div>
+
+    <!-- FU C -->
+    <div class="tmpl">
+      <div class="tmpl-head">
+        <div class="tmpl-meta">
+          <div class="tmpl-label">Follow-up C — 🎯 핵심 전환 이메일</div>
+          <div class="tmpl-title">2027 HI-TEC 공동 발표 제안 이메일</div>
+          <div class="tags">
+            <span class="tag tag-red">핵심 전환</span>
+            <span class="tag tag-blue">이메일</span>
+            <span class="tag tag-green">MOU 체결 + 코호트 개강 후</span>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="cp('fu-c', this)">복사</button>
+      </div>
+      <div class="tmpl-body">
+        <pre class="tmpl-text" id="fu-c">Subject: HI-TEC 2027 — Co-presenting together?
+
+Hi [First Name],
+
+With our SACA ATC work underway, I wanted to float an idea: would you be open to co-presenting our experience at HI-TEC 2027?
+
+The CFP typically opens in the fall — we'd have plenty of time to shape a proposal together. A joint session from a U.S. technical college and a Korean equipment manufacturer on building a SACA ATC from scratch would be genuinely novel, and the HMGMA workforce angle gives it real relevance for the HI-TEC audience.
+
+I'd take care of the paper logistics — your role would primarily be sharing the institutional perspective and validating the student outcomes data.
+
+Would you be interested in exploring this? Happy to schedule a 20-minute call to sketch out what the session could look like.
+
+Best,
+Kelly Cho | IEG Co., Ltd.
+kellycho824@ieg.kr</pre>
+        <div class="note">
+          <strong>발송 타이밍:</strong> SACA Silver 코호트 개강 후, 첫 수업 장면 영상이 YouTube에 올라갔을 때 발송하면 가장 설득력 높음 (목표: 2026년 10월 중순~하순). "우리가 이미 함께 만들고 있는 것"을 공동 발표로 확장하는 프레임.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ── -->
+  <div class="footer">
+    <div class="footer-left">
+      <p><strong>IEG Co., Ltd. — Overseas Marketing Team</strong></p>
+      <p>Kelly Cho | kellycho824@ieg.kr | +82-31-698-2210 | www.ieg.kr</p>
+      <p style="margin-top:6px;">본 문서는 IEG 내부 실행 자료입니다. 외부 무단 배포를 금합니다.</p>
+    </div>
+    <div class="footer-right">
+      <p>작성일: 2026.04</p>
+      <p>버전: v1.0</p>
+      <p style="margin-top:4px;">GitHub: IEG-OverseasMarketing-gogo</p>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+function cp(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const text = el.tagName === 'PRE' ? el.textContent : el.innerText;
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '복사됨 ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text.trim();
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const orig = btn.textContent;
+    btn.textContent = '복사됨 ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Smooth scroll for TOC
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
