@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HMGMA 12개 카운티 기술대학 × IEG 솔루션 매트릭스</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f7f4;color:#1a1a18;padding:20px;font-size:14px}
+.page{max-width:960px;margin:0 auto}
+h1{font-size:18px;font-weight:600;margin-bottom:4px}
+.subtitle{font-size:12px;color:#888;margin-bottom:20px}
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.kpi{background:#fff;border:0.5px solid #e0ddd6;border-radius:10px;padding:12px 14px;text-align:center}
+.kpi-v{font-size:24px;font-weight:600;color:#1a1a18}
+.kpi-l{font-size:11px;color:#888;margin-top:3px}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.filter-label{font-size:11px;color:#888}
+.filter-btn{font-size:11px;padding:4px 10px;border:0.5px solid #ccc;border-radius:10px;cursor:pointer;background:transparent;color:#666;transition:all .12s}
+.filter-btn.active,.filter-btn:hover{background:#1a1a18;color:#fff;border-color:#1a1a18}
+.college-section{background:#fff;border:0.5px solid #e0ddd6;border-radius:12px;overflow:hidden;margin-bottom:12px}
+.college-header{padding:12px 16px;display:flex;align-items:flex-start;gap:10px;cursor:pointer;transition:background .1s}
+.college-header:hover{background:#f8f7f4}
+.college-name{font-size:14px;font-weight:600;color:#1a1a18}
+.college-sub{font-size:11px;color:#888;margin-top:2px}
+.college-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.chip{font-size:10px;padding:2px 8px;border-radius:3px;border:0.5px solid #ddd;color:#666}
+.chip.green{background:#e1f5ee;border-color:#5dcaa5;color:#085041}
+.chip.blue{background:#e6f1fb;border-color:#85b7eb;color:#0c447c}
+.chip.purple{background:#eeedfe;border-color:#afa9ec;color:#26215c}
+.chip.amber{background:#faeeda;border-color:#ef9f27;color:#412402}
+.chip.coral{background:#faece7;border-color:#f0997b;color:#4a1b0c}
+.chip.gray{background:#f1efe8;border-color:#b4b2a9;color:#2c2c2a}
+.chip.teal{background:#e1f5ee;border-color:#1d9e75;color:#04342c}
+.expand-icon{margin-left:auto;color:#888;font-size:18px;transition:transform .15s;flex-shrink:0;line-height:1}
+.college-body{display:none;padding:0 16px 14px}
+.college-body.open{display:block}
+.county-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.county-card{background:#f8f7f4;border-radius:8px;padding:9px 11px}
+.county-name{font-size:11px;font-weight:600;color:#1a1a18;margin-bottom:4px}
+.supplier-tag{display:inline-block;background:#fff;border:0.5px solid #e0ddd6;border-radius:3px;padding:2px 6px;margin:2px 2px 2px 0;font-size:10px;color:#1a1a18}
+.supplier-tag.urgent{border-color:#D85A30;color:#D85A30}
+.supplier-tag.priority{border-color:#1D9E75;color:#085041}
+.prog-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.prog-tag{font-size:10px;padding:2px 7px;border-radius:3px;background:#e1f5ee;border:0.5px solid #5dcaa5;color:#085041}
+.solution-title{font-size:11px;font-weight:600;color:#1a1a18;margin-bottom:8px;padding-top:10px;border-top:0.5px solid #e0ddd6}
+.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sol-item{background:#f8f7f4;border-radius:8px;padding:9px 11px}
+.sol-head{font-size:11px;font-weight:600;color:#1a1a18;margin-bottom:3px}
+.sol-body{font-size:10px;color:#666;line-height:1.6}
+.sol-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;margin-top:5px;font-weight:600}
+.divider{height:0.5px;background:#e0ddd6;margin:8px 0}
+.collapse-all{font-size:11px;color:#888;cursor:pointer;text-decoration:underline;margin-bottom:10px;display:inline-block}
+.insight-box{background:#fff;border:0.5px solid #e0ddd6;border-radius:12px;padding:14px 16px;margin-top:16px}
+.insight-title{font-size:12px;font-weight:600;margin-bottom:8px}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.insight-item{background:#f8f7f4;border-radius:8px;padding:9px 11px;font-size:11px;color:#666;line-height:1.6}
+.insight-item strong{color:#1a1a18;display:block;margin-bottom:3px;font-size:11px}
+@media(max-width:600px){
+  .county-grid,.sol-grid,.kpi-strip,.insight-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>HMGMA 12개 카운티 — 기술대학 × IEG 훈련 솔루션 매트릭스</h1>
+<div class="subtitle">2026.04 기준 · 22개 공급사 × 6개 기술대학 × 5가지 IEG 솔루션 유형</div>
+
+<div class="kpi-strip">
+  <div class="kpi"><div class="kpi-v">6</div><div class="kpi-l">연계 기술대학</div></div>
+  <div class="kpi"><div class="kpi-v">12</div><div class="kpi-l">HMGMA 공급 카운티</div></div>
+  <div class="kpi"><div class="kpi-v">22</div><div class="kpi-l">타겟 공급사</div></div>
+  <div class="kpi"><div class="kpi-v">5</div><div class="kpi-l">IEG 솔루션 유형</div></div>
+</div>
+
+<div class="filter-row">
+  <span class="filter-label">필터:</span>
+  <button class="filter-btn active" onclick="filterAll(this)">전체</button>
+  <button class="filter-btn" onclick="filterCollege('savtech',this)">Savannah Tech</button>
+  <button class="filter-btn" onclick="filterCollege('ogeechee',this)">Ogeechee Tech</button>
+  <button class="filter-btn" onclick="filterCollege('wgtc',this)">WGTC ★</button>
+  <button class="filter-btn" onclick="filterCollege('southeast',this)">Southeastern Tech</button>
+  <button class="filter-btn" onclick="filterCollege('oftc',this)">OFTC</button>
+  <button class="filter-btn" onclick="filterCollege('cgtc',this)">Central GA Tech</button>
+  <button class="filter-btn" onclick="filterCollege('screscent',this)">Southern Crescent</button>
+</div>
+<span class="collapse-all" onclick="collapseAll()">모두 접기</span>
+
+<!-- 1. SAVANNAH TECH -->
+<div class="college-section" data-college="savtech">
+  <div class="college-header" onclick="toggle(this)">
+    <div style="flex:1">
+      <div class="college-name">① Savannah Technical College</div>
+      <div class="college-sub">메인캠퍼스 Savannah · Hinesville · Fort Stewart 분교</div>
+      <div class="college-meta">
+        <span class="chip blue">가장 많은 공급사 커버 · 8개사</span>
+        <span class="chip blue">Dr. Ryan Foley 총장 (IEG 기존 접촉)</span>
+        <span class="chip blue">Bryan·Chatham·Effingham·Liberty 4개 카운티</span>
+        <span class="chip blue">HMGMA EV TCC 공식 파트너</span>
+      </div>
+    </div>
+    <div class="expand-icon">▼</div>
+  </div>
+  <div class="college-body open">
+    <div class="county-grid">
+      <div class="county-card">
+        <div class="county-name">Bryan County</div>
+        <span class="supplier-tag priority">Hyundai Mobis ★</span>
+      </div>
+      <div class="county-card">
+        <div class="county-name">Chatham County</div>
+        <span class="supplier-tag">Seoyon E-HWA</span>
+        <span class="supplier-tag">PHA</span>
+        <span class="supplier-tag">Daechang Seat</span>
+        <span class="supplier-tag">Ecoplastic</span>
+      </div>
+      <div class="county-card">
+        <div class="county-name">Effingham County</div>
+        <span class="supplier-tag">Sewon America</span>
+        <span class="supplier-tag">Kyungshin</span>
+      </div>
+      <div class="county-card">
+        <div class="county-name">Liberty County</div>
+        <span class="supplier-tag">Seohan Auto Georgia</span>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-tag">Mechatronics</span>
+      <span class="prog-tag">Industrial Maintenance</span>
+      <span class="prog-tag">Welding</span>
+      <span class="prog-tag">Logistics</span>
+      <span class="prog-tag">EV Professional TCC ★</span>
+      <span class="prog-tag">Quick Start 공동 운영</span>
+    </div>
+    <div class="solution-title">IEG 제공 가능 훈련 솔루션</div>
+    <div class="sol-grid">
+      <div class="sol-item">
+        <div class="sol-head">SACA Gold ATC 장비 납품</div>
+        <div class="sol-body">IEG 3432+3430을 Savannah Tech 내 설치 → 공급사 신규 채용 인력의 SACA Silver/Gold 인증 경로 제공. Quick Start 공동 운영으로 비용 최소화.</div>
+        <span class="sol-badge" style="background:#e6f1fb;color:#0c447c">★ 최우선</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">EV 전동화 라인 특화 커리큘럼</div>
+        <div class="sol-body">Hyundai Mobis·Seoyon 대상. IEG 6030 + PLC Trainer + OIM 플랫폼 패키지. EV Professional TCC 과정과 연계하여 이중 자격증 취득 경로 제공.</div>
+        <span class="sol-badge" style="background:#e1f5ee;color:#085041">Mobis·Seoyon</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">DX Labeler 품질 검사 교육</div>
+        <div class="sol-body">Kyungshin(와이어하니스) 비전 검사 + Seoyon 내외장재 라벨 QC 교육. DX Labeler 특허 기술 시연을 교육 프로그램에 포함.</div>
+        <span class="sol-badge" style="background:#faeeda;color:#412402">QC 특화</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">On-site 위탁 교육 Trial 모델</div>
+        <div class="sol-body">공급사 공장 내 IEG 장비 임시 설치 → 현장 교육 후 구매 연계. 투자 부담 없이 체험 후 결정 가능. Chatham 클러스터 4개사 순차 적용.</div>
+        <span class="sol-badge" style="background:#faece7;color:#993c1d">Trial 모델</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. OGEECHEE TECH -->
+<div class="college-section" data-college="ogeechee">
+  <div class="college-header" onclick="toggle(this)">
+    <div style="flex:1">
+      <div class="college-name">② Ogeechee Technical College</div>
+      <div class="college-sub">메인캠퍼스 Statesboro (Bulloch County) · HMGMA 공식 파트너 대학</div>
+      <div class="college-meta">
+        <span class="chip purple">Bulloch·Candler 집중 · 5개사</span>
+        <span class="chip purple">HMGMA EV TCC 공식 파트너</span>
+        <span class="chip purple">Ajin·Hanon·Doowon·DAS·Ecoplastic</span>
+      </div>
+    </div>
+    <div class="expand-icon">▼</div>
+  </div>
+  <div class="college-body">
+    <div class="county-grid">
+      <div class="county-card">
+        <div class="county-name">Bulloch County</div>
+        <span class="supplier-tag">Ajin Georgia</span>
+        <span class="supplier-tag">Hanon Systems</span>
+        <span class="supplier-tag">Ecoplastic</span>
+      </div>
+      <div class="county-card">
+        <div class="county-name">Candler County</div>
+        <span class="supplier-tag">Doowon Climate Control</span>
+        <span class="supplier-tag">DAS Corp.</span>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-tag">Industrial Systems</span>
+      <span class="prog-tag">Mechatronics</span>
+      <span class="prog-tag">HVAC Technology</span>
+      <span class="prog-tag">Welding</span>
+      <span class="prog-tag">EV TCC (HMGMA 공식 파트너)</span>
+    </div>
+    <div class="solution-title">IEG 제공 가능 훈련 솔루션</div>
+    <div class="sol-grid">
+      <div class="sol-item">
+        <div class="sol-head">Bulloch 클러스터 공용 SACA 랩</div>
+        <div class="sol-body">Ajin + Hanon + Ecoplastic 3사 대상 Ogeechee Tech 내 공용 SACA 트레이닝 랩 구축. 3사 공동 부담으로 IEG 장비 도입 비용 분산 → 1사 단독 대비 구매 장벽 大폭 낮춤.</div>
+        <span class="sol-badge" style="background:#e6f1fb;color:#0c447c">3사 공동 제안</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">HVAC 공조 전문 교육 모듈</div>
+        <div class="sol-body">Hanon·Doowon 열관리 라인 특화. IEG 6030 HVAC 응용 모듈 + OPC UA 데이터 연동 실습. 공조 시스템 유지보수 인증과정.</div>
+        <span class="sol-badge" style="background:#e1f5ee;color:#085041">Hanon·Doowon</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">차체 로봇 자동화 교육</div>
+        <div class="sol-body">Ajin Georgia 차체 부품 라인용. IEG MPS + 로봇암 연동 실습 모듈. SACA C-101~C-104 완전 커버. 용접·프레스 공정 시뮬레이션.</div>
+        <span class="sol-badge" style="background:#eeedfe;color:#26215c">Ajin 특화</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">EV TCC → SACA 연계 취득 경로</div>
+        <div class="sol-body">Ogeechee Tech EV TCC 이수 → IEG 장비로 SACA Silver 실습 → Gold 시험 응시. 이중 자격증으로 현지 인력 가치 상승 → 공급사 채용 경쟁력 강화.</div>
+        <span class="sol-badge" style="background:#faeeda;color:#412402">인증 스택</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. WGTC -->
+<div class="college-section" data-college="wgtc">
+  <div class="college-header" onclick="toggle(this)">
+    <div style="flex:1">
+      <div class="college-name">③ West Georgia Technical College (WGTC) ★ IEG 현재 협력 파트너</div>
+      <div class="college-sub">Carrollton(본교)·Newnan(Coweta)·LaGrange(Troup)·Douglasville·Waco 5개 캠퍼스</div>
+      <div class="college-meta">
+        <span class="chip green">IEG 기존 협력 파트너 ★</span>
+        <span class="chip green">Terri Brooks — 경제개발 담당</span>
+        <span class="chip green">Coweta·Harris County 담당</span>
+        <span class="chip green">Kia Georgia 협력 이력</span>
+      </div>
+    </div>
+    <div class="expand-icon">▼</div>
+  </div>
+  <div class="college-body">
+    <div class="county-grid">
+      <div class="county-card">
+        <div class="county-name">Coweta County — Newnan 캠퍼스 직관할</div>
+        <span class="supplier-tag priority">Hyundai Industrial ★ 최우선</span>
+        <div style="font-size:10px;color:#888;margin-top:3px">83 Amlajack Way, Newnan</div>
+      </div>
+      <div class="county-card">
+        <div class="county-name">Harris County — LaGrange 캠퍼스 30분</div>
+        <span class="supplier-tag priority">Daesol Ausys Georgia ★</span>
+        <div style="font-size:10px;color:#888;margin-top:3px">Northwest Harris Business Park, West Point</div>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-tag">Precision Manufacturing</span>
+      <span class="prog-tag">Industrial Maintenance</span>
+      <span class="prog-tag">Mechatronics</span>
+      <span class="prog-tag">Welding</span>
+      <span class="prog-tag">Kia Georgia 협력 커리큘럼 보유</span>
+    </div>
+    <div class="solution-title">IEG 제공 가능 훈련 솔루션 — 즉시 추진 가능 (기존 협력 기반)</div>
+    <div class="sol-grid">
+      <div class="sol-item">
+        <div class="sol-head">WGTC-IEG 공동 훈련센터 구축</div>
+        <div class="sol-body">Newnan 캠퍼스 내 IEG 장비 상설 설치 → WGTC 재학생 + Hyundai Industrial 신규 채용 인력 공동 교육. "WGTC 추천 장비" 레이블로 신뢰도 극대화. 교육비 일부 Quick Start 지원 가능.</div>
+        <span class="sol-badge" style="background:#e1f5ee;color:#085041">★ 즉시 추진</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">Kia 레퍼런스 → Daesol 확장</div>
+        <div class="sol-body">WGTC-Kia Georgia 협력 이력 활용. LaGrange 캠퍼스 → Harris County Daesol Ausys 연결. "이미 Kia 공급망과 일하는 IEG" 포지셔닝으로 신뢰 즉시 확보.</div>
+        <span class="sol-badge" style="background:#eeedfe;color:#26215c">레퍼런스 전략</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">암레스트·헤드레스트 정밀 조립</div>
+        <div class="sol-body">Hyundai Industrial 품목 특화. IEG PLC Trainer + MPS 활용 정밀 조립 공정 시뮬레이션 교육 모듈 개발. 신규 100명 채용 대상 온보딩 패키지.</div>
+        <span class="sol-badge" style="background:#faeeda;color:#412402">HDI 맞춤</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">SACA ATC 공동 운영 제안</div>
+        <div class="sol-body">WGTC Newnan 캠퍼스 → SACA Authorized Testing Center 지정 추진. IEG 장비 + WGTC 시설 + Quick Start 인프라 삼각 협력 구조. 조지아 서부 한국 공급망 인증 허브.</div>
+        <span class="sol-badge" style="background:#e6f1fb;color:#0c447c">SACA ATC</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. SOUTHEASTERN TECH -->
+<div class="college-section" data-college="southeast">
+  <div class="college-header" onclick="toggle(this)">
+    <div style="flex:1">
+      <div class="college-name">④ Southeastern Technical College</div>
+      <div class="college-sub">Vidalia 본교 (Toombs County) · Swainsboro 캠퍼스 (Emanuel County)</div>
+      <div class="college-meta">
+        <span class="chip amber">Emanuel·Toombs 담당 · 2개사</span>
+        <span class="chip amber">Dongwon 신공장 인근 ★ 긴급</span>
+        <span class="chip amber">Candler·Emanuel·Toombs 등 8개 카운티</span>
+      </div>
+    </div>
+    <div class="expand-icon">▼</div>
+  </div>
+  <div class="college-body">
+    <div class="county-grid">
+      <div class="county-card">
+        <div class="county-name">Emanuel County — Swainsboro 캠퍼스</div>
+        <span class="supplier-tag urgent">Dongwon Autopart Tech ★ 골든타임</span>
+        <div style="font-size:10px;color:#888;margin-top:3px">Hwy 297 Industrial Park, Swainsboro</div>
+      </div>
+      <div class="county-card">
+        <div class="county-name">Toombs County — Vidalia 본교</div>
+        <span class="supplier-tag">Fillamon (자동차 실런트)</span>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-tag">Industrial Systems</span>
+      <span class="prog-tag">Welding</span>
+      <span class="prog-tag">Precision Machining</span>
+      <span class="prog-tag">Business Management</span>
+    </div>
+    <div class="solution-title">IEG 제공 가능 훈련 솔루션</div>
+    <div class="sol-grid">
+      <div class="sol-item">
+        <div class="sol-head">Dongwon 신공장 전용 교육 설계</div>
+        <div class="sol-body">Emanuel County 신공장 라인 셋업과 동시에 Swainsboro 캠퍼스에 IEG 장비 선납품. 배터리프레임·도어 공정 특화 커리큘럼 공동 개발. 2026년 채용 시작 전 교육 준비 완료 목표.</div>
+        <span class="sol-badge" style="background:#faece7;color:#993c1d">★ 골든타임</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">실런트 도포 자동화 (Fillamon)</div>
+        <div class="sol-body">소형 로봇 셀 교육. IEG 로봇암 모듈 + 디지털 트윈 시뮬레이션. 실런트 도포 공정 품질 검사 자동화 교육 패키지.</div>
+        <span class="sol-badge" style="background:#faeeda;color:#412402">Fillamon</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. OFTC -->
+<div class="college-section" data-college="oftc">
+  <div class="college-header" onclick="toggle(this)">
+    <div style="flex:1">
+      <div class="college-name">⑤ Oconee Fall Line Technical College (OFTC)</div>
+      <div class="college-sub">Dublin 캠퍼스 (Laurens County) · 2026.02 Hwashin EDGE Grant $1.2M 수혜 확인</div>
+      <div class="college-meta">
+        <span class="chip coral">Laurens County · 3개사</span>
+        <span class="chip coral">Hwashin·Woory·Silla</span>
+        <span class="chip coral">자동화·제조 Career Fair 운영 중</span>
+        <span class="chip coral">EDGE Grant $1.2M → 장비 예산 가능성</span>
+      </div>
+    </div>
+    <div class="expand-icon">▼</div>
+  </div>
+  <div class="college-body">
+    <div class="county-grid">
+      <div class="county-card" style="grid-column:1/-1">
+        <div class="county-name">Laurens County — Dublin 캠퍼스</div>
+        <span class="supplier-tag">Hwashin ($176M · 460명)</span>
+        <span class="supplier-tag">Woory Industrial</span>
+        <span class="supplier-tag">Silla HighTech</span>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-tag">Automation & Manufacturing ★</span>
+      <span class="prog-tag">Precision Machining</span>
+      <span class="prog-tag">Industrial Maintenance</span>
+      <span class="prog-tag">Career Fair 자동화 분야 운영</span>
+    </div>
+    <div class="solution-title">IEG 제공 가능 훈련 솔루션</div>
+    <div class="sol-grid">
+      <div class="sol-item">
+        <div class="sol-head">Hwashin EDGE Grant 연계 납품</div>
+        <div class="sol-body">Hwashin이 2026.02 EDGE Grant $1.2M 수혜 — 이 예산 일부가 교육 장비 구매에 활용될 가능성 매우 높음. OFTC-Hwashin-IEG 삼각 협력 제안 즉시 가능. 경쟁사 대비 선점 필수.</div>
+        <span class="sol-badge" style="background:#faece7;color:#993c1d">★ EDGE Grant 활용</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">Laurens 3사 공용 SACA 랩</div>
+        <div class="sol-body">Hwashin + Woory + Silla 3사가 OFTC Dublin 캠퍼스 내 공용 훈련 공간 비용 분담. IEG 장비 공동 사용권 모델 → 1사 부담 최소화.</div>
+        <span class="sol-badge" style="background:#e1f5ee;color:#085041">3사 Cost-Share</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">섀시·차체 로봇 자동화 교육</div>
+        <div class="sol-body">Hwashin 섀시·차체 공정 특화. IEG MPS + 로봇 셀 + PLC 통합 제어 실습. SACA C-101~C-104 모듈 완전 커버.</div>
+        <span class="sol-badge" style="background:#eeedfe;color:#26215c">Hwashin 특화</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">Career Fair 현장 장비 시연</div>
+        <div class="sol-body">OFTC 자동화·제조 Career Fair에 IEG 장비 전시. 3개 공급사 HR 담당자와 동시 네트워킹. 비용 최소 노출 최대 홍보. Career Fair는 OFTC 직접 연락으로 부스 신청 가능.</div>
+        <span class="sol-badge" style="background:#faeeda;color:#412402">이벤트 활용</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. CENTRAL GA TECH + SOUTHERN CRESCENT -->
+<div class="college-section" data-college="cgtc">
+  <div class="college-header" onclick="toggle(this)">
+    <div style="flex:1">
+      <div class="college-name">⑥ Central Georgia Technical College (CGTC)</div>
+      <div class="college-sub">Macon·Warner Robins 11개 카운티 · AI-Enhanced Robotic Mfg 과정 보유</div>
+      <div class="college-meta">
+        <span class="chip gray">Bibb County · Boogook Georgia</span>
+        <span class="chip gray">AI 로봇 자동화 과정 ★ 고급</span>
+        <span class="chip gray">PLC·Fluid Power·Instrumentation</span>
+      </div>
+    </div>
+    <div class="expand-icon">▼</div>
+  </div>
+  <div class="college-body">
+    <div class="county-grid">
+      <div class="county-card" style="grid-column:1/-1">
+        <div class="county-name">Bibb County</div>
+        <span class="supplier-tag">Boogook Georgia (유체 관련 자동차 부품)</span>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-tag">AI-Enhanced Robotic Mfg ★</span>
+      <span class="prog-tag">PLC Technician</span>
+      <span class="prog-tag">Industrial Fluid Power</span>
+      <span class="prog-tag">Instrumentation & Controls</span>
+      <span class="prog-tag">Certified Mfg Specialist</span>
+    </div>
+    <div class="solution-title">IEG 제공 가능 훈련 솔루션</div>
+    <div class="sol-grid">
+      <div class="sol-item">
+        <div class="sol-head">AI 로봇 과정에 IEG 장비 편입</div>
+        <div class="sol-body">CGTC의 "AI-Enhanced Robotic Manufacturing Specialist" 과정에 IEG 장비를 실습 플랫폼으로 공급. 기존 커리큘럼에 자연스럽게 편입 — 대학이 먼저 구매를 원할 수도 있음.</div>
+        <span class="sol-badge" style="background:#f1efe8;color:#2c2c2a">커리큘럼 편입</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">Fluid Power + PLC 통합 교육</div>
+        <div class="sol-body">Boogook Georgia 유체 부품 공정 특화. IEG 유압·공압 트레이너 + PLC 제어 통합 실습. 산업용 유체 시스템 유지보수 인증.</div>
+        <span class="sol-badge" style="background:#faeeda;color:#412402">Boogook 특화</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="college-section" data-college="screscent">
+  <div class="college-header" onclick="toggle(this)">
+    <div style="flex:1">
+      <div class="college-name">⑦ Southern Crescent Technical College</div>
+      <div class="college-sub">Griffin·McDonough 캠퍼스 · Henry County 담당</div>
+      <div class="college-meta">
+        <span class="chip" style="background:#eaf3de;border-color:#97c459;color:#173404">Henry County · NVH Korea</span>
+        <span class="chip" style="background:#eaf3de;border-color:#97c459;color:#173404">소음·진동 계측 특화 니즈</span>
+      </div>
+    </div>
+    <div class="expand-icon">▼</div>
+  </div>
+  <div class="college-body">
+    <div class="county-grid">
+      <div class="county-card" style="grid-column:1/-1">
+        <div class="county-name">Henry County</div>
+        <span class="supplier-tag">NVH Korea (소음·진동·열차단 부품 · 160명 / $72M)</span>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-tag">Industrial Maintenance</span>
+      <span class="prog-tag">Mechatronics</span>
+      <span class="prog-tag">Welding</span>
+      <span class="prog-tag">Logistics</span>
+    </div>
+    <div class="solution-title">IEG 제공 가능 훈련 솔루션</div>
+    <div class="sol-grid">
+      <div class="sol-item">
+        <div class="sol-head">NVH 테스트·계측 장비 교육</div>
+        <div class="sol-body">소음·진동 데이터 계측 및 모니터링 시스템 운용 교육. IEG OIM 플랫폼으로 실시간 데이터 시각화 + MES 연동 실습. 품질 검사 인력 신속 양성.</div>
+        <span class="sol-badge" style="background:#eaf3de;color:#173404">NVH Korea 특화</span>
+      </div>
+      <div class="sol-item">
+        <div class="sol-head">열차단 부품 QC 자동화</div>
+        <div class="sol-body">열차단 부품 품질 검사 자동화. IEG 센서·계측 모듈 + PLC 제어 통합 실습으로 현장 즉시 투입 가능 인력 양성.</div>
+        <span class="sol-badge" style="background:#faeeda;color:#412402">품질 검사</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 전략 인사이트 -->
+<div class="insight-box">
+  <div class="insight-title">IEG 5가지 핵심 솔루션 유형 — 공급사 제안 시 활용 템플릿</div>
+  <div class="insight-grid">
+    <div class="insight-item">
+      <strong>① SACA ATC 장비 납품</strong>IEG 3432+3430을 대학 내 설치. Silver Oct 2026 → Gold Q3 2027 → DOL MRA 인증 경로. 공급사 신규 인력 SACA 인증 원스톱 제공.
+    </div>
+    <div class="insight-item">
+      <strong>② 공정 맞춤형 교육 패키지</strong>각 공급사 품목(HVAC·차체·배터리프레임 등)에 맞춘 IEG 장비 + 커리큘럼 번들. "Festo 대비 1/7 가격"이 핵심 차별화.
+    </div>
+    <div class="insight-item">
+      <strong>③ 다사 클러스터 Cost-Share</strong>같은 카운티 내 2~3개 공급사가 장비 비용 분담. Bulloch(3사)·Laurens(3사) 적용 가능. 1사 부담 최소화로 구매 결정 가속.
+    </div>
+    <div class="insight-item">
+      <strong>④ On-site Trial 모델</strong>공급사 공장 내 IEG 장비 임시 설치 → 현장 교육 후 구매 연계. 초기 투자 부담 제로. 체험 후 결정 → 계약 전환율 높음.
+    </div>
+    <div class="insight-item">
+      <strong>⑤ Grant 연계 납품</strong>Hwashin EDGE Grant $1.2M, NSF ATE Grant, DOL 등 공공 자금과 연계. 공급사 예산 부담 없이 장비 도입. IEG가 Grant 신청 지원까지 제공.
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function toggle(header){
+  const body=header.nextElementSibling;
+  const icon=header.querySelector('.expand-icon');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  icon.style.transform=isOpen?'':'rotate(180deg)';
+}
+function collapseAll(){
+  document.querySelectorAll('.college-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.expand-icon').forEach(i=>i.style.transform='');
+}
+function filterAll(btn){
+  document.querySelectorAll('.college-section').forEach(s=>s.style.display='');
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function filterCollege(key,btn){
+  document.querySelectorAll('.college-section').forEach(s=>{
+    s.style.display=s.dataset.college===key?'':'none';
+  });
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
