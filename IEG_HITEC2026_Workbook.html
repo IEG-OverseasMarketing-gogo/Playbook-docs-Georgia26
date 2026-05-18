@@ -1,0 +1,3094 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEG × HI-TEC 2026 — 오스틴 행사 워크북</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — Cream Paper Workbook
+═══════════════════════════════════════════ */
+:root {
+  /* Paper tones */
+  --paper:      #F7F3EC;
+  --paper-2:    #EDE8DE;
+  --paper-3:    #E3DDD0;
+  --paper-4:    #D5CFC0;
+  --paper-dark: #C8C0AE;
+
+  /* Ink */
+  --ink:        #1A1714;
+  --ink-2:      #2D2923;
+  --ink-3:      #3F3A32;
+  --ink-mid:    #6B6456;
+  --ink-light:  #9A9185;
+  --ink-ghost:  rgba(26,23,20,.1);
+
+  /* Accent colors — highlighter palette */
+  --hi-yellow:  #FFE066;
+  --hi-yellow-b: rgba(255,224,102,.35);
+  --hi-green:   #B8E6A3;
+  --hi-green-b: rgba(184,230,163,.35);
+  --hi-blue:    #A8D4F5;
+  --hi-blue-b:  rgba(168,212,245,.35);
+  --hi-red:     #F5A8A8;
+  --hi-red-b:   rgba(245,168,168,.35);
+  --hi-orange:  #FACCAA;
+  --hi-orange-b: rgba(250,204,170,.35);
+
+  /* Phase colors */
+  --phase-1: #2B5ECC;
+  --phase-1-lt: rgba(43,94,204,.12);
+  --phase-2: #0F7A6E;
+  --phase-2-lt: rgba(15,122,110,.12);
+  --phase-3: #B85C00;
+  --phase-3-lt: rgba(184,92,0,.12);
+  --urgent:  #C0392B;
+  --urgent-lt: rgba(192,57,43,.10);
+
+  /* Typography */
+  --f-display: 'Fraunces', Georgia, serif;
+  --f-mono:    'Courier Prime', 'Courier New', monospace;
+  --f-body:    'Noto Sans KR', system-ui, sans-serif;
+
+  /* Layout */
+  --page-max:  860px;
+  --sidebar-w: 280px;
+  --col-gap:   40px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(26,23,20,.08), 0 1px 0 rgba(26,23,20,.04);
+  --shadow-md:  0 4px 16px rgba(26,23,20,.10), 0 1px 0 rgba(26,23,20,.05);
+  --shadow-stamp: 2px 3px 0 rgba(26,23,20,.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 15px;
+}
+
+body {
+  font-family: var(--f-body);
+  background: var(--paper-2);
+  color: var(--ink);
+  display: flex;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ═══ SIDEBAR ═══════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  position: fixed;
+  top: 0; left: 0;
+  height: 100vh;
+  background: var(--ink-2);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.sb-top {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.sb-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 8px;
+}
+
+.sb-brand {
+  font-family: var(--f-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: #F7F3EC;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.sb-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,.35);
+  font-family: var(--f-mono);
+}
+
+/* Overall progress */
+.sb-progress {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.sp-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-family: var(--f-mono);
+  color: rgba(255,255,255,.35);
+}
+
+.sp-count {
+  font-weight: 700;
+  color: var(--hi-yellow);
+}
+
+.sp-track {
+  height: 4px;
+  background: rgba(255,255,255,.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sp-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--hi-yellow), #FFD700);
+  border-radius: 2px;
+  transition: width .4s ease;
+  width: 0%;
+}
+
+/* Nav */
+.sb-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0 16px;
+}
+
+.sb-nav::-webkit-scrollbar { width: 3px; }
+.sb-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+
+.nav-section {
+  padding: 14px 24px 4px;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 24px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,.45);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all .15s;
+  cursor: pointer;
+  font-family: var(--f-body);
+}
+
+.nav-link:hover {
+  color: rgba(255,255,255,.8);
+  background: rgba(255,255,255,.04);
+}
+
+.nav-link.active {
+  color: var(--hi-yellow);
+  border-left-color: var(--hi-yellow);
+  background: rgba(255,224,102,.06);
+}
+
+.nav-phase-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: .5;
+  transition: opacity .15s;
+}
+.nav-link.active .nav-phase-dot,
+.nav-link:hover .nav-phase-dot { opacity: 1; }
+
+.dot-p1 { background: #7AAEFF; }
+.dot-p2 { background: #5DDDC8; }
+.dot-p3 { background: #FFBB66; }
+.dot-ref { background: rgba(255,255,255,.35); }
+.dot-gold { background: var(--hi-yellow); }
+
+/* Mini progress per phase */
+.nav-phase-progress {
+  margin-left: auto;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: rgba(255,255,255,.25);
+}
+
+.nav-link.active .nav-phase-progress { color: var(--hi-yellow); }
+
+.sb-bottom {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: rgba(255,255,255,.2);
+  line-height: 1.8;
+}
+
+/* ═══ MAIN CONTENT ══════════════════════════════ */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 0;
+}
+
+/* ═══ COVER PAGE ════════════════════════════════ */
+.cover {
+  background: var(--paper);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 64px 72px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid var(--paper-3);
+}
+
+/* Ruled lines background */
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    var(--paper-3) 31px,
+    var(--paper-3) 32px
+  );
+  background-size: 100% 32px;
+  background-position: 0 64px;
+  opacity: .4;
+  pointer-events: none;
+}
+
+/* Red margin line */
+.cover::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 48px;
+  width: 1.5px;
+  background: rgba(192,57,43,.2);
+}
+
+.cover-doc-num {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  position: relative; z-index: 1;
+  padding-left: 32px;
+}
+
+.cover-main {
+  position: relative; z-index: 1;
+  padding-left: 32px;
+}
+
+.cover-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--urgent);
+  padding: 6px 16px;
+  border-radius: 3px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--urgent);
+  transform: rotate(-1.5deg);
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-stamp);
+}
+
+.cover-h1 {
+  font-family: var(--f-display);
+  font-size: clamp(52px, 7vw, 88px);
+  font-weight: 700;
+  line-height: 1.0;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.cover-h1 em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--phase-1);
+}
+
+.cover-h2 {
+  font-family: var(--f-display);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 300;
+  color: var(--ink-mid);
+  margin-bottom: 40px;
+  font-style: italic;
+}
+
+.cover-meta-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.cover-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cmi-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+
+.cmi-value {
+  font-family: var(--f-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.cover-phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--paper-4);
+  border: 1px solid var(--paper-4);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 640px;
+}
+
+.cp-cell {
+  background: var(--paper);
+  padding: 18px 20px;
+}
+
+.cp-num {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 5px;
+}
+
+.cp-title {
+  font-family: var(--f-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.cp-date {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--ink-mid);
+}
+
+.cover-footer {
+  position: relative; z-index: 1;
+  padding-left: 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.cover-signature {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-light);
+}
+
+.cover-confidential {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--ink-light);
+  text-transform: uppercase;
+}
+
+/* ═══ WORKBOOK PAGES ════════════════════════════ */
+.page {
+  background: var(--paper);
+  margin-bottom: 2px;
+  padding: 56px 72px 64px;
+  position: relative;
+  border-bottom: 1px solid var(--paper-3);
+}
+
+/* Ruled lines on pages */
+.page.ruled::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    var(--paper-3) 27px,
+    var(--paper-3) 28px
+  );
+  background-position: 0 56px;
+  opacity: .35;
+  pointer-events: none;
+}
+
+/* Red margin */
+.page.ruled::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 44px;
+  width: 1px;
+  background: rgba(192,57,43,.15);
+}
+
+.page-inner {
+  position: relative; z-index: 1;
+  max-width: var(--page-max);
+}
+
+/* Section anchor offset */
+.page-anchor { scroll-margin-top: 0; }
+
+/* ═══ PAGE HEADER ═══════════════════════════════ */
+.page-header {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--paper-3);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.ph-left {}
+
+.phase-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.pt-p1  { background: var(--phase-1-lt); color: var(--phase-1); border: 1px solid rgba(43,94,204,.2); }
+.pt-p2  { background: var(--phase-2-lt); color: var(--phase-2); border: 1px solid rgba(15,122,110,.2); }
+.pt-p3  { background: var(--phase-3-lt); color: var(--phase-3); border: 1px solid rgba(184,92,0,.2); }
+.pt-ref { background: var(--paper-2);    color: var(--ink-mid);  border: 1px solid var(--paper-4); }
+.pt-urg { background: var(--urgent-lt);  color: var(--urgent);   border: 1px solid rgba(192,57,43,.2); }
+
+.page-title {
+  font-family: var(--f-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.page-title em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.page-lead {
+  font-size: 14px;
+  color: var(--ink-mid);
+  margin-top: 10px;
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+.ph-right {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.page-num {
+  font-family: var(--f-mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--paper-4);
+  line-height: 1;
+}
+
+.page-date-tag {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--ink-light);
+  margin-top: 4px;
+}
+
+/* ═══ STAT BAR ══════════════════════════════════ */
+.stat-bar {
+  display: grid;
+  gap: 1px;
+  background: var(--paper-4);
+  border: 1px solid var(--paper-4);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.sb-3 { grid-template-columns: repeat(3, 1fr); }
+.sb-4 { grid-template-columns: repeat(4, 1fr); }
+
+.stat-cell {
+  background: var(--paper);
+  padding: 18px 22px;
+}
+
+.stat-val {
+  font-family: var(--f-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-val.hi { color: var(--phase-1); }
+.stat-val.urg { color: var(--urgent); }
+
+.stat-lbl {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--ink-light);
+  letter-spacing: .04em;
+}
+
+/* ═══ WORKBOOK TASK BLOCK ═══════════════════════ */
+.task-block {
+  margin-bottom: 24px;
+  border: 1px solid var(--paper-3);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.task-block-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--paper-3);
+}
+
+.tbh-icon { font-size: 16px; flex-shrink: 0; }
+
+.tbh-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+}
+
+.tbh-meta {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--ink-light);
+}
+
+.tbh-progress {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--paper-3);
+  color: var(--ink-mid);
+  transition: all .3s;
+}
+
+.tbh-progress.done {
+  background: var(--hi-green);
+  color: var(--ink-2);
+}
+
+/* ═══ TASK ROWS ═════════════════════════════════ */
+.task-row {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 0;
+  align-items: stretch;
+  border-bottom: 1px solid var(--paper-2);
+  transition: background .12s;
+  cursor: pointer;
+}
+
+.task-row:last-child { border-bottom: none; }
+.task-row:hover { background: var(--paper-2); }
+.task-row.checked { background: rgba(184,230,163,.15); }
+
+.task-check-col {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px 0 16px 16px;
+}
+
+/* Custom checkbox */
+.wb-check {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--paper-dark);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background: var(--paper);
+  transition: all .15s;
+}
+
+.wb-check:hover {
+  border-color: var(--ink-mid);
+  background: var(--paper-2);
+}
+
+.wb-check:checked {
+  background: var(--hi-green);
+  border-color: #5BAE48;
+}
+
+.wb-check:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 7px; height: 11px;
+  border: 2px solid var(--ink-2);
+  border-top: none;
+  border-left: none;
+  transform: rotate(38deg);
+}
+
+.task-content-col {
+  padding: 14px 16px 14px 12px;
+}
+
+.task-row.checked .task-content-col .task-title {
+  text-decoration: line-through;
+  color: var(--ink-light);
+}
+
+.task-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.4;
+  transition: color .12s;
+}
+
+.task-desc {
+  font-size: 12.5px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+}
+
+.task-desc strong { color: var(--ink-2); font-weight: 600; }
+
+.task-desc code {
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  background: var(--paper-3);
+  padding: 1px 5px;
+  border-radius: 2px;
+  color: var(--phase-1);
+}
+
+.task-tag-col {
+  padding: 14px 16px 14px 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.task-tag {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 2px;
+  white-space: nowrap;
+  margin-top: 3px;
+}
+
+.tt-now    { background: var(--hi-red-b);    color: var(--urgent); }
+.tt-week   { background: var(--hi-orange-b); color: #954300; }
+.tt-month  { background: var(--hi-blue-b);   color: var(--phase-1); }
+.tt-q4     { background: var(--hi-green-b);  color: var(--phase-2); }
+.tt-later  { background: var(--paper-2);     color: var(--ink-light); }
+
+/* ═══ MEMO FIELD ════════════════════════════════ */
+.memo-field {
+  border-top: 1px dashed var(--paper-dark);
+  padding: 14px 20px;
+  background: rgba(255,224,102,.04);
+}
+
+.memo-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.memo-label::before {
+  content: '✏';
+  font-size: 10px;
+}
+
+.memo-textarea {
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  background: transparent;
+  resize: vertical;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  outline: none;
+  padding: 0;
+}
+
+.memo-textarea::placeholder {
+  color: var(--paper-dark);
+  font-style: italic;
+}
+
+/* ═══ TIMELINE BLOCK ════════════════════════════ */
+.timeline-wrap {
+  padding: 4px 0 4px 20px;
+  border-left: 2px solid var(--paper-3);
+  margin: 20px 0;
+}
+
+.tl-item {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 24px;
+}
+
+.tl-item:last-child { margin-bottom: 0; }
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -27px; top: 6px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid;
+}
+
+.tl-item.dot-p1::before { border-color: var(--phase-1); }
+.tl-item.dot-p2::before { border-color: var(--phase-2); }
+.tl-item.dot-p3::before { border-color: var(--phase-3); }
+.tl-item.dot-urg::before { border-color: var(--urgent); }
+
+.tl-step {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 4px;
+}
+
+.tl-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 5px;
+}
+
+.tl-body {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+}
+
+.tl-body strong { color: var(--ink-2); font-weight: 600; }
+
+/* ═══ CALLOUT BOX ═══════════════════════════════ */
+.callout {
+  border-radius: 3px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-left: 3px solid;
+  position: relative;
+}
+
+.callout-title {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.callout-body {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.callout-body strong { font-weight: 600; }
+
+.co-yellow { background: var(--hi-yellow-b); border-color: #C8A800; }
+.co-yellow .callout-title { color: #7A6500; }
+.co-yellow .callout-body { color: var(--ink-2); }
+
+.co-blue { background: var(--hi-blue-b); border-color: var(--phase-1); }
+.co-blue .callout-title { color: var(--phase-1); }
+.co-blue .callout-body { color: var(--ink-2); }
+
+.co-green { background: var(--hi-green-b); border-color: var(--phase-2); }
+.co-green .callout-title { color: var(--phase-2); }
+.co-green .callout-body { color: var(--ink-2); }
+
+.co-red { background: var(--hi-red-b); border-color: var(--urgent); }
+.co-red .callout-title { color: var(--urgent); }
+.co-red .callout-body { color: var(--ink-2); }
+
+.co-orange { background: var(--hi-orange-b); border-color: var(--phase-3); }
+.co-orange .callout-title { color: var(--phase-3); }
+.co-orange .callout-body { color: var(--ink-2); }
+
+/* ═══ HIGHLIGHT TEXT ════════════════════════════ */
+.hl { background: var(--hi-yellow-b); padding: 1px 3px; border-radius: 2px; }
+.hl-b { background: var(--hi-blue-b); padding: 1px 3px; border-radius: 2px; }
+.hl-g { background: var(--hi-green-b); padding: 1px 3px; border-radius: 2px; }
+.hl-r { background: var(--hi-red-b); padding: 1px 3px; border-radius: 2px; }
+
+/* ═══ CONTACT CARDS ════════════════════════════ */
+.contact-section-title {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--paper-3);
+  margin: 32px 0 16px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.contact-card {
+  border: 1px solid var(--paper-3);
+  border-radius: 4px;
+  padding: 20px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .15s;
+}
+
+.contact-card:hover { box-shadow: var(--shadow-md); }
+
+.cc-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.cc-badge {
+  width: 40px; height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  flex-shrink: 0;
+  border: 1px solid;
+}
+
+.cb-p1  { background: var(--phase-1-lt); color: var(--phase-1); border-color: rgba(43,94,204,.2); }
+.cb-p2  { background: var(--phase-2-lt); color: var(--phase-2); border-color: rgba(15,122,110,.2); }
+.cb-p3  { background: var(--phase-3-lt); color: var(--phase-3); border-color: rgba(184,92,0,.2); }
+.cb-urg { background: var(--urgent-lt);  color: var(--urgent);  border-color: rgba(192,57,43,.2); }
+.cb-neu { background: var(--paper-2);    color: var(--ink-mid);  border-color: var(--paper-3); }
+.cb-gold { background: var(--hi-yellow-b); color: #7A6500; border-color: rgba(200,168,0,.2); }
+
+.cc-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1px;
+}
+
+.cc-role {
+  font-size: 11px;
+  color: var(--ink-light);
+  font-family: var(--f-mono);
+}
+
+.cc-detail {
+  font-size: 12.5px;
+  color: var(--ink-mid);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  line-height: 1.5;
+}
+
+.cc-detail .d-ico { flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+.cc-detail a { color: var(--phase-1); text-decoration: none; }
+.cc-detail a:hover { text-decoration: underline; }
+
+.cc-urgent {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--urgent);
+  background: var(--urgent-lt);
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-top: 8px;
+  font-family: var(--f-mono);
+  display: inline-block;
+}
+
+.cc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+
+.c-tag {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.c-tag.p1  { background: var(--phase-1-lt); color: var(--phase-1); }
+.c-tag.p2  { background: var(--phase-2-lt); color: var(--phase-2); }
+.c-tag.p3  { background: var(--phase-3-lt); color: var(--phase-3); }
+.c-tag.urg { background: var(--urgent-lt);  color: var(--urgent); }
+.c-tag.neu { background: var(--paper-2);    color: var(--ink-mid); }
+.c-tag.yel { background: var(--hi-yellow-b); color: #7A6500; }
+
+/* ═══ DATA TABLE ════════════════════════════════ */
+.wb-table-wrap {
+  border: 1px solid var(--paper-3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 20px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.wb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.wb-table thead tr {
+  background: var(--paper-2);
+}
+
+.wb-table th {
+  padding: 10px 16px;
+  text-align: left;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  border-bottom: 1px solid var(--paper-3);
+  white-space: nowrap;
+}
+
+.wb-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--paper-2);
+  color: var(--ink-mid);
+  vertical-align: middle;
+  line-height: 1.5;
+}
+
+.wb-table td strong { color: var(--ink); font-weight: 600; }
+.wb-table tr:last-child td { border-bottom: none; }
+.wb-table tr:hover td { background: var(--paper-2); }
+.wb-table tr.total td {
+  background: var(--paper-2);
+  font-weight: 600;
+  color: var(--ink);
+  border-top: 2px solid var(--paper-4);
+}
+
+/* ═══ CERT CARDS ════════════════════════════════ */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.cert-card {
+  border: 1px solid var(--paper-3);
+  border-radius: 4px;
+  padding: 20px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.cert-mono {
+  font-family: var(--f-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.cert-full-name {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--ink-light);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.cert-body-text {
+  font-size: 12.5px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.cert-body-text strong { color: var(--ink); }
+
+.cert-meta-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-top: 1px solid var(--paper-2);
+  font-size: 12px;
+}
+
+.cmr-label { color: var(--ink-light); font-family: var(--f-mono); font-size: 10px; }
+.cmr-val   { color: var(--ink-2); font-weight: 600; font-size: 12px; }
+
+/* ═══ PRODUCT CARDS ════════════════════════════ */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.product-card {
+  border: 1px solid var(--paper-3);
+  border-radius: 4px;
+  padding: 16px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .15s;
+}
+
+.product-card:hover { box-shadow: var(--shadow-md); }
+.product-card.priority { border-color: rgba(43,94,204,.3); }
+
+.pc-cat {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 6px;
+}
+
+.pc-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.pc-items {
+  font-size: 11.5px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
+.pc-link-badge {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.plb-p { background: var(--phase-1-lt); color: var(--phase-1); }
+.plb-n { background: var(--paper-2); color: var(--ink-mid); }
+
+/* ═══ PHASE ROADMAP ════════════════════════════ */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.rm-card {
+  border-radius: 4px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid;
+}
+
+.rm-1 { background: var(--phase-1-lt); border-color: rgba(43,94,204,.2); }
+.rm-2 { background: var(--phase-2-lt); border-color: rgba(15,122,110,.2); }
+.rm-3 { background: var(--phase-3-lt); border-color: rgba(184,92,0,.2); }
+
+.rm-phase {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.rm-1 .rm-phase { color: var(--phase-1); }
+.rm-2 .rm-phase { color: var(--phase-2); }
+.rm-3 .rm-phase { color: var(--phase-3); }
+
+.rm-title {
+  font-family: var(--f-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.rm-date {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--ink-mid);
+  margin-bottom: 12px;
+}
+
+.rm-body {
+  font-size: 12.5px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+}
+
+/* ═══ DIVIDER ═══════════════════════════════════ */
+.h-rule {
+  height: 1px;
+  background: var(--paper-3);
+  margin: 32px 0;
+}
+
+/* ═══ BUDGET BOXES ══════════════════════════════ */
+.budget-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.budget-box {
+  border: 1px solid var(--paper-3);
+  border-radius: 4px;
+  padding: 18px 20px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.bb-amount {
+  font-family: var(--f-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.bb-label {
+  font-size: 13px;
+  color: var(--ink-mid);
+  margin-bottom: 4px;
+}
+
+.bb-note {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--ink-light);
+}
+
+/* ═══ ECOSYSTEM COUNTRIES ══════════════════════ */
+.eco-row {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  margin: 20px 0;
+  border: 1px solid var(--paper-3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.eco-cell {
+  flex: 1;
+  padding: 16px 14px;
+  background: var(--paper);
+  border-right: 1px solid var(--paper-3);
+  text-align: center;
+  transition: background .15s;
+}
+
+.eco-cell:last-child { border-right: none; }
+.eco-cell:hover { background: var(--paper-2); }
+.eco-cell.active-step { background: var(--phase-1-lt); border-right-color: rgba(43,94,204,.2); }
+
+.eco-flag { font-size: 26px; margin-bottom: 8px; }
+.eco-country { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.eco-city { font-family: var(--f-mono); font-size: 10px; color: var(--ink-light); margin-bottom: 8px; }
+.eco-phase-tag {
+  font-family: var(--f-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 2px;
+  background: var(--paper-2);
+  color: var(--ink-mid);
+  display: inline-block;
+}
+
+.eco-cell.active-step .eco-phase-tag {
+  background: var(--phase-1-lt);
+  color: var(--phase-1);
+}
+
+/* ═══ PRINT TOOLBAR ════════════════════════════ */
+.print-bar {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 300;
+}
+
+.print-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 18px;
+  border-radius: 40px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  cursor: pointer;
+  border: 1.5px solid;
+  transition: all .15s;
+  text-transform: uppercase;
+}
+
+.pb-print {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.pb-print:hover {
+  background: var(--ink-2);
+}
+
+.pb-reset {
+  background: var(--paper);
+  color: var(--ink-mid);
+  border-color: var(--paper-4);
+}
+
+.pb-reset:hover {
+  background: var(--paper-2);
+  border-color: var(--paper-dark);
+}
+
+/* ═══ SCROLL PROGRESS ══════════════════════════ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-w);
+  right: 0;
+  height: 2px;
+  background: var(--paper-3);
+  z-index: 200;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--phase-1), var(--phase-2));
+  width: 0%;
+  transition: width .1s linear;
+}
+
+/* ═══ RESPONSIVE ════════════════════════════════ */
+@media (max-width: 900px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .page { padding: 40px 24px 48px; }
+  .cover { padding: 48px 24px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .cert-grid { grid-template-columns: 1fr 1fr; }
+  .product-grid { grid-template-columns: 1fr 1fr; }
+  .roadmap-grid { grid-template-columns: 1fr; }
+  .budget-grid { grid-template-columns: 1fr; }
+  .stat-bar.sb-4 { grid-template-columns: 1fr 1fr; }
+  .eco-row { flex-wrap: wrap; }
+  .eco-cell { min-width: 50%; }
+}
+
+/* ═══ PRINT STYLES ══════════════════════════════ */
+@media print {
+  body { background: white; }
+  .sidebar, .print-bar, .scroll-progress { display: none !important; }
+  .main { margin-left: 0; }
+  .page { box-shadow: none; break-inside: avoid; margin-bottom: 0; }
+  .cover { min-height: auto; }
+  .task-block { break-inside: avoid; }
+  .wb-check { border: 1px solid #999; }
+  .memo-textarea { border-bottom: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
+
+<!-- ═══════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sb-top">
+    <div class="sb-label">IEG Enterprise Group</div>
+    <div class="sb-brand">HI-TEC 2026<br>워크북</div>
+    <div class="sb-sub">Austin TX · July 27–30</div>
+  </div>
+
+  <div class="sb-progress">
+    <div class="sp-label">
+      <span>전체 진행률</span>
+      <span class="sp-count" id="progressText">0 / 0</span>
+    </div>
+    <div class="sp-track"><div class="sp-bar" id="globalBar"></div></div>
+  </div>
+
+  <nav class="sb-nav">
+    <div class="nav-section">개요</div>
+    <a class="nav-link active" href="#cover">
+      <span class="nav-phase-dot dot-gold"></span>표지 & 3단계 전략
+    </a>
+    <a class="nav-link" href="#exhibition-compare">
+      <span class="nav-phase-dot dot-gold"></span>4대 전시회 비교
+    </a>
+
+    <div class="nav-section">Phase 01 — 행사 전</div>
+    <a class="nav-link" href="#urgent">
+      <span class="nav-phase-dot dot-p1"></span>즉시 착수 (5월)
+      <span class="nav-phase-progress" id="nav-prog-urgent"></span>
+    </a>
+    <a class="nav-link" href="#build">
+      <span class="nav-phase-dot dot-p1"></span>협업 구조 확정 (6–7월)
+      <span class="nav-phase-progress" id="nav-prog-build"></span>
+    </a>
+    <a class="nav-link" href="#certs">
+      <span class="nav-phase-dot dot-p1"></span>3대 인증 전략
+    </a>
+    <a class="nav-link" href="#products">
+      <span class="nav-phase-dot dot-p1"></span>제품군 × Amatrol 연계
+    </a>
+    <a class="nav-link" href="#budget">
+      <span class="nav-phase-dot dot-p1"></span>예산 계획
+    </a>
+
+    <div class="nav-section">Phase 02 — 행사 당일</div>
+    <a class="nav-link" href="#day-principle">
+      <span class="nav-phase-dot dot-p2"></span>현장 운영 원칙
+    </a>
+    <a class="nav-link" href="#day-1-2">
+      <span class="nav-phase-dot dot-p2"></span>Day 1–2 사전 워크숍
+      <span class="nav-phase-progress" id="nav-prog-day12"></span>
+    </a>
+    <a class="nav-link" href="#day-3-4">
+      <span class="nav-phase-dot dot-p2"></span>Day 3–4 본 컨퍼런스
+      <span class="nav-phase-progress" id="nav-prog-day34"></span>
+    </a>
+
+    <div class="nav-section">Phase 03 — 행사 후</div>
+    <a class="nav-link" href="#post-leads">
+      <span class="nav-phase-dot dot-p3"></span>리드 분배 & 파일럿 수주
+      <span class="nav-phase-progress" id="nav-prog-post"></span>
+    </a>
+    <a class="nav-link" href="#post-imts">
+      <span class="nav-phase-dot dot-p3"></span>IMTS 시카고 연계
+    </a>
+    <a class="nav-link" href="#post-vimf">
+      <span class="nav-phase-dot dot-p3"></span>VIMF 베트남 수확
+    </a>
+
+    <div class="nav-section">부록</div>
+    <a class="nav-link" href="#ecosystem">
+      <span class="nav-phase-dot dot-ref"></span>글로벌 Ecosystem
+    </a>
+    <a class="nav-link" href="#contacts">
+      <span class="nav-phase-dot dot-ref"></span>협력사 연락처
+    </a>
+  </nav>
+
+  <div class="sb-bottom">
+    문서번호 IEG-HTC-2026-WB<br>
+    작성 2026.05 · CONFIDENTIAL<br>
+    내부 전략 보고용 · 무단배포 금지
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════════════════
+     MAIN
+════════════════════════════════════════════ -->
+<main class="main">
+
+<!-- ══════════════════════════════════
+     COVER
+══════════════════════════════════ -->
+<div id="cover" class="cover page-anchor">
+  <div class="cover-doc-num">IEG-HTC-2026-WB &nbsp;·&nbsp; Internal Strategy &nbsp;·&nbsp; Confidential</div>
+
+  <div class="cover-main">
+    <div class="cover-stamp">⚡ 즉시 실행 문서</div>
+
+    <h1 class="cover-h1">
+      HI-TEC 2026<br>
+      <em>오스틴 행사</em>
+    </h1>
+    <h2 class="cover-h2">실행 워크북 — 행사 전·당일·후 3단계</h2>
+
+    <div class="cover-meta-row">
+      <div class="cover-meta-item">
+        <span class="cmi-label">행사명</span>
+        <span class="cmi-value">HI-TEC 2026</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cmi-label">일정</span>
+        <span class="cmi-value">July 27–30, 2026</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cmi-label">장소</span>
+        <span class="cmi-value">Austin, Texas</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cmi-label">협력 유통사</span>
+        <span class="cmi-value">4개사</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="cmi-label">환불 마감</span>
+        <span class="cmi-value" style="color:var(--urgent);">7월 10일</span>
+      </div>
+    </div>
+
+    <div class="cover-phases">
+      <div class="cp-cell">
+        <div class="cp-num">Phase 01 · 행사 전</div>
+        <div class="cp-title">씨 뿌리기</div>
+        <div class="cp-date">5월 ~ 7월 초</div>
+      </div>
+      <div class="cp-cell">
+        <div class="cp-num">Phase 02 · 행사 당일</div>
+        <div class="cp-title">네트워킹</div>
+        <div class="cp-date">July 27–30</div>
+      </div>
+      <div class="cp-cell">
+        <div class="cp-num">Phase 03 · 행사 후</div>
+        <div class="cp-title">수확</div>
+        <div class="cp-date">8월 → IMTS → VIMF</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-signature">IEG Enterprise Group × Amatrol Distributors Partnership</div>
+    <div class="cover-confidential">Confidential · 2026.05</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     3단계 전략 개요
+══════════════════════════════════ -->
+<div id="strategy" class="page ruled">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-ref">전략 개요</div>
+        <h2 class="page-title">3단계 <em>글로벌 로드맵</em></h2>
+        <p class="page-lead">IEG 사업 구조(에듀테크 70% : 산업자동화 30%)와 B2G·ODA 수주 모델에 최적화. 미국에서 레퍼런스를 만들고, 베트남에서 수확한다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">00</div>
+        <div class="page-date-tag">OVERVIEW</div>
+      </div>
+    </div>
+
+    <div class="roadmap-grid">
+      <div class="rm-card rm-1">
+        <div class="rm-phase">Phase 01 · 씨 뿌리기</div>
+        <div class="rm-title">HI-TEC 오스틴</div>
+        <div class="rm-date">2026년 7월 27–30일</div>
+        <div class="rm-body">미국 Community College · NSF 펀딩 결정권자 600명+ 네트워크 구축. <strong>하드웨어 최소화 + 사전 미팅 예약 중심</strong>. "9월 IMTS에도 참가합니다" 초대장으로 신뢰도 사전 증폭.</div>
+      </div>
+      <div class="rm-card rm-2">
+        <div class="rm-phase">Phase 02 · 기술 증명</div>
+        <div class="rm-title">IMTS 시카고</div>
+        <div class="rm-date">2026년 9월 14–19일</div>
+        <div class="rm-body">서반구 최대 제조기술 전시회(89,000명+)에서 기술 공신력 확보. <strong>KOTRA 한국관 공동참가</strong>. HI-TEC 관계자 초대 → 기존 신뢰 기반 심화 미팅.</div>
+      </div>
+      <div class="rm-card rm-3">
+        <div class="rm-phase">Phase 03 · 수확</div>
+        <div class="rm-title">VIMF 박닌</div>
+        <div class="rm-date">2026년 11월 4–6일</div>
+        <div class="rm-body"><strong>"미국 교육기관 채택 + IMTS 출전"</strong> 이중 레퍼런스로 베트남 TVET·공장 자동화 수요 공략. 삼성·폭스콘 협력사 밀집 박닌에서 스마트 러닝 팩토리 풀 전시.</div>
+      </div>
+    </div>
+
+    <div class="callout co-yellow">
+      <div class="callout-title">핵심 전략 인사이트</div>
+      <div class="callout-body">미국 전시회에서 확보한 <strong class="hl">"미국 교육기관이 선택한 시스템"</strong>이라는 레퍼런스는 베트남 시장에서 가장 강력한 영업 도구가 된다. 7월 오스틴 → 9월 시카고 → 11월 박닌의 순서가 IEG B2G·ODA 수주 모델에 최적이다.</div>
+    </div>
+
+    <div class="stat-bar sb-4">
+      <div class="stat-cell">
+        <div class="stat-val hi">$4,500~</div>
+        <div class="stat-lbl">HI-TEC 부스 기준</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">600명+</div>
+        <div class="stat-lbl">NSF 펀딩 결정권자</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val urg">7월 10일</div>
+        <div class="stat-lbl">환불 마감일</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">최대 1.5억</div>
+        <div class="stat-lbl">수출바우처 지원 한도</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     4대 전시회 비교
+══════════════════════════════════ -->
+<div id="exhibition-compare" class="page">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-ref">전시회 분석</div>
+        <h2 class="page-title">4대 전시회 <em>비교·선정</em></h2>
+        <p class="page-lead">ATD는 마감됐고, 나머지 3개 전시회를 3단계 시퀀스로 구성. 예산·적합도·정부지원 종합 분석.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">01</div>
+        <div class="page-date-tag">ANALYSIS</div>
+      </div>
+    </div>
+
+    <div class="wb-table-wrap">
+      <table class="wb-table">
+        <thead>
+          <tr>
+            <th>전시회</th>
+            <th>개최지·일정</th>
+            <th>부스비(10×10)</th>
+            <th>총 예상 예산</th>
+            <th>IEG 적합도</th>
+            <th>결정</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(43,94,204,.05);">
+            <td><strong>HI-TEC 2026</strong></td>
+            <td><span style="font-family:var(--f-mono);font-size:11px;">오스틴 · 7/27–30</span></td>
+            <td><strong>$4,500~</strong></td>
+            <td><strong>~1,500만 원</strong></td>
+            <td><span class="c-tag p1">98% 최우선</span></td>
+            <td><span class="c-tag urg">즉시 등록</span></td>
+          </tr>
+          <tr style="background:rgba(15,122,110,.05);">
+            <td><strong>VIMF 2026 박닌</strong></td>
+            <td><span style="font-family:var(--f-mono);font-size:11px;">베트남 · 11/4–6</span></td>
+            <td><strong>$3,500~</strong></td>
+            <td><strong>~800만 원</strong></td>
+            <td><span class="c-tag p2">93% 수확</span></td>
+            <td><span class="c-tag p2">8–9월 신청</span></td>
+          </tr>
+          <tr>
+            <td><strong>IMTS 2026 시카고</strong></td>
+            <td><span style="font-family:var(--f-mono);font-size:11px;">시카고 · 9/14–19</span></td>
+            <td><strong>$7,000~</strong></td>
+            <td><strong>~2,000만 원</strong></td>
+            <td><span class="c-tag yel">공신력</span></td>
+            <td><span class="c-tag yel">KOTRA 공동관</span></td>
+          </tr>
+          <tr style="opacity:.55;">
+            <td><strong>ATD 2026 LA</strong></td>
+            <td><span style="font-family:var(--f-mono);font-size:11px;">LA · 5/17</span></td>
+            <td>$7,400~</td>
+            <td>~3,500만 원</td>
+            <td><span class="c-tag neu">올해 불가</span></td>
+            <td><span class="c-tag neu">2027 재검토</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout co-blue">
+      <div class="callout-title">정부 지원 통합 요약</div>
+      <div class="callout-body">
+        <strong>수출바우처 긴급지원 3차</strong> — 기업당 최대 1.5억 원. HI-TEC·IMTS·VIMF 3개 전시 모두 정산 가능. exportvoucher.com 이번 주 확인.<br>
+        <strong>KOTRA 한국관 (IMTS)</strong> — 선납 350만 원. 잔여석 오늘 확인 필수. 전화 <code>02-3460-3330</code>.<br>
+        <strong>KOTRA 개별참가비 지원 (HI-TEC·VIMF)</strong> — 최대 600만 원. 중기부 수출바우처 2차: 중소기업 70%, 중견 50%.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 01 — 즉시 착수
+══════════════════════════════════ -->
+<div id="urgent" class="page ruled page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-urg">⚡ 즉시 착수 필수</div>
+        <h2 class="page-title">Phase 01<br><em>이번 주 실행 체크리스트</em></h2>
+        <p class="page-lead">오늘~이번 주 안에 완료해야 할 최우선 항목. 하나라도 지연되면 전체 미국 시장 진입 타임라인에 직결된다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">02</div>
+        <div class="page-date-tag">MAY 2026</div>
+      </div>
+    </div>
+
+    <div class="callout co-red">
+      <div class="callout-title">⚠ 긴급 주의</div>
+      <div class="callout-body"><strong>HI-TEC 2026 환불 마감은 7월 10일.</strong> 지금 등록하고 정부지원 선정 여부에 따라 취소 결정하는 전략이 리스크를 최소화한다. KOTRA IMTS 한국관은 이미 마감됐을 가능성이 높으므로 <strong class="hl-r">오늘 잔여석 확인</strong>이 필수.</div>
+    </div>
+
+    <div class="task-block" data-group="urgent">
+      <div class="task-block-header">
+        <span class="tbh-icon">🔴</span>
+        <span class="tbh-title">즉시 실행 — 5월 이번 주</span>
+        <span class="tbh-meta">오늘 ~ 이번 주 내 완료</span>
+        <span class="tbh-progress" id="prog-urgent">0/6</span>
+      </div>
+
+      <div class="task-row" data-group="urgent" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">HI-TEC 2026 공식 등록</div>
+          <div class="task-desc"><code>highimpact-tec.org</code>에서 Exhibit 신청 또는 포스터 세션 참가 문의. 7월 10일까지 전액 환불 가능 — 먼저 자리 확보 후 정부지원 여부에 따라 취소 결정. 리스크 없이 선점.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-now">오늘</span></div>
+      </div>
+
+      <div class="task-row" data-group="urgent" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">KOTRA 해외전시팀 즉시 연락</div>
+          <div class="task-desc">☎ <strong>02-3460-3330</strong>. IMTS 2026 한국관 잔여석 + HI-TEC 개별참가 지원 가능 여부 동시 확인. '25년 11월 공고 이미 나갔으므로 마감 가능성 높음. 지금이 마지막 기회.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-now">오늘</span></div>
+      </div>
+
+      <div class="task-row" data-group="urgent" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Klein Educational Systems 첫 컨택 이메일 발송</div>
+          <div class="task-desc">📧 <strong>klein@kleineducational.com</strong> — "HI-TEC에서 함께 데모/미팅 하자"는 내용으로 공동 참가 제안. 4개 유통사 중 이메일 직접 컨택 가능한 유일한 유통사. 발송 후 5~6월 온라인 미팅 예약.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-now">오늘</span></div>
+      </div>
+
+      <div class="task-row" data-group="urgent" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">수출바우처 긴급지원 3차 신청 확인</div>
+          <div class="task-desc"><code>exportvoucher.com</code> → 긴급지원바우처 3차 검색. 2026년 4월 추경 이후 공고. 선정 시 HI-TEC·IMTS·VIMF 3개 전시회 참가비 전액 정산 가능. 기업당 <strong>최대 1.5억 원</strong>.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-week">이번 주</span></div>
+      </div>
+
+      <div class="task-row" data-group="urgent" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">SACA Industry Member 가입 신청</div>
+          <div class="task-desc">📧 <strong>contact@saca.org</strong> 문의. HI-TEC 전 가입 완료 목표. 가입 즉시 Amtek과 공동 마케팅 가능. DOL IRAP 연방 보조금 루트 자동 개설 — <strong>"연방 보조금으로 IEG 장비 구매 가능"</strong>이라는 핵심 세일즈 포인트 생성.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-week">이번 주</span></div>
+      </div>
+
+      <div class="task-row" data-group="urgent" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">UL 인증 신청 착수 (주력 제품 1~2종)</div>
+          <div class="task-desc">PLC 기반 스마트팩토리 장비·반도체 테스트베드 우선. TÜV SÜD America 등 NRTL 기관 견적 요청. 소요 3~6개월 — 즉시 착수하지 않으면 미국 교육기관 납품 계속 불가. 제품당 <strong>$22,000~$50,000</strong>.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-week">이번 주</span></div>
+      </div>
+
+      <div class="memo-field">
+        <div class="memo-label">메모</div>
+        <textarea class="memo-textarea" placeholder="오늘 실행 중 발생한 이슈, 담당자 연락처, 확인 사항 등을 기록하세요..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 01 — 협업 구조 확정
+══════════════════════════════════ -->
+<div id="build" class="page ruled page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p1">Phase 01 · 행사 전</div>
+        <h2 class="page-title">협업 구조 확정<br><em>6~7월 초</em></h2>
+        <p class="page-lead">유통사 첫 미팅 완료, 영문 자료 제작, MOU 체결. 행사 현장에서 즉시 성과를 낼 수 있도록 관계와 콘텐츠를 미리 세팅한다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">03</div>
+        <div class="page-date-tag">JUN–JUL</div>
+      </div>
+    </div>
+
+    <div class="task-block" data-group="build">
+      <div class="task-block-header">
+        <span class="tbh-icon">🗂️</span>
+        <span class="tbh-title">6~7월 실행 체크리스트</span>
+        <span class="tbh-meta">유통사 미팅 → MOU → HI-TEC 최종 준비</span>
+        <span class="tbh-progress" id="prog-build">0/7</span>
+      </div>
+
+      <div class="task-row" data-group="build" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">TTA · Amtek · Allegheny 온라인 미팅 (각 1회)</div>
+          <div class="task-desc">웹사이트 문의폼·전화로 담당자 파악 후 <strong>6월 말까지 각 1회 온라인 미팅 완료</strong>. 영문 제품 소개 1-페이저 + IEG×Amatrol 번들 가치 제안서 초안을 사전 발송. Klein은 5월에 이미 컨택 완료.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">6월 말</span></div>
+      </div>
+
+      <div class="task-row" data-group="build" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">영문 마케팅 자료 제작</div>
+          <div class="task-desc">① SACA 커리큘럼 연계 강조 1-페이저 ② IEG×Amatrol 번들 가치 제안서 초안 ③ 반도체/AMR 로봇/스마트팩토리 데모 영상 편집. 예상 비용 <strong>$1,000~$3,000</strong>. 전문 번역가 활용 권장.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">6월</span></div>
+      </div>
+
+      <div class="task-row" data-group="build" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Amtek SACA 공동 마케팅 협약 체결</div>
+          <div class="task-desc">Amtek 기존 SACA 페이지에 <strong>IEG 장비를 "SACA 인증 가능 장비"로 등재</strong> 요청. Amtek이 이미 SACA 공식 파트너이므로 협력 즉시 개시 가능 — 4개 유통사 중 진입 장벽 최저.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">6~7월</span></div>
+      </div>
+
+      <div class="task-row" data-group="build" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Klein 서부 파일럿 MOU 초안 체결</div>
+          <div class="task-desc">CA·OR·WA 반도체 장비 파일럿 납품 최적지. <strong>HI-TEC에서 공동 발표할 "1호 협력 사례"</strong>를 만들어 컨퍼런스 공신력 극대화. MOU → 7월 오스틴에서 최종 서명.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7월 초</span></div>
+      </div>
+
+      <div class="task-row" data-group="build" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">HI-TEC 참가자 리스트 확보 → LinkedIn 사전 미팅 예약</div>
+          <div class="task-desc">4개 유통사 담당자 + NSF ATE 교육기관 담당자 파악. <strong>30분 대면 미팅 사전 예약</strong>. 부스보다 '장외 네트워킹'이 실질 ROI 훨씬 높음. LinkedIn 메시지 발송 → 캘린더 확정.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7월 초</span></div>
+      </div>
+
+      <div class="task-row" data-group="build" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">명함·브로셔에 "IMTS 2026 Chicago 참가 예정" 삽입</div>
+          <div class="task-desc">교육계 관계자에게 산업 현장 신뢰도 사전 증폭. HI-TEC에서 만난 사람들을 9월 IMTS로 초대하는 연결고리. <strong>"저번 오스틴에서 뵈었던 IEG입니다"</strong> 재접촉 포석.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7월</span></div>
+      </div>
+
+      <div class="task-row" data-group="build" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">현장 데모 자료 최종 준비</div>
+          <div class="task-desc">태블릿 + 데모 영상으로 반도체/AMR 로봇/스마트팩토리 시연(장비 배송비 $2,000~$5,000 절약). <strong>SACA 커리큘럼 연계 스크립트</strong> 포함 피치 덱. 3분 안에 설명 가능한 플로우 완성.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7월</span></div>
+      </div>
+
+      <div class="memo-field">
+        <div class="memo-label">메모</div>
+        <textarea class="memo-textarea" placeholder="유통사 담당자 이름, 미팅 일정, MOU 진행 상황 등을 기록하세요..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 01 — 인증 전략
+══════════════════════════════════ -->
+<div id="certs" class="page page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p1">Phase 01 · 인증</div>
+        <h2 class="page-title">3대 인증 전략<br><em>미국 진입 전제조건</em></h2>
+        <p class="page-lead">UL 없이는 교육기관 납품 불가. SACA는 4개 유통사 즉시 연동의 마스터키. DOL IRAP는 학교에 연방 보조금 구매 루트를 열어준다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">04</div>
+        <div class="page-date-tag">CERTS</div>
+      </div>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert-card" style="border-color:rgba(192,57,43,.25);">
+        <div class="cert-mono">UL</div>
+        <div class="cert-full-name">Product Safety Certification<br>NRTL — Nationally Recognized Testing Laboratory</div>
+        <div class="cert-body-text">미국 학교·교육기관 전기·전자 장비 납품 <strong>사실상 필수</strong>. OSHA는 모든 전기장비에 NRTL 인증 요구. 학교 구매담당자는 UL 마크 없는 제품 구매 거부 경향 강함. <strong>즉시 착수하지 않으면 HI-TEC 이후에도 납품 불가.</strong></div>
+        <div class="cert-meta-row"><span class="cmr-label">제품당 비용</span><span class="cmr-val">$22,000–$50,000</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">소요 기간</span><span class="cmr-val">3~6개월</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">우선 대상</span><span class="cmr-val">PLC·반도체 장비</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">인증기관</span><span class="cmr-val">TÜV SÜD America</span></div>
+        <div style="margin-top:10px;"><span class="c-tag urg">필수 · 즉시</span></div>
+      </div>
+
+      <div class="cert-card" style="border-color:rgba(43,94,204,.25);">
+        <div class="cert-mono">SACA</div>
+        <div class="cert-full-name">Smart Automation Certification Alliance<br>Industry 4.0 인증 체계</div>
+        <div class="cert-body-text">4개 유통사 모두 SACA 파트너. Amtek은 이미 SACA 공식 페이지 운영. IEG가 <strong>Industry Member 가입 시 즉시 공동 마케팅 개시 가능</strong>. "SACA 인증 가능 장비" 레이블이 교육기관 구매 장벽을 대폭 낮춤.</div>
+        <div class="cert-meta-row"><span class="cmr-label">멤버십 비용</span><span class="cmr-val">연간 (문의 필요)</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">핵심 카테고리</span><span class="cmr-val">로봇·반도체·IoT</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">IEG 적용 제품</span><span class="cmr-val">CAT 1,2,3 전체</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">문의</span><span class="cmr-val">contact@saca.org</span></div>
+        <div style="margin-top:10px;"><span class="c-tag p1">강력 권장</span> <span class="c-tag p1">즉시 연동</span></div>
+      </div>
+
+      <div class="cert-card" style="border-color:rgba(15,122,110,.25);">
+        <div class="cert-mono">DOL</div>
+        <div class="cert-full-name">IRAP / Apprenticeship Program<br>Standards Recognition Entity</div>
+        <div class="cert-body-text">SACA가 DOL로부터 SRE로 지정. IEG 장비가 SACA 커리큘럼과 연동되면 <strong>DOL IRAP 연방 보조금이 학교에 지급</strong>. IEG 직접 취득 불필요 — SACA 통해 자동 연계. 최강의 세일즈 포인트.</div>
+        <div class="cert-meta-row"><span class="cmr-label">IEG 직접 취득</span><span class="cmr-val">불필요</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">경로</span><span class="cmr-val">SACA → DOL 자동</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">학교 혜택</span><span class="cmr-val">연방 보조금 지원</span></div>
+        <div class="cert-meta-row"><span class="cmr-label">실행 방법</span><span class="cmr-val">SACA 가입으로 자동</span></div>
+        <div style="margin-top:10px;"><span class="c-tag p2">간접 활용</span> <span class="c-tag p2">SACA 통해 자동</span></div>
+      </div>
+    </div>
+
+    <div class="callout co-orange">
+      <div class="callout-title">💡 비용 절감 팁</div>
+      <div class="callout-body">UL 인증은 <strong class="hl">복잡도 낮은 제품 (공압 트레이너, 기초 전기 장비) 먼저</strong> 진행 → 비용·기간 최소화. SACA 멤버십 취득 후 Amtek과 공동 마케팅 비용 분담 협상 가능. HI-TEC 현장 데모는 태블릿 + 데모 영상으로 대체 시 장비 배송비 $2,000~$5,000 절약.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 01 — 제품군 × Amatrol
+══════════════════════════════════ -->
+<div id="products" class="page page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p1">Phase 01 · 제품 전략</div>
+        <h2 class="page-title">IEG 제품군<br><em>× Amatrol 연계 매핑</em></h2>
+        <p class="page-lead">6개 카테고리 모두 Amatrol 유통사 기존 고객에게 직접 판매 가능. 반도체·AMR 로봇은 Amatrol 공백 영역 — 경쟁 없는 블루오션.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">05</div>
+        <div class="page-date-tag">PRODUCTS</div>
+      </div>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card priority">
+        <div class="pc-cat">CAT-01 · 최고 우선순위</div>
+        <div class="pc-name">반도체 (Semiconductor)</div>
+        <div class="pc-items">8대 공정 테스트베드, CVD, 웨이퍼 전송 로봇, SECS/GEM 인터페이스, EasyCluster / EasyFAS 소프트웨어</div>
+        <span class="pc-link-badge plb-p">Amatrol 반도체 라인과 직접 보완·확장</span>
+      </div>
+
+      <div class="product-card priority">
+        <div class="pc-cat">CAT-03 · 신규 카테고리</div>
+        <div class="pc-name">로봇 (AMR · AI 서비스)</div>
+        <div class="pc-items">AMR 모바일 로봇, AI 서비스 로봇, Rainbow Robotics RB시리즈, SoftBank Robotics (Pepper)</div>
+        <span class="pc-link-badge plb-p">Amatrol에 없는 신규 카테고리 — 블루오션</span>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-cat">CAT-02 · 높음</div>
+        <div class="pc-name">스마트팩토리 & 자동화</div>
+        <div class="pc-items">Mitsubishi·Siemens·Omron·AB·LS PLC, Mini MPS, 6축 로봇, 3축 모션, PCS, 자동화 센서</div>
+        <span class="pc-link-badge plb-n">Amatrol 자동화·메카트로닉스와 경쟁+보완</span>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-cat">CAT-04 · 중간</div>
+        <div class="pc-name">신재생에너지</div>
+        <div class="pc-items">스마트그리드, 태양광, 풍력, 수소연료전지, 하이브리드 인버터</div>
+        <span class="pc-link-badge plb-n">HI-TEC 에너지 기술 세션과 정확히 매칭</span>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-cat">CAT-05 · 중간</div>
+        <div class="pc-name">공압 / 유압</div>
+        <div class="pc-items">공압·유압 트레이너, 전기공압, 전기유압 응용</div>
+        <span class="pc-link-badge plb-n">UL 인증 먼저 진행 — 복잡도 낮음</span>
+      </div>
+
+      <div class="product-card">
+        <div class="pc-cat">CAT-06 · 중간</div>
+        <div class="pc-name">전기·전자·자동차</div>
+        <div class="pc-items">모터 분해조립, AC 모터, 전력전자, 하이브리드 자동차, GIPAM, 화재방호</div>
+        <span class="pc-link-badge plb-n">자동차 전장 분야 독보적 추가 가치</span>
+      </div>
+    </div>
+
+    <div class="callout co-yellow">
+      <div class="callout-title">세일즈 피치 핵심 메시지</div>
+      <div class="callout-body"><strong>"IEG 장비 + Amatrol 커리큘럼 + SACA 인증"</strong> 패키지. 특히 반도체·AMR 로봇은 Amatrol이 커버하지 못하는 영역으로 <span class="hl-b">경쟁 없이 신규 매출 창출</span> 가능한 포지션.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 01 — 예산
+══════════════════════════════════ -->
+<div id="budget" class="page page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p1">Phase 01 · 예산</div>
+        <h2 class="page-title">예산 계획<br><em>정부지원 전·후 비교</em></h2>
+        <p class="page-lead">HI-TEC 최소 참가부터 3개 전시 통합 예산까지. 수출바우처 선정 시 기업 자부담을 대폭 압축 가능.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">06</div>
+        <div class="page-date-tag">BUDGET</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--f-display);font-size:20px;margin-bottom:14px;color:var(--ink);">HI-TEC 2026 세부 예산 (UL 제외)</h3>
+    <div class="wb-table-wrap">
+      <table class="wb-table">
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>분류</th>
+            <th>예상 비용 (USD)</th>
+            <th>우선순위</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>HI-TEC 참가비 (2인)</strong></td>
+            <td>컨퍼런스</td>
+            <td><strong>$1,500~$2,500</strong></td>
+            <td><span class="c-tag urg">필수</span></td>
+            <td>사전 워크숍 포함, 볼륨 할인 검토</td>
+          </tr>
+          <tr>
+            <td><strong>오스틴 항공·숙박 (2인, 5박)</strong></td>
+            <td>출장</td>
+            <td><strong>$4,000~$6,000</strong></td>
+            <td><span class="c-tag urg">필수</span></td>
+            <td>Renaissance Austin Hotel (공식 호텔)</td>
+          </tr>
+          <tr>
+            <td><strong>영문 마케팅 자료</strong></td>
+            <td>마케팅</td>
+            <td><strong>$1,000~$3,000</strong></td>
+            <td><span class="c-tag urg">필수</span></td>
+            <td>1-페이저, 브로셔, 데모 영상 편집</td>
+          </tr>
+          <tr>
+            <td>부스 임대 (10×10ft)</td>
+            <td>전시</td>
+            <td>$4,500~</td>
+            <td><span class="c-tag p1">권장</span></td>
+            <td>포스터 세션 대체 시 절감 가능</td>
+          </tr>
+          <tr>
+            <td>SACA Industry 멤버십</td>
+            <td>인증</td>
+            <td>$2,000~$5,000/yr</td>
+            <td><span class="c-tag p1">강력 권장</span></td>
+            <td>Amtek 즉시 연동, Bronze~Silver</td>
+          </tr>
+          <tr>
+            <td>샘플 현지 배송·통관</td>
+            <td>물류</td>
+            <td>$2,000~$5,000</td>
+            <td><span class="c-tag p1">권장</span></td>
+            <td>태블릿 데모 대체 시 생략 가능</td>
+          </tr>
+          <tr>
+            <td>기타 (명함·통역·잡비)</td>
+            <td>기타</td>
+            <td>$500~$1,000</td>
+            <td><span class="c-tag neu">선택</span></td>
+            <td></td>
+          </tr>
+          <tr class="total">
+            <td><strong>HI-TEC 최소 예산 합계 (UL·부스 제외)</strong></td>
+            <td colspan="2"><strong>약 $12,000 (~1,500만 원)</strong></td>
+            <td colspan="2">컨퍼런스 + 출장 + 기본 마케팅</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family:var(--f-display);font-size:20px;margin-bottom:14px;color:var(--ink);">3개 전시 통합 예산 (정부지원 적용 후)</h3>
+    <div class="wb-table-wrap">
+      <table class="wb-table">
+        <thead>
+          <tr>
+            <th>전시회</th>
+            <th>총 예상비용</th>
+            <th>지원 가능액</th>
+            <th>기업 자부담 (추정)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>HI-TEC 2026 (오스틴, 7월)</strong></td>
+            <td>약 1,500만 원</td>
+            <td>최대 600만 원</td>
+            <td>약 900만 원~</td>
+          </tr>
+          <tr>
+            <td><strong>IMTS 2026 (시카고, 9월, 공동관)</strong></td>
+            <td>약 2,000만 원</td>
+            <td>KOTRA 한국관 지원</td>
+            <td>약 1,000~1,500만 원</td>
+          </tr>
+          <tr>
+            <td><strong>VIMF 2026 (박닌, 11월)</strong></td>
+            <td>약 800만 원</td>
+            <td>최대 600만 원</td>
+            <td>약 200~400만 원</td>
+          </tr>
+          <tr class="total">
+            <td><strong>3개 전시 합계</strong></td>
+            <td><strong>약 4,300만 원</strong></td>
+            <td>수출바우처 1.5억 활용 시</td>
+            <td><strong>최소 2,000만 원 내외</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="budget-grid">
+      <div class="budget-box" style="border-color:rgba(43,94,204,.25);">
+        <div class="bb-amount">최대 1.5억</div>
+        <div class="bb-label">수출바우처 긴급지원 3차 기업당 한도</div>
+        <div class="bb-note">HI-TEC·IMTS·VIMF 3개 전시 모두 정산 가능 · exportvoucher.com</div>
+      </div>
+      <div class="budget-box" style="border-color:rgba(184,92,0,.25);">
+        <div class="bb-amount">350만 원</div>
+        <div class="bb-label">KOTRA IMTS 한국관 선납금</div>
+        <div class="bb-note">오늘 잔여석 확인 필수 · 02-3460-3330</div>
+      </div>
+    </div>
+
+    <div class="memo-field" style="border:1px solid var(--paper-3);border-radius:4px;padding:16px 20px;background:var(--paper);margin-top:12px;">
+      <div class="memo-label">예산 메모</div>
+      <textarea class="memo-textarea" placeholder="수출바우처 신청 결과, 실제 집행 비용, 승인 여부 등을 기록하세요..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 02 — 현장 운영 원칙
+══════════════════════════════════ -->
+<div id="day-principle" class="page ruled page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p2">Phase 02 · 행사 당일</div>
+        <h2 class="page-title">현장 운영 원칙<br><em>July 27–30, Austin TX</em></h2>
+        <p class="page-lead">Renaissance Austin Hotel. 참가 인원 600명+. 부스 전시보다 사전 예약 미팅과 포스터 세션 발표가 실질 ROI를 만든다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">07</div>
+        <div class="page-date-tag">ONSITE</div>
+      </div>
+    </div>
+
+    <div class="stat-bar sb-4">
+      <div class="stat-cell">
+        <div class="stat-val hi">600명+</div>
+        <div class="stat-lbl">NSF 결정권자</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">4개사</div>
+        <div class="stat-lbl">유통사 대면 미팅</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">20개</div>
+        <div class="stat-lbl">기관 명함 목표</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-val">30분</div>
+        <div class="stat-lbl">유통사별 미팅</div>
+      </div>
+    </div>
+
+    <div class="callout co-green">
+      <div class="callout-title">핵심 현장 원칙</div>
+      <div class="callout-body"><strong class="hl-g">하드웨어 전시보다 사전 미팅 예약과 포스터 세션 발표에 집중.</strong> 준비 기간 촉박 → 경량화 전략. 태블릿 + 데모 영상으로 반도체/AMR/스마트팩토리 시연. "9월 시카고 IMTS에도 참가합니다" 초대장을 건네며 신뢰도를 미리 증폭시킨다.</div>
+    </div>
+
+    <h3 style="font-family:var(--f-display);font-size:20px;margin-bottom:12px;color:var(--ink);">부스 운영 체크리스트</h3>
+    <div class="task-block">
+      <div class="task-block-header">
+        <span class="tbh-icon">🖥️</span>
+        <span class="tbh-title">현장 준비물 확인</span>
+        <span class="tbh-meta">경량화 원칙 — 하드웨어 최소화</span>
+      </div>
+      <div class="task-row" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col"><div class="task-title">태블릿 + 노트북 + 데모 영상 USB</div><div class="task-desc">반도체/AMR 로봇/스마트팩토리 데모 영상. SACA 커리큘럼 연계 스크립트 포함 피치 덱.</div></div>
+        <div class="task-tag-col"><span class="task-tag tt-month">필수</span></div>
+      </div>
+      <div class="task-row" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col"><div class="task-title">명함 (IMTS 2026 Chicago 참가 예정 삽입)</div><div class="task-desc">HI-TEC에서 만난 관계자들을 9월 시카고로 연결하는 핵심 도구. 충분히 준비.</div></div>
+        <div class="task-tag-col"><span class="task-tag tt-month">필수</span></div>
+      </div>
+      <div class="task-row" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col"><div class="task-title">SACA 인증 가능 제품 리스트 1-페이저 (영문)</div><div class="task-desc">"연방 보조금으로 IEG 장비 구매 가능"을 3분 안에 설명하는 문서.</div></div>
+        <div class="task-tag-col"><span class="task-tag tt-month">필수</span></div>
+      </div>
+      <div class="task-row" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col"><div class="task-title">IEG × Amatrol 번들 가치 제안서 (영문)</div><div class="task-desc">유통사 담당자에게 전달할 파트너십 제안 핵심 문서. 각 유통사 맞춤화 권장.</div></div>
+        <div class="task-tag-col"><span class="task-tag tt-month">필수</span></div>
+      </div>
+      <div class="task-row" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col"><div class="task-title">Klein MOU 초안 서류</div><div class="task-desc">7월 오스틴에서 Klein 담당자와 최종 서명 목표. 사전에 Klein과 조율 완료 상태로 지참.</div></div>
+        <div class="task-tag-col"><span class="task-tag tt-month">권장</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 02 — Day 1-2
+══════════════════════════════════ -->
+<div id="day-1-2" class="page ruled page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p2">Phase 02 · Day 1–2</div>
+        <h2 class="page-title">사전 워크숍<br><em>7월 27–28일</em></h2>
+        <p class="page-lead">세션 집중 참여와 비공식 네트워킹. NSF ATE 핵심 인사들과의 첫 접촉을 만드는 단계.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">08</div>
+        <div class="page-date-tag">JUL 27–28</div>
+      </div>
+    </div>
+
+    <div class="task-block" data-group="day12">
+      <div class="task-block-header">
+        <span class="tbh-icon">📅</span>
+        <span class="tbh-title">Day 1–2 실행 체크리스트</span>
+        <span class="tbh-meta">세션 참여 → 비공식 접선 → 포스터 세션 확보</span>
+        <span class="tbh-progress" id="prog-day12">0/4</span>
+      </div>
+
+      <div class="task-row" data-group="day12" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">자동화·반도체·AI 관련 핵심 세션 집중 참여</div>
+          <div class="task-desc">NSF ATE 커뮤니티 핵심 세션 참석. 발표자 및 참가자와 명함 교환. 커뮤니티 칼리지 교수진·행정 담당자 우선 접촉. <strong>HI-TEC 에너지 기술 세션</strong> — IEG 신재생에너지 제품과 정확히 매칭. SACA 인증 + DOL 보조금 구매 루트 설명.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/27</span></div>
+      </div>
+
+      <div class="task-row" data-group="day12" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">포스터 세션 발표 기회 확보 (취소 세션 공략)</div>
+          <div class="task-desc">HI-TEC 주최측에 취소 세션·포스터 세션 참가 문의. 발표 기회 확보 시 부스 없이도 핵심 노출 가능. <strong>"IEG × Amatrol 공동 발표"</strong> 형태 제안. 주제: "Industry 4.0 실습장비의 새로운 기준: 한미 협력 사례".</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/27–28</span></div>
+      </div>
+
+      <div class="task-row" data-group="day12" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Klein · Amtek 담당자 비공식 사전 접선</div>
+          <div class="task-desc">워크숍 중 조기 비공식 미팅으로 관계 형성. <strong>"7/29–30 본 컨퍼런스에서 공동 세션 발표 하자"</strong> 최종 조율. Klein MOU 서명 시기 협의. 사전 예약 미팅을 워밍업.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/27–28</span></div>
+      </div>
+
+      <div class="task-row" data-group="day12" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">NSF 펀딩 결정권자 접촉 시작</div>
+          <div class="task-desc">600명+ 결정권자 중 우선 타겟 10명 접촉. SACA → DOL IRAP 보조금 구매 루트 설명. "학교 예산 없이 연방 보조금으로 IEG 장비 구매 가능"이라는 메시지 전달.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/27–28</span></div>
+      </div>
+
+      <div class="memo-field">
+        <div class="memo-label">현장 메모 — Day 1–2</div>
+        <textarea class="memo-textarea" placeholder="만난 사람 이름·소속, 미팅 결과, 팔로업 필요 사항 등..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 02 — Day 3-4
+══════════════════════════════════ -->
+<div id="day-3-4" class="page ruled page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p2">Phase 02 · Day 3–4</div>
+        <h2 class="page-title">본 컨퍼런스<br><em>7월 29–30일</em></h2>
+        <p class="page-lead">4개 유통사 대면 미팅, 공동 세션 발표, 20개 기관 명함 확보. 전체 HI-TEC 참가의 핵심 성과를 만드는 이틀.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">09</div>
+        <div class="page-date-tag">JUL 29–30</div>
+      </div>
+    </div>
+
+    <div class="task-block" data-group="day34">
+      <div class="task-block-header">
+        <span class="tbh-icon">⭐</span>
+        <span class="tbh-title">Day 3–4 핵심 실행 체크리스트</span>
+        <span class="tbh-meta">4개 유통사 미팅 → 공동 세션 → 리드 20개 확보</span>
+        <span class="tbh-progress" id="prog-day34">0/5</span>
+      </div>
+
+      <div class="task-row" data-group="day34" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">TTA 담당자 30분 대면 미팅</div>
+          <div class="task-desc">동남부 (GA·AL 외 8개 주). 피치 핵심: <strong>"IEG 장비 + Amatrol 커리큘럼 + SACA 인증"</strong> 패키지 + GA·AL 커뮤니티 칼리지 파일럿 납품 제안서 현장 제출.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/29–30</span></div>
+      </div>
+
+      <div class="task-row" data-group="day34" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Amtek 담당자 30분 대면 미팅</div>
+          <div class="task-desc">중부대서양 (VA·MD·DC·WV·DE). SACA 공동 세션 발표 또는 공동 부스 운영 최종 조율. "설치+AS+교육 원스톱" 파트너십 제안.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/29–30</span></div>
+      </div>
+
+      <div class="task-row" data-group="day34" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Allegheny 담당자 30분 대면 미팅</div>
+          <div class="task-desc">북동부 (NY·NJ·PA). IEG를 21번째 파트너로 등록 제안. 뉴욕주 커뮤니티 칼리지 대상 <strong>"턴키 반도체 교육실"</strong> 패키지 공동 제안서 협의.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/29–30</span></div>
+      </div>
+
+      <div class="task-row" data-group="day34" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Klein 담당자 30분 대면 미팅 + MOU 최종 서명</div>
+          <div class="task-desc">서부 (CA·OR·WA). 사전 온라인 미팅에서 조율된 MOU 최종 서명. <strong>CA 반도체 장비 파일럿 납품 Q4 2026</strong> 목표 확정. 공동 세션 발표 공동 발표자 역할 협의.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/29–30</span></div>
+      </div>
+
+      <div class="task-row" data-group="day34" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">커뮤니티 칼리지 구매담당자 20개 기관 명함 확보</div>
+          <div class="task-desc">최소 <strong>20개 기관 명함·연락처 확보</strong> 목표. SACA → DOL IRAP 보조금 구매 루트 설명. IMTS 시카고 초대장 배포. 우선 타겟: TTA 커버 GA·AL, Amtek 커버 DC·MD 칼리지.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-month">7/29–30</span></div>
+      </div>
+
+      <div class="memo-field">
+        <div class="memo-label">현장 메모 — Day 3–4 미팅 결과</div>
+        <textarea class="memo-textarea" placeholder="유통사 담당자 이름, 미팅 결과, 파일럿 제안 반응, 다음 액션 등..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 03 — 리드 분배
+══════════════════════════════════ -->
+<div id="post-leads" class="page ruled page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p3">Phase 03 · 행사 후</div>
+        <h2 class="page-title">리드 분배<br><em>& 파일럿 수주 (8월~)</em></h2>
+        <p class="page-lead">HI-TEC에서 확보한 네트워크를 즉시 실적으로 전환. 4개 유통사가 지역별 후속 영업 담당, Q4 2026 내 첫 파일럿 납품 달성.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">10</div>
+        <div class="page-date-tag">AUG 2026~</div>
+      </div>
+    </div>
+
+    <div class="task-block" data-group="post">
+      <div class="task-block-header">
+        <span class="tbh-icon">📊</span>
+        <span class="tbh-title">행사 후 성과 확산 체크리스트</span>
+        <span class="tbh-meta">리드 배분 → 파일럿 수주 → UL 완료 → 정식 계약</span>
+        <span class="tbh-progress" id="prog-post">0/6</span>
+      </div>
+
+      <div class="task-row" data-group="post" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">HI-TEC 확보 리드 → 4개 유통사 지역별 배분</div>
+          <div class="task-desc"><strong>TTA</strong> (GA·AL 외 8주) / <strong>Amtek</strong> (VA·MD·DC·WV·DE) / <strong>Allegheny</strong> (NY·NJ·PA) / <strong>Klein</strong> (CA·OR·WA). 각 유통사가 담당 지역 후속 영업 전담.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-q4">8월</span></div>
+      </div>
+
+      <div class="task-row" data-group="post" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Klein 서부 파일럿 납품 착수 (CA 반도체 장비)</div>
+          <div class="task-desc">Q4 2026 내 첫 납품 목표. CA 커뮤니티 칼리지 반도체 교육실. <strong>미국 첫 번째 레퍼런스 확보</strong> → VIMF 베트남 영업 핵심 무기.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-q4">Q4 2026</span></div>
+      </div>
+
+      <div class="task-row" data-group="post" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">TTA 동남부 파일럿 납품 착수 (GA·AL 칼리지)</div>
+          <div class="task-desc">60년 TTA 네트워크 활용. GA·AL 커뮤니티 칼리지 스마트팩토리·반도체 장비 파일럿. Klein과 함께 <strong>동서부 동시 첫 납품</strong>으로 레퍼런스 두 배.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-q4">Q4 2026</span></div>
+      </div>
+
+      <div class="task-row" data-group="post" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Allegheny와 뉴욕주 칼리지 공동 제안서 제출</div>
+          <div class="task-desc">"턴키 반도체 교육실" 패키지. NY·NJ 인력양성 프로그램 활성화 타겟. IEG를 <strong>Allegheny 21번째 파트너</strong>로 정식 등록.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-q4">8~9월</span></div>
+      </div>
+
+      <div class="task-row" data-group="post" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">UL 인증 완료 → 4개 유통사 카탈로그 정식 등재</div>
+          <div class="task-desc">인증 완료 후 공식 유통 계약 업그레이드. <strong>SACA 인증 가능 IEG 장비 목록 공식 등재</strong> → DOL IRAP 연계 학교 보조금 구매 루트 공식 개설.</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-q4">Q4 2026</span></div>
+      </div>
+
+      <div class="task-row" data-group="post" onclick="toggleTask(this)">
+        <div class="task-check-col"><input type="checkbox" class="wb-check" onclick="event.stopPropagation()"></div>
+        <div class="task-content-col">
+          <div class="task-title">Amtek 유통사 인력 대상 팩토리 트레이닝 제공</div>
+          <div class="task-desc">비용 $2,000~$4,000. Amtek이 독립 서비스 가능하도록 기술교육. "설치+AS+교육" 원스톱 서비스 모델 완성. <strong>현지 법인 설립 또는 에이전트 계약 검토</strong> ($3,000~$10,000).</div>
+        </div>
+        <div class="task-tag-col"><span class="task-tag tt-q4">Q4 2026</span></div>
+      </div>
+
+      <div class="memo-field">
+        <div class="memo-label">파일럿 수주 메모</div>
+        <textarea class="memo-textarea" placeholder="리드 배분 현황, 파일럿 제안서 진행 상태, 수주 가능성 평가 등..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 03 — IMTS 연계
+══════════════════════════════════ -->
+<div id="post-imts" class="page page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p3">Phase 03 · 기술 증명</div>
+        <h2 class="page-title">IMTS 시카고<br><em>9월 14–19일</em></h2>
+        <p class="page-lead">"IMTS 출전" 타이틀 하나가 동남아·중앙아 전체 시장의 기술 신뢰도를 자동으로 높인다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">11</div>
+        <div class="page-date-tag">SEP 14–19</div>
+      </div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="tl-item dot-p2">
+        <div class="tl-step">Action 01 · 즉시</div>
+        <div class="tl-title">KOTRA 한국관 잔여석 확인 및 등록</div>
+        <div class="tl-body">☎ <strong>02-3460-3330</strong>. 선납금 350만 원. 공고 '25년 11월 이미 나갔으므로 마감 가능성 높음 — 오늘 확인 필수. 단독 부스($7,000+) 대신 공동관으로 총 비용 ~2,000만 원으로 절감.</div>
+      </div>
+      <div class="tl-item dot-p2">
+        <div class="tl-step">Action 02 · 9월 현장</div>
+        <div class="tl-title">VR 헤드셋 + 태블릿 디지털 트윈 체험존</div>
+        <div class="tl-body">물류비 $330~ 절감. 공간 효율 극대화. 스마트팩토리·반도체 공정을 VR로 체험하는 몰입형 데모가 IMTS 관람객에게 강한 인상 형성.</div>
+      </div>
+      <div class="tl-item dot-p2">
+        <div class="tl-step">Action 03 · HI-TEC 연결</div>
+        <div class="tl-title">HI-TEC 관계자 초대 및 재접촉</div>
+        <div class="tl-body"><strong>"7월 오스틴에서 뵈었던 IEG입니다"</strong> — 이미 쌓인 신뢰 기반으로 심화 미팅 진행. 20개 기관 담당자에게 IMTS 초대장 발송. 1회성 접촉을 장기 관계로 전환.</div>
+      </div>
+      <div class="tl-item dot-p2">
+        <div class="tl-step">Action 04 · 이후 활용</div>
+        <div class="tl-title">"IMTS 출전" 타이틀 → 베트남·중앙아 영업 활용</div>
+        <div class="tl-body">IMTS 출전 타이틀이 VIMF 베트남, 인도, 우즈베키스탄, 카자흐스탄에서 기술적 신뢰도를 자동으로 높이는 <strong>보증수표</strong>. IEG Ecosystem 5개국 전략 공신력 기반.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PHASE 03 — VIMF 수확
+══════════════════════════════════ -->
+<div id="post-vimf" class="page page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-p3">Phase 03 · 수확</div>
+        <h2 class="page-title">VIMF 박닌<br><em>11월 4–6일</em></h2>
+        <p class="page-lead">베트남 박닌. 삼성·폭스콘 협력사 밀집 지역. 이중 레퍼런스를 앞세워 현장 수주를 달성한다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">12</div>
+        <div class="page-date-tag">NOV 4–6</div>
+      </div>
+    </div>
+
+    <div class="callout co-orange">
+      <div class="callout-title">베트남 수확 전략 핵심</div>
+      <div class="callout-body"><strong class="hl">"미국 교육기관이 선택한 시스템 + IMTS 출전 기업"</strong>이라는 이중 레퍼런스가 베트남 바이어 신뢰 확보의 결정적 요소. 박닌은 삼성·폭스콘 협력사 밀집 → 한국어 영업 가능. 베트남 스마트팩토리 교육 수요 전 세계 최급상승.</div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="tl-item dot-p3">
+        <div class="tl-step">사전 준비 · 6–7월</div>
+        <div class="tl-title">KOTRA 하노이 무역관 협조 공문 발송</div>
+        <div class="tl-body">삼성·폭스콘 협력사 교육 담당자 + 베트남 TVET 기관 원장급 <strong>B2B 상담 사전 예약</strong> 요청. 현지 네트워크 조기 확보.</div>
+      </div>
+      <div class="tl-item dot-p3">
+        <div class="tl-step">부스 신청 · 8–9월</div>
+        <div class="tl-title">vimf.vn 부스 신청 (마감 8–9월)</div>
+        <div class="tl-body">총 예상비용 약 800만 원 (수출바우처 적용 후 자부담 200~400만 원). 스마트 러닝 팩토리 실물 라인 풀 전시 — HI-TEC 경량화 전략과 대비.</div>
+      </div>
+      <div class="tl-item dot-p3">
+        <div class="tl-step">현장 실행 · 11월</div>
+        <div class="tl-title">"미국 채택 + IMTS 출전" 이중 레퍼런스 배너 전면 배치</div>
+        <div class="tl-body">베트남 TVET 기관 원장급 + 삼성·폭스콘 협력사 교육 담당자 집중 공략. 라이브 데모로 <strong>현장 수주 목표</strong>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     글로벌 Ecosystem
+══════════════════════════════════ -->
+<div id="ecosystem" class="page page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-ref">부록 · Ecosystem</div>
+        <h2 class="page-title">IEG Ecosystem<br><em>5개국 글로벌 전략</em></h2>
+        <p class="page-lead">HI-TEC 2026은 IEG Ecosystem Phase 5 — 미국 TTC 글로벌 허브 구축의 첫 번째 실질 행동이다.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">13</div>
+        <div class="page-date-tag">ECOSYSTEM</div>
+      </div>
+    </div>
+
+    <div class="eco-row">
+      <div class="eco-cell">
+        <div class="eco-flag">🇺🇿</div>
+        <div class="eco-country">우즈베키스탄</div>
+        <div class="eco-city">지작 센터</div>
+        <div class="eco-phase-tag">Phase 1 · 시작</div>
+      </div>
+      <div class="eco-cell">
+        <div class="eco-flag">🇰🇿</div>
+        <div class="eco-country">카자흐스탄</div>
+        <div class="eco-city">코스타나이</div>
+        <div class="eco-phase-tag">Phase 2 · 물류</div>
+      </div>
+      <div class="eco-cell">
+        <div class="eco-flag">🇮🇳</div>
+        <div class="eco-country">인도</div>
+        <div class="eco-city">안드라프라데시</div>
+        <div class="eco-phase-tag">Phase 3 · 확산</div>
+      </div>
+      <div class="eco-cell">
+        <div class="eco-flag">🇮🇩</div>
+        <div class="eco-country">인도네시아</div>
+        <div class="eco-city">치카랑</div>
+        <div class="eco-phase-tag">Phase 4 · EV</div>
+      </div>
+      <div class="eco-cell active-step">
+        <div class="eco-flag">🇺🇸</div>
+        <div class="eco-country">미국</div>
+        <div class="eco-city">TTC 글로벌 허브</div>
+        <div class="eco-phase-tag">Phase 5 · 표준화</div>
+      </div>
+    </div>
+
+    <div class="callout co-yellow">
+      <div class="callout-title">HI-TEC 2026과 Ecosystem의 연결</div>
+      <div class="callout-body">HI-TEC 참가는 <strong>미국 TTC 글로벌 허브 구축의 첫 번째 실질 행동</strong>. 미국 커뮤니티 칼리지 네트워크, Amatrol 유통사 협력, SACA 인증 체계 진입이 모두 연결된다. "EV·Hybrid 기술 교육의 글로벌 표준을 소유한 기업"이 되는 장기 로드맵 — <span class="hl">TTC 구축 트리거: 각 거점 월 300대 생산 도달 시.</span></div>
+    </div>
+
+    <h3 style="font-family:var(--f-display);font-size:20px;margin:24px 0 14px;color:var(--ink);">TTC 3단계 구축 모델</h3>
+    <div class="wb-table-wrap">
+      <table class="wb-table">
+        <thead>
+          <tr>
+            <th>거점</th>
+            <th>Stage 1 트리거</th>
+            <th>Stage 2 전환</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>🇺🇿 지작 (UZB)</strong></td><td>월 300대 생산 도달</td><td>월 500대 + 코스타나이 개소</td><td>2026 Q2–Q3 착수</td></tr>
+          <tr><td><strong>🇰🇿 코스타나이 (KAZ)</strong></td><td>월 300대 + 지작 Stage 1 완료</td><td>지작 Stage 2 연동</td><td>2026 Q3–Q4</td></tr>
+          <tr><td><strong>🇮🇳 안드라프라데시 (IND)</strong></td><td>MOU 후 즉시, 월 300대 시 개소</td><td>월 300대 + 3개국 인증</td><td>2026 Q4–2027 Q1</td></tr>
+          <tr><td><strong>🇮🇩 치카랑 (IDN)</strong></td><td>법인 설립 후 즉시, 월 300대</td><td>월 500대 + 미국 착수</td><td>2027 Q1–Q2</td></tr>
+          <tr><td><strong>🇺🇸 미국 (USA)</strong></td><td>4개국 Stage 2 완료 후</td><td>월 1,000대 + 4개국 완료</td><td>2027 Q3 착수 · 2028 완성</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     CONTACTS
+══════════════════════════════════ -->
+<div id="contacts" class="page page-anchor">
+  <div class="page-inner">
+    <div class="page-header">
+      <div class="ph-left">
+        <div class="phase-tag pt-ref">부록 · 연락처</div>
+        <h2 class="page-title">협력사·기관<br><em>핵심 연락처</em></h2>
+        <p class="page-lead">HI-TEC 2026 및 미국 시장 진입을 위한 전체 핵심 연락처. 즉시 컨택 가능한 정보 완비.</p>
+      </div>
+      <div class="ph-right">
+        <div class="page-num">14</div>
+        <div class="page-date-tag">CONTACTS</div>
+      </div>
+    </div>
+
+    <!-- 유통사 -->
+    <div class="contact-section-title">🏢 Amatrol 유통사 — 미국 4개 지역</div>
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-p1">TTA</div>
+          <div>
+            <div class="cc-name">TTA (Technical Training Associates)</div>
+            <div class="cc-role">동남부 대리점</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📍</span>2076 Valleydale Terrace, Birmingham, AL 35244</div>
+        <div class="cc-detail"><span class="d-ico">📞</span><strong>205.988.9231</strong> / 800.851.3987</div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://ttaweb.com" target="_blank">ttaweb.com</a></div>
+        <div class="cc-detail"><span class="d-ico">🎯</span>GA·AL 외 8개 주 · 60년 현장실습 네트워크</div>
+        <div class="cc-tags">
+          <span class="c-tag urg">파일럿 1순위</span>
+          <span class="c-tag p1">동남부 8개 주</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-p2">AMT</div>
+          <div>
+            <div class="cc-name">Amtek Company</div>
+            <div class="cc-role">중부대서양 대리점</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📍</span>1244 Ritchie Hwy., Suite 10, Arnold, MD 21012</div>
+        <div class="cc-detail"><span class="d-ico">📞</span><strong>800.926.8359</strong> / 410.315.9260</div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://amtekcompany.com" target="_blank">amtekcompany.com</a></div>
+        <div class="cc-detail"><span class="d-ico">🎯</span>VA·MD·DC·WV·DE · SACA 공식 파트너</div>
+        <div class="cc-tags">
+          <span class="c-tag yel">SACA 즉시 연동</span>
+          <span class="c-tag p2">공동 마케팅</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-p3">ALG</div>
+          <div>
+            <div class="cc-name">Allegheny Educational Systems</div>
+            <div class="cc-role">북동부 대리점</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📍</span>320 East 3rd Avenue, Tarentum, PA 15084</div>
+        <div class="cc-detail"><span class="d-ico">📞</span><strong>800.232.7600</strong></div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://alleghenyedusys.com" target="_blank">alleghenyedusys.com</a></div>
+        <div class="cc-detail"><span class="d-ico">🎯</span>NY·NJ·PA · 20개+ 제조사 파트너망</div>
+        <div class="cc-tags">
+          <span class="c-tag p3">21번째 파트너</span>
+          <span class="c-tag p1">NY 칼리지 공략</span>
+        </div>
+      </div>
+
+      <div class="contact-card" style="border-color:rgba(192,57,43,.25);">
+        <div class="cc-top">
+          <div class="cc-badge cb-urg">KLN</div>
+          <div>
+            <div class="cc-name">Klein Educational Systems</div>
+            <div class="cc-role">서부 대리점</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📧</span><a href="mailto:klein@kleineducational.com"><strong>klein@kleineducational.com</strong></a></div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://kleineducational.com" target="_blank">kleineducational.com</a></div>
+        <div class="cc-detail"><span class="d-ico">🎯</span>CA·OR·WA · 반도체 파일럿 최적지</div>
+        <div class="cc-urgent">⚡ 오늘 이메일 발송 필수</div>
+        <div class="cc-tags">
+          <span class="c-tag urg">오늘 컨택</span>
+          <span class="c-tag p3">MOU 목표</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 인증기관 -->
+    <div class="contact-section-title">🏅 인증 기관</div>
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-gold">SACA</div>
+          <div>
+            <div class="cc-name">SACA (Smart Automation Certification Alliance)</div>
+            <div class="cc-role">Industry 4.0 인증 · DOL IRAP 연계</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📧</span><a href="mailto:contact@saca.org"><strong>contact@saca.org</strong></a></div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://saca.org" target="_blank">saca.org</a></div>
+        <div class="cc-detail"><span class="d-ico">💰</span>Industry 멤버십 연간 (문의) · HI-TEC 전 가입 목표</div>
+        <div class="cc-tags">
+          <span class="c-tag urg">이번 주 신청</span>
+          <span class="c-tag yel">4개 유통사 즉시 연동</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-p2">UL</div>
+          <div>
+            <div class="cc-name">TÜV SÜD America (NRTL)</div>
+            <div class="cc-role">UL 인증 · 교육기관 납품 전제조건</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://tuvsud.com" target="_blank">tuvsud.com</a></div>
+        <div class="cc-detail"><span class="d-ico">💰</span>$22,000~$50,000/제품 · 소요 3~6개월</div>
+        <div class="cc-detail"><span class="d-ico">⚠️</span>공압 트레이너·기초 전기장비부터 우선 진행 권장</div>
+        <div class="cc-tags">
+          <span class="c-tag urg">이번 주 견적</span>
+          <span class="c-tag p1">복잡도 낮은 것 먼저</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 정부기관 -->
+    <div class="contact-section-title">🏛️ 정부 지원 기관</div>
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-p1">KTR</div>
+          <div>
+            <div class="cc-name">KOTRA 해외전시팀</div>
+            <div class="cc-role">IMTS 한국관 · HI-TEC 개별참가비</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📞</span><strong>02-3460-3330</strong></div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://kotra.or.kr" target="_blank">kotra.or.kr</a></div>
+        <div class="cc-urgent">⚡ 오늘 연락 — IMTS 마감 임박</div>
+        <div class="cc-tags">
+          <span class="c-tag urg">오늘 연락</span>
+          <span class="c-tag p1">IMTS 선납 350만</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-p2">EXP</div>
+          <div>
+            <div class="cc-name">수출바우처 (산업부·중기부)</div>
+            <div class="cc-role">긴급지원 3차 · 최대 1.5억 원</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://exportvoucher.com" target="_blank">exportvoucher.com</a> → 긴급지원 3차</div>
+        <div class="cc-detail"><span class="d-ico">💰</span>최대 1.5억 · HI-TEC·IMTS·VIMF 모두 정산</div>
+        <div class="cc-tags">
+          <span class="c-tag urg">이번 주 신청</span>
+          <span class="c-tag p2">3개 전시 전액</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-p3">KHN</div>
+          <div>
+            <div class="cc-name">KOTRA 하노이 무역관</div>
+            <div class="cc-role">VIMF 베트남 연계 · B2B 상담 예약</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://kotra.or.kr" target="_blank">kotra.or.kr → 하노이무역관</a></div>
+        <div class="cc-detail"><span class="d-ico">🎯</span>삼성·폭스콘 협력사 + TVET 원장급 연결</div>
+        <div class="cc-tags">
+          <span class="c-tag p3">6~7월 공문</span>
+          <span class="c-tag p2">TVET 원장급</span>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="cc-top">
+          <div class="cc-badge cb-neu">KNY</div>
+          <div>
+            <div class="cc-name">KOTRA 뉴욕·워싱턴 무역관</div>
+            <div class="cc-role">미국 현지 지원 · 참가비 일부</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://kotra.or.kr" target="_blank">kotra.or.kr → 뉴욕/워싱턴</a></div>
+        <div class="cc-detail"><span class="d-ico">💰</span>전시 지원 프로그램 HI-TEC 참가비 일부 지원</div>
+        <div class="cc-tags">
+          <span class="c-tag neu">현지 지원</span>
+          <span class="c-tag p1">NY 칼리지 연계</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 전시회 사이트 -->
+    <div class="contact-section-title">🎪 전시회 공식 등록</div>
+    <div class="contact-grid">
+
+      <div class="contact-card" style="border-color:rgba(43,94,204,.25);">
+        <div class="cc-top">
+          <div class="cc-badge cb-p1">HIT</div>
+          <div>
+            <div class="cc-name">HI-TEC 2026 — 오스틴, 텍사스</div>
+            <div class="cc-role">High Impact Technology Exchange</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📅</span>July 27–30, 2026 · Renaissance Austin Hotel</div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://highimpact-tec.org" target="_blank">highimpact-tec.org</a></div>
+        <div class="cc-detail"><span class="d-ico">💰</span>부스 $4,500~ · 참가자 600명+</div>
+        <div class="cc-urgent">⚡ 7월 10일 환불 마감 — 오늘 등록!</div>
+      </div>
+
+      <div class="contact-card" style="border-color:rgba(15,122,110,.25);">
+        <div class="cc-top">
+          <div class="cc-badge cb-p2">IMS</div>
+          <div>
+            <div class="cc-name">IMTS 2026 — 시카고, 일리노이</div>
+            <div class="cc-role">International Manufacturing Technology Show</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📅</span>September 14–19, 2026 · McCormick Place</div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://imts.com" target="_blank">imts.com</a></div>
+        <div class="cc-detail"><span class="d-ico">💰</span>KOTRA 한국관 선납 350만 원 · 총 ~2,000만</div>
+        <div class="cc-tags"><span class="c-tag p2">공동관 권장</span><span class="c-tag p1">89,000명</span></div>
+      </div>
+
+      <div class="contact-card" style="border-color:rgba(184,92,0,.25);">
+        <div class="cc-top">
+          <div class="cc-badge cb-p3">VIF</div>
+          <div>
+            <div class="cc-name">VIMF 2026 — 박닌, 베트남</div>
+            <div class="cc-role">Vietnam Industrial & Manufacturing Fair</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📅</span>November 4–6, 2026 · 박닌, 베트남</div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://vimf.vn" target="_blank">vimf.vn</a></div>
+        <div class="cc-detail"><span class="d-ico">💰</span>부스 $3,500~ · 마감 8~9월 · 총 ~800만</div>
+        <div class="cc-tags"><span class="c-tag p3">6~7월 착수</span><span class="c-tag yel">수확 단계</span></div>
+      </div>
+
+      <div class="contact-card" style="opacity:.5;">
+        <div class="cc-top">
+          <div class="cc-badge cb-neu">ATD</div>
+          <div>
+            <div class="cc-name">ATD 2026 — 로스앤젤레스</div>
+            <div class="cc-role">Association for Talent Development</div>
+          </div>
+        </div>
+        <div class="cc-detail"><span class="d-ico">📅</span>May 17, 2026 → 이미 마감 · 참가 불가</div>
+        <div class="cc-detail"><span class="d-ico">🌐</span><a href="https://atdconference.td.org" target="_blank">atdconference.td.org</a></div>
+        <div class="cc-tags"><span class="c-tag neu">2027년 재검토</span></div>
+      </div>
+
+    </div>
+
+    <!-- 최종 메모 -->
+    <div style="margin-top:32px;border:1px dashed var(--paper-dark);border-radius:4px;padding:20px;background:var(--paper-2);">
+      <div class="memo-label" style="border:none;padding:0;">전체 메모 — 담당자·기타 연락처 추가 기록</div>
+      <textarea class="memo-textarea" style="min-height:80px;" placeholder="현장에서 새로 확보한 연락처, 추가 메모, 팔로업 담당자 등을 자유롭게 기록하세요..."></textarea>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="background:var(--ink-2);padding:32px 72px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+  <div style="font-family:var(--f-display);font-size:18px;font-weight:600;color:var(--paper);">IEG Enterprise Group</div>
+  <div style="font-family:var(--f-mono);font-size:10px;color:rgba(255,255,255,.25);line-height:1.8;text-align:right;">
+    IEG-HTC-2026-WB · 작성 2026.05<br>
+    CONFIDENTIAL · 내부 전략 보고용 · 무단배포 금지
+  </div>
+</div>
+
+</main>
+
+<!-- Print toolbar -->
+<div class="print-bar">
+  <button class="print-btn pb-reset" onclick="resetAll()">☐ 초기화</button>
+  <button class="print-btn pb-print" onclick="window.print()">🖨 인쇄 / PDF</button>
+</div>
+
+<script>
+/* ─── STATE ─────────────────────────────── */
+const STORAGE_KEY = 'ieg_hitec_wb_2026';
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+}
+
+function saveState(state) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+}
+
+/* ─── TASK TOGGLE ────────────────────────── */
+function toggleTask(row) {
+  const cb = row.querySelector('.wb-check');
+  cb.checked = !cb.checked;
+  row.classList.toggle('checked', cb.checked);
+  persistAndUpdate();
+}
+
+document.querySelectorAll('.wb-check').forEach(cb => {
+  cb.addEventListener('change', () => {
+    cb.closest('.task-row').classList.toggle('checked', cb.checked);
+    persistAndUpdate();
+  });
+});
+
+/* ─── PROGRESS UPDATE ────────────────────── */
+function updateProgress() {
+  const groups = {};
+  document.querySelectorAll('.task-row[data-group]').forEach(row => {
+    const g = row.dataset.group;
+    if (!groups[g]) groups[g] = { total: 0, done: 0 };
+    groups[g].total++;
+    if (row.querySelector('.wb-check').checked) groups[g].done++;
+  });
+
+  let totalAll = 0, doneAll = 0;
+
+  Object.entries(groups).forEach(([g, d]) => {
+    totalAll += d.total;
+    doneAll += d.done;
+
+    const progEl = document.getElementById('prog-' + g);
+    if (progEl) {
+      progEl.textContent = d.done + '/' + d.total;
+      progEl.classList.toggle('done', d.done === d.total && d.total > 0);
+    }
+
+    // Update block headers too
+    const navProg = document.getElementById('nav-prog-' + g);
+    if (navProg) {
+      navProg.textContent = d.done > 0 ? d.done + '/' + d.total : '';
+    }
+  });
+
+  const pct = totalAll > 0 ? (doneAll / totalAll) * 100 : 0;
+  document.getElementById('globalBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = doneAll + ' / ' + totalAll;
+}
+
+/* ─── PERSIST ────────────────────────────── */
+function persistAndUpdate() {
+  const state = {};
+  document.querySelectorAll('.wb-check').forEach((cb, i) => {
+    state['cb_' + i] = cb.checked;
+  });
+  const memos = {};
+  document.querySelectorAll('.memo-textarea').forEach((ta, i) => {
+    memos['memo_' + i] = ta.value;
+  });
+  saveState({ checks: state, memos });
+  updateProgress();
+}
+
+function restoreState() {
+  const state = loadState();
+  if (state.checks) {
+    document.querySelectorAll('.wb-check').forEach((cb, i) => {
+      if (state.checks['cb_' + i]) {
+        cb.checked = true;
+        cb.closest('.task-row').classList.add('checked');
+      }
+    });
+  }
+  if (state.memos) {
+    document.querySelectorAll('.memo-textarea').forEach((ta, i) => {
+      if (state.memos['memo_' + i]) ta.value = state.memos['memo_' + i];
+    });
+  }
+  updateProgress();
+}
+
+function resetAll() {
+  if (!confirm('모든 체크 항목과 메모를 초기화하시겠습니까?')) return;
+  document.querySelectorAll('.wb-check').forEach(cb => {
+    cb.checked = false;
+    cb.closest('.task-row').classList.remove('checked');
+  });
+  document.querySelectorAll('.memo-textarea').forEach(ta => ta.value = '');
+  localStorage.removeItem(STORAGE_KEY);
+  updateProgress();
+}
+
+/* ─── MEMO SAVE ──────────────────────────── */
+document.querySelectorAll('.memo-textarea').forEach(ta => {
+  ta.addEventListener('input', () => persistAndUpdate());
+});
+
+/* ─── SCROLL PROGRESS ────────────────────── */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+  document.getElementById('scrollBar').style.width = Math.min(pct, 100) + '%';
+}, { passive: true });
+
+/* ─── NAV ACTIVE ─────────────────────────── */
+const navLinks = document.querySelectorAll('.nav-link[href]');
+const anchors = document.querySelectorAll('.page-anchor, [id]');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+document.querySelectorAll('[id]').forEach(el => obs.observe(el));
+
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const t = document.querySelector(href);
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+/* ─── INIT ───────────────────────────────── */
+restoreState();
+</script>
+
+</body>
+</html>
