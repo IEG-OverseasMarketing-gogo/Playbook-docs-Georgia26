@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEG × HI-TEC 2026 — Austin Event Workbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1f2d45;
+    --accent: #00c6ff;
+    --accent2: #f59e0b;
+    --accent3: #10b981;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Bebas Neue', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,14,26,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0;
+    padding: 0 24px;
+    height: 52px;
+    overflow-x: auto;
+  }
+  nav::-webkit-scrollbar { height: 2px; }
+  nav::-webkit-scrollbar-thumb { background: var(--accent); }
+  .nav-logo {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    white-space: nowrap; padding-right: 20px; border-right: 1px solid var(--border);
+    margin-right: 16px; letter-spacing: 0.08em;
+  }
+  nav a {
+    font-family: var(--mono); font-size: 10px; color: var(--muted);
+    text-decoration: none; padding: 0 12px; white-space: nowrap;
+    transition: color 0.2s; letter-spacing: 0.06em;
+  }
+  nav a:hover { color: var(--accent); }
+  .nav-progress {
+    margin-left: auto; font-family: var(--mono); font-size: 10px;
+    color: var(--accent2); white-space: nowrap; padding-left: 16px;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 72px 24px 80px; }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding: 80px 0 60px;
+    position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(0,198,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(245,158,11,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .cover-tag {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: 0.15em; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cover-tag::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 80px; }
+  .cover h1 {
+    font-family: var(--display); font-size: clamp(56px, 10vw, 110px);
+    line-height: 0.92; letter-spacing: 0.02em;
+    color: #fff; margin-bottom: 8px;
+  }
+  .cover h1 em { color: var(--accent); font-style: normal; }
+  .cover-sub {
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+    margin-top: 20px; letter-spacing: 0.05em;
+  }
+  .cover-meta {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-top: 40px;
+  }
+  .meta-chip {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 18px;
+    font-family: var(--mono); font-size: 11px;
+  }
+  .meta-chip span { color: var(--accent); display: block; margin-bottom: 2px; }
+  .cover-phases {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .phase-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 22px;
+    border-top: 3px solid var(--accent);
+  }
+  .phase-card.p2 { border-top-color: var(--accent2); }
+  .phase-card.p3 { border-top-color: var(--accent3); }
+  .phase-num { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-bottom: 6px; }
+  .phase-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .phase-date { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-bottom: 8px; }
+  .phase-desc { font-size: 13px; color: var(--muted); }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 72px 0 48px;
+    border-top: 1px solid var(--border);
+  }
+  .section-header {
+    display: flex; align-items: flex-start; gap: 20px; margin-bottom: 36px;
+  }
+  .section-num {
+    font-family: var(--display); font-size: 72px; line-height: 1;
+    color: var(--border); flex-shrink: 0; min-width: 80px;
+  }
+  .section-title-wrap { flex: 1; }
+  .section-label {
+    font-family: var(--mono); font-size: 10px; color: var(--accent);
+    letter-spacing: 0.15em; margin-bottom: 4px;
+  }
+  .section-title {
+    font-family: var(--display); font-size: clamp(32px, 5vw, 52px);
+    line-height: 1; color: #fff;
+  }
+  .section-title em { color: var(--accent); font-style: normal; }
+  .section-desc {
+    margin-top: 10px; font-size: 14px; color: var(--muted);
+    max-width: 680px; line-height: 1.6;
+  }
+
+  /* ── INSIGHT BOX ── */
+  .insight {
+    background: var(--surface2); border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0;
+    font-size: 14px; color: var(--text);
+  }
+  .insight strong { color: var(--accent); }
+  .alert {
+    background: rgba(239,68,68,0.08); border-left: 3px solid var(--red);
+    border-radius: 0 8px 8px 0; padding: 14px 20px; margin: 20px 0;
+    font-size: 13px;
+  }
+  .alert strong { color: var(--red); }
+  .tip {
+    background: rgba(16,185,129,0.08); border-left: 3px solid var(--accent3);
+    border-radius: 0 8px 8px 0; padding: 14px 20px; margin: 20px 0;
+    font-size: 13px;
+  }
+  .tip strong { color: var(--accent3); }
+
+  /* ── STATS ROW ── */
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px; margin: 28px 0;
+  }
+  .stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .stat-val {
+    font-family: var(--mono); font-size: 22px; font-weight: 700;
+    color: var(--accent); display: block;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; margin: 24px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: var(--surface2); padding: 10px 14px;
+    text-align: left; font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.1em; color: var(--muted); border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 10px 14px; border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:hover td { background: var(--surface); }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .badge-green { background: rgba(16,185,129,0.15); color: var(--accent3); }
+  .badge-blue { background: rgba(0,198,255,0.12); color: var(--accent); }
+  .badge-yellow { background: rgba(245,158,11,0.15); color: var(--accent2); }
+  .badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; margin: 20px 0; }
+  .checklist li {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 18px; margin-bottom: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; transition: border-color 0.2s, background 0.2s;
+    cursor: pointer;
+  }
+  .checklist li:hover { border-color: var(--accent); }
+  .checklist li.done { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.3); }
+  .checklist li.done .check-text { text-decoration: line-through; color: var(--muted); }
+  .check-box {
+    width: 20px; height: 20px; border: 2px solid var(--muted);
+    border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .checklist li.done .check-box {
+    background: var(--accent3); border-color: var(--accent3);
+  }
+  .checklist li.done .check-box::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 700; }
+  .check-content { flex: 1; }
+  .check-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .check-detail { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .check-deadline {
+    font-family: var(--mono); font-size: 10px; padding: 2px 8px;
+    border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+    align-self: flex-start;
+  }
+  .deadline-now { background: rgba(239,68,68,0.15); color: var(--red); }
+  .deadline-week { background: rgba(245,158,11,0.15); color: var(--accent2); }
+  .deadline-month { background: rgba(0,198,255,0.12); color: var(--accent); }
+
+  /* ── CERT CARDS ── */
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 24px 0; }
+  .cert-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px;
+  }
+  .cert-card.ul { border-top: 3px solid var(--accent2); }
+  .cert-card.saca { border-top: 3px solid var(--accent); }
+  .cert-card.dol { border-top: 3px solid var(--accent3); }
+  .cert-badge {
+    font-family: var(--display); font-size: 28px; margin-bottom: 6px;
+  }
+  .cert-name { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .cert-desc { font-size: 13px; margin-bottom: 16px; line-height: 1.6; }
+  .cert-specs { border-top: 1px solid var(--border); padding-top: 14px; }
+  .cert-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 12px; }
+  .cert-row span:first-child { color: var(--muted); }
+  .cert-row span:last-child { font-family: var(--mono); color: var(--accent); font-size: 11px; }
+  .cert-status {
+    margin-top: 12px; padding: 8px 12px; border-radius: 6px;
+    font-family: var(--mono); font-size: 11px; text-align: center;
+  }
+  .status-essential { background: rgba(239,68,68,0.15); color: var(--red); }
+  .status-strong { background: rgba(0,198,255,0.1); color: var(--accent); }
+  .status-indirect { background: rgba(16,185,129,0.1); color: var(--accent3); }
+
+  /* ── PRODUCT CARDS ── */
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 24px 0; }
+  .product-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+    position: relative; overflow: hidden;
+  }
+  .product-card::before {
+    content: attr(data-cat);
+    position: absolute; top: 14px; right: 14px;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--muted);
+  }
+  .product-priority {
+    font-family: var(--mono); font-size: 10px;
+    margin-bottom: 8px; letter-spacing: 0.05em;
+  }
+  .product-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .product-detail { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
+  .product-note {
+    font-size: 11px; padding: 6px 10px; border-radius: 4px;
+    background: var(--surface2); color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  /* ── CONTACT CARDS ── */
+  .contact-section { margin-bottom: 40px; }
+  .contact-section-title {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 0.12em; margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .contact-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+  }
+  .contact-card.urgent { border-color: rgba(239,68,68,0.4); }
+  .contact-card.primary { border-top: 2px solid var(--accent); }
+  .contact-id {
+    font-family: var(--mono); font-size: 10px; color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .contact-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+  .contact-role { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .contact-info { font-size: 12px; line-height: 1.8; }
+  .contact-info a { color: var(--accent); text-decoration: none; }
+  .contact-info a:hover { text-decoration: underline; }
+  .contact-tag {
+    display: inline-block; margin-top: 10px; padding: 3px 10px;
+    border-radius: 4px; font-family: var(--mono); font-size: 10px;
+    background: rgba(0,198,255,0.1); color: var(--accent);
+  }
+  .contact-tag.red { background: rgba(239,68,68,0.1); color: var(--red); }
+  .contact-tag.green { background: rgba(16,185,129,0.1); color: var(--accent3); }
+  .contact-tag.yellow { background: rgba(245,158,11,0.1); color: var(--accent2); }
+
+  /* ── ECOSYSTEM ── */
+  .ecosystem-row {
+    display: flex; gap: 12px; margin: 28px 0;
+    overflow-x: auto; padding-bottom: 8px;
+  }
+  .eco-node {
+    flex: 1; min-width: 160px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px;
+    text-align: center; position: relative;
+  }
+  .eco-node.active { border-color: var(--accent); }
+  .eco-flag { font-size: 28px; margin-bottom: 6px; display: block; }
+  .eco-country { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .eco-hub { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .eco-phase {
+    font-family: var(--mono); font-size: 10px; padding: 3px 8px;
+    border-radius: 4px; background: rgba(0,198,255,0.1); color: var(--accent);
+  }
+  .eco-arrow {
+    display: flex; align-items: center; color: var(--border);
+    font-size: 18px; flex-shrink: 0;
+  }
+
+  /* ── TTC TABLE ── */
+  .ttc-table thead th:first-child { min-width: 160px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 32px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+  }
+  .footer-logo { color: var(--accent); font-size: 13px; }
+  .print-btn {
+    background: var(--accent); color: #000; border: none;
+    padding: 8px 20px; border-radius: 6px; cursor: pointer;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    transition: opacity 0.2s;
+  }
+  .print-btn:hover { opacity: 0.85; }
+
+  /* ── DIVIDERS ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap { background: var(--border); border-radius: 3px; height: 4px; margin-top: 6px; }
+  .progress-bar { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.5s; }
+
+  @media print {
+    nav { display: none; }
+    .section { page-break-inside: avoid; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">IEG-HTC-2026-WB</div>
+  <a href="#cover">Cover</a>
+  <a href="#overview">Overview</a>
+  <a href="#analysis">Analysis</a>
+  <a href="#urgent">May · Urgent</a>
+  <a href="#build">Jun–Jul</a>
+  <a href="#certs">Certs</a>
+  <a href="#products">Products</a>
+  <a href="#budget">Budget</a>
+  <a href="#onsite">On-Site</a>
+  <a href="#day12">Day 1–2</a>
+  <a href="#day34">Day 3–4</a>
+  <a href="#post">Post-Event</a>
+  <a href="#imts">IMTS</a>
+  <a href="#vimf">VIMF</a>
+  <a href="#ecosystem">Ecosystem</a>
+  <a href="#contacts">Contacts</a>
+  <div class="nav-progress" id="progressDisplay">0 / 0 done</div>
+</nav>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════ COVER ══════════════════════════════════════ -->
+<section class="cover" id="cover">
+  <div class="cover-tag">⚡ IMMEDIATE ACTION DOCUMENT</div>
+  <h1>HI-TEC<br>2026 <em>AUSTIN</em></h1>
+  <div class="cover-sub">Execution Workbook · Pre-Event · On-Site · Post-Event</div>
+
+  <div class="cover-meta">
+    <div class="meta-chip"><span>EVENT</span>HI-TEC 2026</div>
+    <div class="meta-chip"><span>DATES</span>July 27–30, 2026</div>
+    <div class="meta-chip"><span>VENUE</span>Austin, Texas</div>
+    <div class="meta-chip"><span>PARTNER DISTRIBUTORS</span>4 Companies</div>
+    <div class="meta-chip"><span>REFUND DEADLINE</span>July 10</div>
+    <div class="meta-chip"><span>DOC NO.</span>IEG-HTC-2026-WB</div>
+  </div>
+
+  <div class="cover-phases">
+    <div class="phase-card p1">
+      <div class="phase-num">PHASE 01</div>
+      <div class="phase-title">🌱 Planting the Seeds</div>
+      <div class="phase-date">May – Early July</div>
+      <div class="phase-desc">Build relationships, prepare English materials, secure government support, sign MOUs.</div>
+    </div>
+    <div class="phase-card p2">
+      <div class="phase-num">PHASE 02</div>
+      <div class="phase-title">🤝 Networking</div>
+      <div class="phase-date">July 27–30</div>
+      <div class="phase-desc">600+ NSF decision-makers. 4 distributor meetings. 20 institution leads. Poster session.</div>
+    </div>
+    <div class="phase-card p3">
+      <div class="phase-num">PHASE 03</div>
+      <div class="phase-title">🚀 Harvest</div>
+      <div class="phase-date">August → IMTS → VIMF</div>
+      <div class="phase-desc">Convert leads to pilot orders. Leverage dual U.S. reference in Vietnam & Central Asia.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px; font-family:var(--mono); font-size:11px; color:var(--muted);">
+    IEG Enterprise Group × Amatrol Distributors Partnership &nbsp;·&nbsp; CONFIDENTIAL · Internal Use Only
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 00 OVERVIEW ══════════════════════════════════════ -->
+<section class="section" id="overview">
+  <div class="section-header">
+    <div class="section-num">00</div>
+    <div class="section-title-wrap">
+      <div class="section-label">OVERVIEW</div>
+      <div class="section-title">3-Phase <em>Global Roadmap</em></div>
+      <div class="section-desc">Optimized for IEG's business model (EdTech 70% : Industrial Automation 30%) and B2G/ODA contract strategy. Build references in the U.S., then harvest in Vietnam.</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-val">$4,500+</span><span class="stat-label">HI-TEC booth base price</span></div>
+    <div class="stat"><span class="stat-val">600+</span><span class="stat-label">NSF funding decision-makers</span></div>
+    <div class="stat"><span class="stat-val">Jul 10</span><span class="stat-label">Refund deadline</span></div>
+    <div class="stat"><span class="stat-val">₩150M</span><span class="stat-label">Max Export Voucher support</span></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>PHASE</th><th>EVENT</th><th>DATE</th><th>STRATEGIC GOAL</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">Phase 01</span></td>
+          <td><strong>HI-TEC — Austin, TX</strong></td>
+          <td style="font-family:var(--mono);font-size:12px;">Jul 27–30, 2026</td>
+          <td>Network 600+ community college & NSF decision-makers. Minimize hardware — focus on pre-scheduled meetings. Hand out "See you at IMTS in September" invitations.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-yellow">Phase 02</span></td>
+          <td><strong>IMTS — Chicago, IL</strong></td>
+          <td style="font-family:var(--mono);font-size:12px;">Sep 14–19, 2026</td>
+          <td>Validate technical credibility at the Western Hemisphere's largest manufacturing show (89,000+ attendees). Co-exhibit at KOTRA Korea Pavilion. Deepen HI-TEC relationships.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Phase 03</span></td>
+          <td><strong>VIMF — Bac Ninh, Vietnam</strong></td>
+          <td style="font-family:var(--mono);font-size:12px;">Nov 4–6, 2026</td>
+          <td>Deploy dual reference ("Adopted by U.S. institutions + Exhibited at IMTS") to capture Vietnam TVET & smart factory demand. Full Smart Learning Factory display at Samsung/Foxconn hub.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <strong>Core Strategic Insight:</strong> The <strong>"System Chosen by U.S. Educational Institutions"</strong> reference secured at U.S. trade shows becomes the most powerful sales tool in Vietnam, India, Uzbekistan, and Kazakhstan. The sequence <strong>July Austin → September Chicago → November Bac Ninh</strong> is perfectly optimized for IEG's B2G/ODA contract model.
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 01 ANALYSIS ══════════════════════════════════════ -->
+<section class="section" id="analysis">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title-wrap">
+      <div class="section-label">ANALYSIS</div>
+      <div class="section-title">4 Trade Show <em>Comparison</em></div>
+      <div class="section-desc">ATD is closed. The remaining 3 shows form a 3-phase sequence. Comprehensive analysis of budget, strategic fit, and government support eligibility.</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>SHOW</th><th>LOCATION & DATE</th><th>BOOTH (10×10)</th><th>EST. TOTAL BUDGET</th><th>IEG FIT</th><th>DECISION</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>HI-TEC 2026</strong></td>
+          <td>Austin, TX · Jul 27–30</td>
+          <td style="font-family:var(--mono);color:var(--accent);">$4,500+</td>
+          <td style="font-family:var(--mono);">~₩15M</td>
+          <td><span class="badge badge-green">98% — TOP PRIORITY</span></td>
+          <td><span class="badge badge-red">REGISTER NOW</span></td>
+        </tr>
+        <tr>
+          <td><strong>VIMF 2026 Bac Ninh</strong></td>
+          <td>Vietnam · Nov 4–6</td>
+          <td style="font-family:var(--mono);color:var(--accent);">$3,500+</td>
+          <td style="font-family:var(--mono);">~₩8M</td>
+          <td><span class="badge badge-green">93% — Harvest</span></td>
+          <td><span class="badge badge-blue">Apply Aug–Sep</span></td>
+        </tr>
+        <tr>
+          <td><strong>IMTS 2026 Chicago</strong></td>
+          <td>Chicago, IL · Sep 14–19</td>
+          <td style="font-family:var(--mono);color:var(--accent);">$7,000+</td>
+          <td style="font-family:var(--mono);">~₩20M</td>
+          <td><span class="badge badge-blue">Credibility Builder</span></td>
+          <td><span class="badge badge-yellow">KOTRA Joint Pavilion</span></td>
+        </tr>
+        <tr>
+          <td><strong>ATD 2026 LA</strong></td>
+          <td>Los Angeles · May 17</td>
+          <td style="font-family:var(--mono);color:var(--muted);">$7,400+</td>
+          <td style="font-family:var(--mono);color:var(--muted);">~₩35M</td>
+          <td><span class="badge" style="background:rgba(100,116,139,0.2);color:var(--muted);">Not Available</span></td>
+          <td><span class="badge" style="background:rgba(100,116,139,0.2);color:var(--muted);">Revisit 2027</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:14px;color:var(--muted);font-family:var(--mono);letter-spacing:0.08em;margin:28px 0 14px;">GOVERNMENT SUPPORT SUMMARY</h3>
+  <div class="grid-2">
+    <div class="insight">
+      <strong>Export Voucher — Emergency Support Round 3</strong><br>
+      Up to ₩150M per company. HI-TEC, IMTS, and VIMF all eligible for reimbursement.<br>
+      → <strong>Check exportvoucher.com this week</strong>
+    </div>
+    <div class="insight">
+      <strong>KOTRA Korea Pavilion (IMTS)</strong><br>
+      ₩3.5M advance payment. Confirm remaining spots today.<br>
+      → <strong>Call 02-3460-3330 today</strong>
+    </div>
+    <div class="insight" style="border-left-color:var(--accent3)">
+      <strong>KOTRA Individual Support (HI-TEC / VIMF)</strong><br>
+      Up to ₩6M. MOTIE Export Voucher Round 2: SME 70%, Mid-size 50%.
+    </div>
+    <div style="background:var(--surface2);border-radius:8px;padding:16px 20px;border:1px solid var(--border);">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--muted);margin-bottom:8px;">3-SHOW TOTAL BUDGET</div>
+      <div style="font-family:var(--mono);font-size:24px;color:var(--accent);">~₩43M</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">With Export Voucher → self-funded minimum ~₩20M</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 02 URGENT ══════════════════════════════════════ -->
+<section class="section" id="urgent">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title-wrap">
+      <div class="section-label">MAY 2026 · PHASE 01</div>
+      <div class="section-title">⚡ Immediate <em>Action Checklist</em></div>
+      <div class="section-desc">Must be completed today or within this week. A delay on even one item directly impacts the entire U.S. market entry timeline.</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>⚠️ URGENT:</strong> HI-TEC 2026 refund deadline is <strong>July 10</strong>. Register now and cancel based on government support outcome — zero-risk advance hold. KOTRA IMTS Korea Pavilion spots may already be filled — <strong>check today.</strong>
+  </div>
+
+  <ul class="checklist" id="urgentList">
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">① Register for HI-TEC 2026</div>
+        <div class="check-detail">Apply for exhibit space or poster session at <strong>highimpact-tec.org</strong>. Full refund available until July 10 — secure your spot first, then decide based on government support. Zero-risk advance hold.</div>
+      </div>
+      <div class="check-deadline deadline-now">TODAY</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">② Contact KOTRA International Exhibition Team</div>
+        <div class="check-detail">☎ <strong>02-3460-3330</strong> — Confirm IMTS 2026 Korea Pavilion remaining spots AND HI-TEC individual support eligibility simultaneously. The Nov 2025 announcement has already gone out — spots may be gone. Last chance.</div>
+      </div>
+      <div class="check-deadline deadline-now">TODAY</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">③ Send First Contact Email to Klein Educational Systems</div>
+        <div class="check-detail">📧 <strong>klein@kleineducational.com</strong> — Propose joint demo/meeting at HI-TEC. Klein is the only distributor among the four with a directly contactable email. After sending, schedule an online meeting for May–June.</div>
+      </div>
+      <div class="check-deadline deadline-now">TODAY</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">④ Confirm Export Voucher Emergency Support (Round 3)</div>
+        <div class="check-detail"><strong>exportvoucher.com</strong> → Search "Emergency Support Round 3." Announced post-April 2026 supplementary budget. If selected, all 3 shows (HI-TEC, IMTS, VIMF) fully reimbursable — <strong>up to ₩150M per company.</strong></div>
+      </div>
+      <div class="check-deadline deadline-week">THIS WEEK</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑤ Apply for SACA Industry Member Membership</div>
+        <div class="check-detail">📧 <strong>contact@saca.org</strong> — Target: full membership before HI-TEC. Upon joining, co-marketing with Amtek begins immediately. Opens DOL IRAP federal grant route → creates key sales point: <strong>"IEG equipment purchasable with federal grants."</strong></div>
+      </div>
+      <div class="check-deadline deadline-week">THIS WEEK</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑥ Begin UL Certification Application (1–2 Priority Products)</div>
+        <div class="check-detail">Prioritize PLC-based Smart Factory equipment and semiconductor testbeds. Request quotes from NRTLs such as <strong>TÜV SÜD America</strong>. Timeline: 3–6 months — failing to start now means continued inability to supply U.S. institutions. <strong>$22,000–$50,000 per product.</strong></div>
+      </div>
+      <div class="check-deadline deadline-week">THIS WEEK</div>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════ 03 BUILD ══════════════════════════════════════ -->
+<section class="section" id="build">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-title-wrap">
+      <div class="section-label">JUN–JUL · PHASE 01</div>
+      <div class="section-title">Collaboration <em>Structure</em></div>
+      <div class="section-desc">First distributor meetings completed, English materials produced, MOUs signed. Pre-set relationships and content so on-site results can be generated immediately at the event.</div>
+    </div>
+  </div>
+
+  <ul class="checklist" id="buildList">
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">① Online Meetings with TTA, Amtek & Allegheny (1 session each)</div>
+        <div class="check-detail">Identify contacts via website inquiry forms or phone, then <strong>complete one online meeting with each by end of June.</strong> Send in advance: English product 1-pager + draft IEG × Amatrol bundle value proposition. (Klein already contacted in May.)</div>
+      </div>
+      <div class="check-deadline deadline-month">END OF JUN</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">② Produce English Marketing Materials</div>
+        <div class="check-detail">① SACA curriculum-linked 1-pager &nbsp;② Draft IEG × Amatrol bundle value proposition &nbsp;③ Edited demo videos: semiconductor / AMR robot / Smart Factory. Est. cost: <strong>$1,000–$3,000.</strong> Professional translation recommended.</div>
+      </div>
+      <div class="check-deadline deadline-month">JUNE</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">③ Establish Amtek SACA Co-Marketing Agreement</div>
+        <div class="check-detail">Request that Amtek's existing SACA page <strong>list IEG equipment as "SACA-Certifiable Equipment."</strong> Amtek is already an official SACA partner — collaboration can begin immediately. Lowest entry barrier among the four distributors.</div>
+      </div>
+      <div class="check-deadline deadline-month">JUN–JUL</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">④ Sign Draft MOU with Klein for West Coast Pilot</div>
+        <div class="check-detail">CA/OR/WA — optimal territory for semiconductor equipment pilots. Create a <strong>"Case Study #1"</strong> to co-present at HI-TEC for maximum conference credibility. MOU → final signature in Austin in July.</div>
+      </div>
+      <div class="check-deadline deadline-month">EARLY JUL</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑤ Obtain HI-TEC Attendee List → Pre-Schedule LinkedIn Meetings</div>
+        <div class="check-detail">Identify 4 distributor contacts + NSF ATE institution representatives. <strong>Pre-book 30-minute in-person meetings.</strong> Off-booth networking yields far higher real ROI than booth traffic alone.</div>
+      </div>
+      <div class="check-deadline deadline-month">EARLY JUL</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑥ Insert "Exhibiting at IMTS 2026 Chicago" on Business Cards & Brochures</div>
+        <div class="check-detail">Pre-amplifies industrial credibility with education contacts. Creates bridge to invite HI-TEC connections to September IMTS. Lays groundwork for follow-up: <strong>"This is IEG — we met in Austin."</strong></div>
+      </div>
+      <div class="check-deadline deadline-month">JULY</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑦ Finalize On-Site Demo Materials</div>
+        <div class="check-detail">Tablet + demo videos for semiconductor / AMR robot / Smart Factory demos (saves $2,000–$5,000 in equipment shipping). Pitch deck with <strong>SACA curriculum-linked script.</strong> Complete a flow explainable in under 3 minutes.</div>
+      </div>
+      <div class="check-deadline deadline-month">JULY</div>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════ 04 CERTS ══════════════════════════════════════ -->
+<section class="section" id="certs">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-title-wrap">
+      <div class="section-label">CERTIFICATIONS · PHASE 01</div>
+      <div class="section-title">3 Certification <em>Strategy</em></div>
+      <div class="section-desc">Without UL, delivery to educational institutions is impossible. SACA is the master key that instantly activates all four distributors. DOL IRAP opens a federal grant purchasing route for schools.</div>
+    </div>
+  </div>
+
+  <div class="cert-grid">
+    <div class="cert-card ul">
+      <div class="cert-badge" style="color:var(--accent2);">UL</div>
+      <div class="cert-name">Product Safety Certification — NRTL</div>
+      <div class="cert-desc">Practically mandatory for supplying electrical/electronic equipment to U.S. schools. OSHA requires NRTL certification for all electrical equipment. <strong>Failure to begin immediately means continued inability to supply U.S. institutions — even after HI-TEC.</strong></div>
+      <div class="cert-specs">
+        <div class="cert-row"><span>Cost per product</span><span>$22,000–$50,000</span></div>
+        <div class="cert-row"><span>Timeline</span><span>3–6 months</span></div>
+        <div class="cert-row"><span>Priority products</span><span>PLC & Semiconductor</span></div>
+        <div class="cert-row"><span>Certifying body</span><span>TÜV SÜD America</span></div>
+      </div>
+      <div class="cert-status status-essential">⚠️ ESSENTIAL · BEGIN IMMEDIATELY</div>
+    </div>
+    <div class="cert-card saca">
+      <div class="cert-badge" style="color:var(--accent);">SACA</div>
+      <div class="cert-name">Smart Automation Certification Alliance — Industry 4.0</div>
+      <div class="cert-desc">All four distributors are SACA partners. Amtek already operates an official SACA page. <strong>Upon IEG joining as Industry Member, co-marketing begins immediately.</strong> "SACA-Certifiable Equipment" label significantly lowers purchasing barriers.</div>
+      <div class="cert-specs">
+        <div class="cert-row"><span>Membership cost</span><span>Annual (inquiry req.)</span></div>
+        <div class="cert-row"><span>Key categories</span><span>Robotics · Semi · IoT</span></div>
+        <div class="cert-row"><span>IEG applicable</span><span>CAT 1, 2, 3 — All</span></div>
+        <div class="cert-row"><span>Contact</span><span>contact@saca.org</span></div>
+      </div>
+      <div class="cert-status status-strong">✦ STRONGLY RECOMMENDED · ACTIVATE NOW</div>
+    </div>
+    <div class="cert-card dol">
+      <div class="cert-badge" style="color:var(--accent3);">DOL</div>
+      <div class="cert-name">IRAP / Apprenticeship Program — Standards Recognition Entity</div>
+      <div class="cert-desc">SACA is designated by DOL as an SRE. When IEG equipment links to SACA's curriculum, <strong>DOL IRAP federal grants are disbursed to schools.</strong> IEG does not need to obtain this directly — automatic via SACA. The strongest sales point available.</div>
+      <div class="cert-specs">
+        <div class="cert-row"><span>IEG direct application</span><span>Not required</span></div>
+        <div class="cert-row"><span>Route</span><span>SACA → DOL auto</span></div>
+        <div class="cert-row"><span>School benefit</span><span>Federal grant support</span></div>
+        <div class="cert-row"><span>How to activate</span><span>Join SACA</span></div>
+      </div>
+      <div class="cert-status status-indirect">◎ INDIRECT — AUTO-LINKED VIA SACA</div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>💡 Cost Reduction Tips:</strong> Begin UL with <strong>lower-complexity products first</strong> (pneumatic trainers, basic electrical equipment) → minimize cost and time. After SACA membership, negotiate co-marketing cost-sharing with Amtek. Using tablet + demo video instead of live hardware at HI-TEC saves <strong>$2,000–$5,000</strong> in shipping.
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 05 PRODUCTS ══════════════════════════════════════ -->
+<section class="section" id="products">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-title-wrap">
+      <div class="section-label">PRODUCTS · PHASE 01</div>
+      <div class="section-title">IEG Products <em>× Amatrol Mapping</em></div>
+      <div class="section-desc">All 6 categories can be sold directly to existing Amatrol distributor customers. Semiconductor & AMR Robotics are Amatrol's blind spots — blue ocean with zero competition.</div>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card" data-cat="CAT-01">
+      <div class="product-priority" style="color:var(--red);">⭐ HIGHEST PRIORITY</div>
+      <div class="product-title">Semiconductor</div>
+      <div class="product-detail">8-process testbed, CVD, wafer transfer robot, SECS/GEM interface, EasyCluster / EasyFAS software</div>
+      <div class="product-note">Directly complements & expands Amatrol's semiconductor line</div>
+    </div>
+    <div class="product-card" data-cat="CAT-03">
+      <div class="product-priority" style="color:var(--accent);">🔵 NEW CATEGORY</div>
+      <div class="product-title">Robotics (AMR · AI Service)</div>
+      <div class="product-detail">AMR mobile robots, AI service robots, Rainbow Robotics RB series, SoftBank Robotics (Pepper)</div>
+      <div class="product-note">Amatrol doesn't carry this — pure blue ocean</div>
+    </div>
+    <div class="product-card" data-cat="CAT-02">
+      <div class="product-priority" style="color:var(--accent2);">🟡 HIGH</div>
+      <div class="product-title">Smart Factory & Automation</div>
+      <div class="product-detail">Mitsubishi/Siemens/Omron/AB/LS PLCs, Mini MPS, 6-axis robot, 3-axis motion, PCS, automation sensors</div>
+      <div class="product-note">Competitive with & complementary to Amatrol automation line</div>
+    </div>
+    <div class="product-card" data-cat="CAT-04">
+      <div class="product-priority" style="color:var(--accent3);">🟢 MEDIUM</div>
+      <div class="product-title">Renewable Energy</div>
+      <div class="product-detail">Smart grid, solar, wind, hydrogen fuel cell, hybrid inverter</div>
+      <div class="product-note">Precisely matches HI-TEC energy technology sessions</div>
+    </div>
+    <div class="product-card" data-cat="CAT-05">
+      <div class="product-priority" style="color:var(--accent3);">🟢 MEDIUM</div>
+      <div class="product-title">Pneumatics / Hydraulics</div>
+      <div class="product-detail">Pneumatic & hydraulic trainers, electro-pneumatics, electro-hydraulics applications</div>
+      <div class="product-note">Start UL certification here — lowest complexity</div>
+    </div>
+    <div class="product-card" data-cat="CAT-06">
+      <div class="product-priority" style="color:var(--accent3);">🟢 MEDIUM</div>
+      <div class="product-title">Electrical / Electronics / Automotive</div>
+      <div class="product-detail">Motor disassembly/assembly, AC motor, power electronics, hybrid vehicle, GIPAM, fire protection</div>
+      <div class="product-note">Unrivaled added value in automotive electronics</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>Core Sales Pitch:</strong> <strong>"IEG Equipment + Amatrol Curriculum + SACA Certification"</strong> package. Semiconductor and AMR Robotics are areas Amatrol does not cover — IEG can generate new revenue in these categories with zero competition.
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 06 BUDGET ══════════════════════════════════════ -->
+<section class="section" id="budget">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-title-wrap">
+      <div class="section-label">BUDGET · PHASE 01</div>
+      <div class="section-title">Budget Plan <em>Pre/Post Gov. Support</em></div>
+      <div class="section-desc">From minimum HI-TEC-only to full 3-show integrated budget. Export Voucher approval can dramatically reduce company out-of-pocket costs.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;margin-bottom:14px;">HI-TEC 2026 DETAILED BUDGET (EXCLUDING UL CERTIFICATION)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>ITEM</th><th>CATEGORY</th><th>EST. COST (USD)</th><th>PRIORITY</th><th>NOTES</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HI-TEC Registration (2 persons)</strong></td><td>Conference</td><td style="font-family:var(--mono);color:var(--accent);">$1,500–$2,500</td><td><span class="badge badge-red">Essential</span></td><td>Pre-workshops included; volume discount possible</td></tr>
+        <tr><td><strong>Austin Airfare + Hotel (2 persons, 5 nights)</strong></td><td>Travel</td><td style="font-family:var(--mono);color:var(--accent);">$4,000–$6,000</td><td><span class="badge badge-red">Essential</span></td><td>Renaissance Austin Hotel (official venue)</td></tr>
+        <tr><td><strong>English Marketing Materials</strong></td><td>Marketing</td><td style="font-family:var(--mono);color:var(--accent);">$1,000–$3,000</td><td><span class="badge badge-red">Essential</span></td><td>1-pager, brochure, demo video editing</td></tr>
+        <tr><td>Booth Rental (10×10 ft)</td><td>Exhibit</td><td style="font-family:var(--mono);">$4,500+</td><td><span class="badge badge-yellow">Recommended</span></td><td>Can substitute with poster session</td></tr>
+        <tr><td>SACA Industry Membership</td><td>Certification</td><td style="font-family:var(--mono);">$2,000–$5,000/yr</td><td><span class="badge badge-blue">Strongly Rec.</span></td><td>Instant Amtek linkage; Bronze–Silver tier</td></tr>
+        <tr><td>Sample Shipping & Customs</td><td>Logistics</td><td style="font-family:var(--mono);">$2,000–$5,000</td><td><span class="badge badge-yellow">Recommended</span></td><td>Can be omitted with tablet demo substitute</td></tr>
+        <tr><td>Miscellaneous (cards, interpretation, etc.)</td><td>Other</td><td style="font-family:var(--mono);">$500–$1,000</td><td><span class="badge" style="background:rgba(100,116,139,0.2);color:var(--muted);">Optional</span></td><td>—</td></tr>
+        <tr style="background:var(--surface2);">
+          <td colspan="2"><strong>HI-TEC Minimum Total (Excl. UL & Booth)</strong></td>
+          <td style="font-family:var(--mono);color:var(--accent);font-weight:700;">~$12,000 (~₩15M)</td>
+          <td colspan="2">Conference + Travel + Basic Marketing</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;margin:28px 0 14px;">3-SHOW INTEGRATED BUDGET (AFTER GOVERNMENT SUPPORT)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>SHOW</th><th>EST. TOTAL COST</th><th>ELIGIBLE SUPPORT</th><th>EST. COMPANY OUT-OF-POCKET</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HI-TEC 2026 (Austin, July)</strong></td><td style="font-family:var(--mono);">~₩15M</td><td>Up to ₩6M</td><td style="font-family:var(--mono);color:var(--accent);">~₩9M+</td></tr>
+        <tr><td><strong>IMTS 2026 (Chicago, Sep, Joint Pavilion)</strong></td><td style="font-family:var(--mono);">~₩20M</td><td>KOTRA Korea Pavilion</td><td style="font-family:var(--mono);color:var(--accent);">~₩10–15M</td></tr>
+        <tr><td><strong>VIMF 2026 (Bac Ninh, Nov)</strong></td><td style="font-family:var(--mono);">~₩8M</td><td>Up to ₩6M</td><td style="font-family:var(--mono);color:var(--accent);">~₩2–4M</td></tr>
+        <tr style="background:var(--surface2);">
+          <td><strong>3-Show Total</strong></td>
+          <td style="font-family:var(--mono);font-weight:700;">~₩43M</td>
+          <td>Export Voucher up to ₩150M</td>
+          <td style="font-family:var(--mono);color:var(--accent3);font-weight:700;">~₩20M minimum</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 07 ONSITE ══════════════════════════════════════ -->
+<section class="section" id="onsite">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-title-wrap">
+      <div class="section-label">PHASE 02 · ON-SITE</div>
+      <div class="section-title">On-Site <em>Operations</em></div>
+      <div class="section-desc">Renaissance Austin Hotel · July 27–30. Pre-scheduled meetings and poster sessions deliver far higher ROI than booth traffic alone.</div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="stat-val">600+</span><span class="stat-label">NSF decision-makers</span></div>
+    <div class="stat"><span class="stat-val">4</span><span class="stat-label">Distributor face-to-face meetings</span></div>
+    <div class="stat"><span class="stat-val">20</span><span class="stat-label">Institution business cards target</span></div>
+    <div class="stat"><span class="stat-val">30 min</span><span class="stat-label">Per distributor meeting</span></div>
+  </div>
+
+  <div class="insight">
+    <strong>Core On-Site Principle:</strong> Focus on <strong>pre-scheduled meetings and poster sessions, not hardware displays.</strong> Lean strategy — preparation timeline is tight. Demonstrate semiconductor/AMR/Smart Factory via tablet + demo video. Hand out <strong>"We'll also be at IMTS in Chicago in September"</strong> invitations to pre-amplify credibility.
+  </div>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;margin:24px 0 14px;">BOOTH CHECKLIST — LEAN PRINCIPLE (MINIMIZE HARDWARE)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>ITEM</th><th>DETAILS</th><th>PRIORITY</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tablet + Laptop + Demo Video USB</strong></td><td>Semiconductor / AMR robot / Smart Factory demo videos. Pitch deck with SACA curriculum-linked script.</td><td><span class="badge badge-red">Essential</span></td></tr>
+        <tr><td><strong>Business Cards</strong></td><td>With "Exhibiting at IMTS 2026 Chicago" printed — key tool to reconnect September contacts.</td><td><span class="badge badge-red">Essential</span></td></tr>
+        <tr><td><strong>SACA-Certifiable Product List 1-Pager (English)</strong></td><td>Explains "IEG equipment purchasable with federal grants" in 3 minutes.</td><td><span class="badge badge-red">Essential</span></td></tr>
+        <tr><td><strong>IEG × Amatrol Bundle Value Proposition (English)</strong></td><td>Partnership proposal document for distributors. Customize per distributor recommended.</td><td><span class="badge badge-red">Essential</span></td></tr>
+        <tr><td>Klein MOU Draft Documents</td><td>Bring ready for final signing in Austin. Coordinate with Klein in advance.</td><td><span class="badge badge-yellow">Recommended</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 08 DAY 1-2 ══════════════════════════════════════ -->
+<section class="section" id="day12">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div class="section-title-wrap">
+      <div class="section-label">PHASE 02 · JUL 27–28</div>
+      <div class="section-title">Pre-Workshops <em>Day 1–2</em></div>
+      <div class="section-desc">Focused session attendance and informal networking. The stage for making first contact with key NSF ATE figures.</div>
+    </div>
+  </div>
+
+  <ul class="checklist" id="day12List">
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">① Attend Key Sessions on Automation, Semiconductor & AI</div>
+        <div class="check-detail">Attend core NSF ATE community sessions. Exchange business cards with presenters and attendees. Prioritize community college faculty and administrative officers. <strong>HI-TEC Energy Technology Sessions</strong> — precisely aligned with IEG's renewable energy products. Explain SACA certification + DOL grant purchase route.</div>
+      </div>
+      <div class="check-deadline deadline-month">7/27</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">② Secure Poster Session Opportunity (Target Cancelled Slots)</div>
+        <div class="check-detail">Inquire with HI-TEC organizers about cancelled slots or poster session openings. If secured, core exposure is achievable without a booth. Propose <strong>"IEG × Amatrol Joint Presentation."</strong> Proposed topic: <em>"A New Standard for Industry 4.0 Training Equipment: A U.S.–Korea Collaboration Case Study."</em></div>
+      </div>
+      <div class="check-deadline deadline-month">7/27–28</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">③ Informal Advance Contact with Klein & Amtek Representatives</div>
+        <div class="check-detail">Build rapport through early informal meetings during workshops. <strong>Finalize "co-session presentation on Day 3–4"</strong> coordination. Align on Klein MOU signing timing. Use as warm-up to pre-scheduled meetings.</div>
+      </div>
+      <div class="check-deadline deadline-month">7/27–28</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">④ Begin Outreach to NSF Funding Decision-Makers</div>
+        <div class="check-detail">Target 10 of the 600+ decision-makers as priority contacts. Explain SACA → DOL IRAP grant purchase route. Deliver the message: <strong>"Schools can purchase IEG equipment with federal grants — no school budget required."</strong></div>
+      </div>
+      <div class="check-deadline deadline-month">7/27–28</div>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════ 09 DAY 3-4 ══════════════════════════════════════ -->
+<section class="section" id="day34">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <div class="section-title-wrap">
+      <div class="section-label">PHASE 02 · JUL 29–30</div>
+      <div class="section-title">Main Conference <em>Day 3–4</em></div>
+      <div class="section-desc">4 distributor face-to-face meetings, joint session presentations, 20 institution business cards secured. The two days that generate the core deliverables of the entire HI-TEC participation.</div>
+    </div>
+  </div>
+
+  <ul class="checklist" id="day34List">
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">① TTA — 30-Min Face-to-Face Meeting</div>
+        <div class="check-detail"><strong>Southeast (GA, AL + 8 states).</strong> Core pitch: <strong>"IEG Equipment + Amatrol Curriculum + SACA Certification"</strong> package + submit on-site pilot delivery proposal for GA/AL community colleges.</div>
+      </div>
+      <div class="check-deadline deadline-month">7/29–30</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">② Amtek — 30-Min Face-to-Face Meeting</div>
+        <div class="check-detail"><strong>Mid-Atlantic (VA, MD, DC, WV, DE).</strong> Finalize SACA co-session presentation or joint booth coordination. Propose <strong>"installation + after-sales + training one-stop"</strong> partnership.</div>
+      </div>
+      <div class="check-deadline deadline-month">7/29–30</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">③ Allegheny — 30-Min Face-to-Face Meeting</div>
+        <div class="check-detail"><strong>Northeast (NY, NJ, PA).</strong> Propose registering IEG as Allegheny's 21st partner. Discuss joint proposal for <strong>"Turnkey Semiconductor Lab"</strong> package targeting New York state community colleges.</div>
+      </div>
+      <div class="check-deadline deadline-month">7/29–30</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">④ Klein — 30-Min Meeting + Final MOU Signing</div>
+        <div class="check-detail"><strong>West (CA, OR, WA).</strong> Sign MOU finalized through prior online meetings. Confirm <strong>CA semiconductor equipment pilot delivery target: Q4 2026.</strong> Align on co-presenter roles for joint session.</div>
+      </div>
+      <div class="check-deadline deadline-month">7/29–30</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑤ Secure Business Cards from 20 Community College Purchasing Officers</div>
+        <div class="check-detail">Target minimum <strong>20 institution contacts.</strong> Explain SACA → DOL IRAP grant route. Distribute IMTS Chicago invitations. Priority targets: TTA-covered (GA, AL) and Amtek-covered (DC, MD) colleges.</div>
+      </div>
+      <div class="check-deadline deadline-month">7/29–30</div>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════ 10 POST ══════════════════════════════════════ -->
+<section class="section" id="post">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div class="section-title-wrap">
+      <div class="section-label">PHASE 03 · AUG 2026+</div>
+      <div class="section-title">Lead Distribution <em>& Pilot Orders</em></div>
+      <div class="section-desc">Convert HI-TEC network into tangible results immediately. Four distributors handle regional follow-up sales. Goal: first pilot delivery within Q4 2026.</div>
+    </div>
+  </div>
+
+  <ul class="checklist" id="postList">
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">① Distribute HI-TEC Leads to 4 Distributors by Region</div>
+        <div class="check-detail"><strong>TTA</strong> (GA, AL + 8 states) · <strong>Amtek</strong> (VA, MD, DC, WV, DE) · <strong>Allegheny</strong> (NY, NJ, PA) · <strong>Klein</strong> (CA, OR, WA). Each distributor takes full ownership of regional follow-up sales.</div>
+      </div>
+      <div class="check-deadline deadline-month">AUGUST</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">② Launch Klein West Coast Pilot (CA Semiconductor Equipment)</div>
+        <div class="check-detail">Target: first delivery within Q4 2026. CA community college semiconductor lab. <strong>Secure IEG's first U.S. reference</strong> → decisive weapon for Vietnam VIMF sales.</div>
+      </div>
+      <div class="check-deadline deadline-month">Q4 2026</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">③ Launch TTA Southeast Pilot (GA/AL Community Colleges)</div>
+        <div class="check-detail">Leverage TTA's 60-year network. Smart Factory and semiconductor equipment pilots at GA/AL colleges. Combined with Klein: <strong>simultaneous East/West first deliveries</strong> — doubling the reference count.</div>
+      </div>
+      <div class="check-deadline deadline-month">Q4 2026</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">④ Submit Joint Proposal with Allegheny to New York State Colleges</div>
+        <div class="check-detail">"Turnkey Semiconductor Lab" package targeting NY/NJ workforce development programs. Formally register IEG as <strong>Allegheny's 21st partner.</strong></div>
+      </div>
+      <div class="check-deadline deadline-month">AUG–SEP</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑤ UL Certification Completion → Official Distributor Catalog Listing</div>
+        <div class="check-detail">Upon certification, upgrade to formal distribution contracts. <strong>Official SACA-certifiable IEG equipment listing</strong> → formally opens DOL IRAP-linked school grant purchase route.</div>
+      </div>
+      <div class="check-deadline deadline-month">Q4 2026</div>
+    </li>
+    <li onclick="toggle(this)">
+      <div class="check-box"></div>
+      <div class="check-content">
+        <div class="check-title">⑥ Provide Factory Training to Amtek Personnel</div>
+        <div class="check-detail">Cost: $2,000–$4,000. Enable Amtek to operate independently for installation and service. Complete <strong>"installation + after-sales + training one-stop"</strong> service model. Review local entity or agent contract ($3,000–$10,000).</div>
+      </div>
+      <div class="check-deadline deadline-month">Q4 2026</div>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════ 11 IMTS ══════════════════════════════════════ -->
+<section class="section" id="imts">
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <div class="section-title-wrap">
+      <div class="section-label">PHASE 03 · SEP 14–19</div>
+      <div class="section-title">IMTS <em>Chicago</em></div>
+      <div class="section-desc">The single title of "IMTS Exhibitor" automatically elevates IEG's technical credibility across Southeast Asia and Central Asia.</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>ACTION</th><th>DETAILS</th><th>TIMING</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="font-family:var(--mono);color:var(--accent);">01</td>
+          <td><strong>Confirm KOTRA Korea Pavilion Availability & Register</strong></td>
+          <td>☎ <strong>02-3460-3330</strong> — ₩3.5M advance. Nov 2025 announcement already out, spots may be filled. Solo booth ($7,000+) vs. joint pavilion (~₩20M total).</td>
+          <td><span class="badge badge-red">IMMEDIATE</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono);color:var(--accent);">02</td>
+          <td><strong>VR Headset + Tablet Digital Twin Experience Zone</strong></td>
+          <td>Saves ~$330+ in logistics. Immersive Smart Factory and semiconductor process demos via VR create strong impression on IMTS's 89,000+ visitors.</td>
+          <td><span class="badge badge-blue">SEPTEMBER</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono);color:var(--accent);">03</td>
+          <td><strong>Invite & Re-engage HI-TEC Contacts</strong></td>
+          <td><em>"This is IEG — we met in Austin in July."</em> Conduct deeper meetings on foundation of established trust. Send IMTS invitations to 20 institution contacts.</td>
+          <td><span class="badge badge-blue">SEPTEMBER</span></td>
+        </tr>
+        <tr>
+          <td style="font-family:var(--mono);color:var(--accent);">04</td>
+          <td><strong>"IMTS Exhibitor" Title → Vietnam & Central Asia Sales</strong></td>
+          <td>IMTS exhibitor title automatically elevates technical credibility in VIMF Vietnam, India, Uzbekistan, and Kazakhstan. The credibility foundation for IEG's 5-country Ecosystem strategy.</td>
+          <td><span class="badge badge-green">POST-IMTS</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 12 VIMF ══════════════════════════════════════ -->
+<section class="section" id="vimf">
+  <div class="section-header">
+    <div class="section-num">12</div>
+    <div class="section-title-wrap">
+      <div class="section-label">PHASE 03 · NOV 4–6</div>
+      <div class="section-title">VIMF <em>Bac Ninh</em></div>
+      <div class="section-desc">Bac Ninh, Vietnam — a Samsung/Foxconn supplier hub. Lead with the dual reference to close orders on-site.</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>Harvest Strategy Core:</strong> <strong>"System chosen by U.S. educational institutions + Company that exhibited at IMTS"</strong> — this dual reference is the decisive factor in winning Vietnamese buyer trust. Bac Ninh is a Samsung/Foxconn supplier concentration → Korean-language sales possible. Vietnam's smart factory education demand is among the fastest-growing in the world.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>TIMING</th><th>ACTION</th><th>DETAILS</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">Jun–Jul</span></td>
+          <td><strong>Send Formal Cooperation Request to KOTRA Hanoi</strong></td>
+          <td>Pre-book B2B consultations with Samsung/Foxconn supplier training managers + Vietnamese TVET institution directors. Secure local network early.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-yellow">Aug–Sep</span></td>
+          <td><strong>Apply for Booth at vimf.vn</strong></td>
+          <td>Application closes Aug–Sep. Total est. ~₩8M (after Export Voucher: self-funded ₩2–4M). Full Smart Learning Factory line display — contrasting with HI-TEC lean strategy.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">November</span></td>
+          <td><strong>Deploy Dual Reference Banners & Close Orders On-Site</strong></td>
+          <td>Display "Adopted in the U.S. + Exhibited at IMTS" banners prominently. Target Vietnamese TVET institution directors + Samsung/Foxconn supplier training managers. <strong>Goal: close orders via live demo.</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 13 ECOSYSTEM ══════════════════════════════════════ -->
+<section class="section" id="ecosystem">
+  <div class="section-header">
+    <div class="section-num">13</div>
+    <div class="section-title-wrap">
+      <div class="section-label">ECOSYSTEM</div>
+      <div class="section-title">IEG <em>5-Country Strategy</em></div>
+      <div class="section-desc">HI-TEC 2026 is Phase 5 of the IEG Ecosystem — the first concrete action toward building the U.S. TTC Global Hub.</div>
+    </div>
+  </div>
+
+  <div class="ecosystem-row">
+    <div class="eco-node">
+      <span class="eco-flag">🇺🇿</span>
+      <div class="eco-country">Uzbekistan</div>
+      <div class="eco-hub">Jizzakh Center</div>
+      <div class="eco-phase">Phase 1 · Launch</div>
+    </div>
+    <div class="eco-arrow">→</div>
+    <div class="eco-node">
+      <span class="eco-flag">🇰🇿</span>
+      <div class="eco-country">Kazakhstan</div>
+      <div class="eco-hub">Kostanay</div>
+      <div class="eco-phase">Phase 2 · Logistics</div>
+    </div>
+    <div class="eco-arrow">→</div>
+    <div class="eco-node">
+      <span class="eco-flag">🇮🇳</span>
+      <div class="eco-country">India</div>
+      <div class="eco-hub">Andhra Pradesh</div>
+      <div class="eco-phase">Phase 3 · Scale</div>
+    </div>
+    <div class="eco-arrow">→</div>
+    <div class="eco-node">
+      <span class="eco-flag">🇮🇩</span>
+      <div class="eco-country">Indonesia</div>
+      <div class="eco-hub">Cikarang</div>
+      <div class="eco-phase">Phase 4 · EV</div>
+    </div>
+    <div class="eco-arrow">→</div>
+    <div class="eco-node active">
+      <span class="eco-flag">🇺🇸</span>
+      <div class="eco-country">United States</div>
+      <div class="eco-hub">TTC Global Hub</div>
+      <div class="eco-phase">Phase 5 · Standard</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    HI-TEC participation is the <strong>first concrete action toward building the U.S. TTC Global Hub.</strong> The U.S. community college network, Amatrol distributor partnerships, and SACA certification system entry are all interconnected. Long-term goal: <strong>"The company that owns the global standard for EV/Hybrid technical education."</strong> TTC trigger: monthly production of 300 units per hub.
+  </div>
+
+  <h3 style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;margin:24px 0 14px;">TTC 3-STAGE BUILD MODEL</h3>
+  <div class="table-wrap">
+    <table class="ttc-table">
+      <thead>
+        <tr><th>HUB</th><th>STAGE 1 TRIGGER</th><th>STAGE 2 TRANSITION</th><th>TIMELINE</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>🇺🇿 Jizzakh (UZB)</strong></td><td>Monthly production reaches 300 units</td><td>500+ units/mo + Kostanay opens</td><td style="font-family:var(--mono);font-size:12px;">Q2–Q3 2026</td></tr>
+        <tr><td><strong>🇰🇿 Kostanay (KAZ)</strong></td><td>300 units/mo + Jizzakh Stage 1 complete</td><td>Linked to Jizzakh Stage 2</td><td style="font-family:var(--mono);font-size:12px;">Q3–Q4 2026</td></tr>
+        <tr><td><strong>🇮🇳 Andhra Pradesh (IND)</strong></td><td>Immediately post-MOU; TTC at 300 units/mo</td><td>300 units/mo + 3-country certs</td><td style="font-family:var(--mono);font-size:12px;">Q4 2026–Q1 2027</td></tr>
+        <tr><td><strong>🇮🇩 Cikarang (IDN)</strong></td><td>Post-incorporation; 300 units/mo</td><td>500 units/mo + U.S. launch</td><td style="font-family:var(--mono);font-size:12px;">Q1–Q2 2027</td></tr>
+        <tr><td><strong>🇺🇸 United States (USA)</strong></td><td>All 4 countries at Stage 2</td><td>1,000 units/mo + all 4 complete</td><td style="font-family:var(--mono);font-size:12px;">Launch Q3 2027 · Done 2028</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ 14 CONTACTS ══════════════════════════════════════ -->
+<section class="section" id="contacts">
+  <div class="section-header">
+    <div class="section-num">14</div>
+    <div class="section-title-wrap">
+      <div class="section-label">CONTACTS</div>
+      <div class="section-title">Key <em>Contacts Directory</em></div>
+      <div class="section-desc">Complete contact information for HI-TEC 2026 and U.S. market entry. All contacts ready for immediate outreach.</div>
+    </div>
+  </div>
+
+  <!-- Distributors -->
+  <div class="contact-section">
+    <div class="contact-section-title">🏢 AMATROL DISTRIBUTORS — 4 U.S. REGIONS</div>
+    <div class="contact-grid">
+      <div class="contact-card primary">
+        <div class="contact-id">TTA</div>
+        <div class="contact-name">Technical Training Associates</div>
+        <div class="contact-role">Southeast — GA, AL + 8 States</div>
+        <div class="contact-info">
+          📍 2076 Valleydale Terrace, Birmingham, AL 35244<br>
+          📞 <strong>205.988.9231</strong> / 800.851.3987<br>
+          🌐 <a href="https://ttaweb.com" target="_blank">ttaweb.com</a>
+        </div>
+        <div class="contact-tag yellow">🎯 Pilot Priority 1 · 60-Year Network</div>
+      </div>
+      <div class="contact-card primary">
+        <div class="contact-id">AMT</div>
+        <div class="contact-name">Amtek Company</div>
+        <div class="contact-role">Mid-Atlantic — VA, MD, DC, WV, DE</div>
+        <div class="contact-info">
+          📍 1244 Ritchie Hwy., Suite 10, Arnold, MD 21012<br>
+          📞 <strong>800.926.8359</strong> / 410.315.9260<br>
+          🌐 <a href="https://amtekcompany.com" target="_blank">amtekcompany.com</a>
+        </div>
+        <div class="contact-tag">✦ SACA Official Partner · Instant Co-Marketing</div>
+      </div>
+      <div class="contact-card primary">
+        <div class="contact-id">ALG</div>
+        <div class="contact-name">Allegheny Educational Systems</div>
+        <div class="contact-role">Northeast — NY, NJ, PA</div>
+        <div class="contact-info">
+          📍 320 East 3rd Avenue, Tarentum, PA 15084<br>
+          📞 <strong>800.232.7600</strong><br>
+          🌐 <a href="https://alleghenyedusys.com" target="_blank">alleghenyedusys.com</a>
+        </div>
+        <div class="contact-tag green">21st Partner Target · NY College Coverage</div>
+      </div>
+      <div class="contact-card urgent">
+        <div class="contact-id">KLN</div>
+        <div class="contact-name">Klein Educational Systems</div>
+        <div class="contact-role">West — CA, OR, WA</div>
+        <div class="contact-info">
+          📧 <a href="mailto:klein@kleineducational.com">klein@kleineducational.com</a><br>
+          🌐 <a href="https://kleineducational.com" target="_blank">kleineducational.com</a>
+        </div>
+        <div class="contact-tag red">⚡ Send Email TODAY · MOU Target</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certs -->
+  <div class="contact-section">
+    <div class="contact-section-title">🏅 CERTIFICATION BODIES</div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-id">SACA</div>
+        <div class="contact-name">Smart Automation Certification Alliance</div>
+        <div class="contact-role">Industry 4.0 Certification · DOL IRAP Linkage</div>
+        <div class="contact-info">
+          📧 <a href="mailto:contact@saca.org">contact@saca.org</a><br>
+          🌐 <a href="https://saca.org" target="_blank">saca.org</a><br>
+          💰 Annual industry membership (inquiry required)
+        </div>
+        <div class="contact-tag">Apply This Week · Activates All 4 Distributors</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-id">UL</div>
+        <div class="contact-name">TÜV SÜD America (NRTL)</div>
+        <div class="contact-role">UL Certification · Prerequisite for U.S. Supply</div>
+        <div class="contact-info">
+          🌐 <a href="https://tuvsud.com" target="_blank">tuvsud.com</a><br>
+          💰 $22,000–$50,000/product · 3–6 months
+        </div>
+        <div class="contact-tag red">⚠️ Quote This Week · Start with Simpler Products</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Government -->
+  <div class="contact-section">
+    <div class="contact-section-title">🏛️ GOVERNMENT SUPPORT AGENCIES</div>
+    <div class="contact-grid">
+      <div class="contact-card urgent">
+        <div class="contact-id">KTR</div>
+        <div class="contact-name">KOTRA International Exhibition Team</div>
+        <div class="contact-role">IMTS Korea Pavilion · HI-TEC Individual Support</div>
+        <div class="contact-info">
+          📞 <strong>02-3460-3330</strong><br>
+          🌐 <a href="https://kotra.or.kr" target="_blank">kotra.or.kr</a>
+        </div>
+        <div class="contact-tag red">⚡ Contact TODAY — IMTS Deadline Imminent</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-id">EXP</div>
+        <div class="contact-name">Export Voucher (MOTIE / SMBA)</div>
+        <div class="contact-role">Emergency Support Round 3 · Up to ₩150M</div>
+        <div class="contact-info">
+          🌐 <a href="https://exportvoucher.com" target="_blank">exportvoucher.com</a> → Search "Emergency Round 3"<br>
+          💰 All 3 shows eligible for reimbursement
+        </div>
+        <div class="contact-tag yellow">Apply This Week · ₩150M Max</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-id">KHN</div>
+        <div class="contact-name">KOTRA Hanoi Trade Center</div>
+        <div class="contact-role">VIMF Vietnam · B2B Pre-Booking</div>
+        <div class="contact-info">
+          🌐 <a href="https://kotra.or.kr" target="_blank">kotra.or.kr → Hanoi</a><br>
+          🎯 Samsung/Foxconn suppliers + TVET directors
+        </div>
+        <div class="contact-tag green">Send Formal Request Jun–Jul</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-id">KNY</div>
+        <div class="contact-name">KOTRA New York / Washington</div>
+        <div class="contact-role">U.S. Local Support · Partial Fee Support</div>
+        <div class="contact-info">
+          🌐 <a href="https://kotra.or.kr" target="_blank">kotra.or.kr → New York</a><br>
+          💰 HI-TEC participation fee partial support
+        </div>
+        <div class="contact-tag">Local Support · NY College Linkage</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shows -->
+  <div class="contact-section">
+    <div class="contact-section-title">🎪 TRADE SHOW OFFICIAL REGISTRATION</div>
+    <div class="contact-grid">
+      <div class="contact-card urgent">
+        <div class="contact-id">HIT</div>
+        <div class="contact-name">HI-TEC 2026 · Austin, Texas</div>
+        <div class="contact-role">High Impact Technology Exchange</div>
+        <div class="contact-info">
+          📅 July 27–30, 2026 · Renaissance Austin Hotel<br>
+          🌐 <a href="https://highimpact-tec.org" target="_blank">highimpact-tec.org</a><br>
+          💰 Booth $4,500+ · 600+ attendees
+        </div>
+        <div class="contact-tag red">⚡ Refund Deadline Jul 10 — Register Today!</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-id">IMS</div>
+        <div class="contact-name">IMTS 2026 · Chicago, Illinois</div>
+        <div class="contact-role">International Manufacturing Technology Show</div>
+        <div class="contact-info">
+          📅 Sep 14–19, 2026 · McCormick Place<br>
+          🌐 <a href="https://imts.com" target="_blank">imts.com</a><br>
+          💰 KOTRA Pavilion advance ₩3.5M · Total ~₩20M
+        </div>
+        <div class="contact-tag">Joint Pavilion Recommended · 89,000+ Attendees</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-id">VIF</div>
+        <div class="contact-name">VIMF 2026 · Bac Ninh, Vietnam</div>
+        <div class="contact-role">Vietnam Industrial & Manufacturing Fair</div>
+        <div class="contact-info">
+          📅 Nov 4–6, 2026 · Bac Ninh, Vietnam<br>
+          🌐 <a href="https://vimf.vn" target="_blank">vimf.vn</a><br>
+          💰 Booth $3,500+ · Deadline Aug–Sep · Total ~₩8M
+        </div>
+        <div class="contact-tag green">Begin Preparations Jun–Jul · Harvest Stage</div>
+      </div>
+      <div class="contact-card" style="opacity:0.5;">
+        <div class="contact-id">ATD</div>
+        <div class="contact-name">ATD 2026 · Los Angeles</div>
+        <div class="contact-role">Association for Talent Development</div>
+        <div class="contact-info">
+          📅 May 17, 2026 → <strong>Already closed</strong><br>
+          🌐 <a href="https://atdconference.td.org" target="_blank">atdconference.td.org</a>
+        </div>
+        <div class="contact-tag" style="background:rgba(100,116,139,0.2);color:var(--muted);">Revisit 2027</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ FOOTER ══════════════════════════════════════ -->
+<footer>
+  <div>
+    <div class="footer-logo">IEG Enterprise Group</div>
+    <div>IEG-HTC-2026-WB · Prepared May 2026 · CONFIDENTIAL · Internal Strategy Use Only</div>
+  </div>
+  <button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+</footer>
+
+</div><!-- end .page -->
+
+<script>
+  // ── Checkbox toggle
+  function toggle(el) {
+    el.classList.toggle('done');
+    updateProgress();
+  }
+
+  // ── Progress counter
+  function updateProgress() {
+    const total = document.querySelectorAll('.checklist li').length;
+    const done = document.querySelectorAll('.checklist li.done').length;
+    document.getElementById('progressDisplay').textContent = done + ' / ' + total + ' done';
+    const pct = total > 0 ? (done / total) * 100 : 0;
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
