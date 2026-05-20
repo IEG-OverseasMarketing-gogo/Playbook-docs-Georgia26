@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEG Co., Ltd. — Global Business Roadmap</title>
+<style>
+  :root {
+    --blue-900: #042C53;
+    --blue-800: #0C447C;
+    --blue-600: #185FA5;
+    --blue-400: #378ADD;
+    --blue-200: #85B7EB;
+    --blue-100: #B5D4F4;
+    --blue-50:  #E6F1FB;
+    --teal-600: #0F6E56;
+    --teal-400: #1D9E75;
+    --teal-100: #9FE1CB;
+    --teal-50:  #E1F5EE;
+    --amber-600: #854F0B;
+    --amber-400: #BA7517;
+    --amber-100: #FAC775;
+    --amber-50:  #FAEEDA;
+    --coral-600: #993C1D;
+    --coral-400: #D85A30;
+    --coral-100: #F5C4B3;
+    --coral-50:  #FAECE7;
+    --gray-900: #2C2C2A;
+    --gray-600: #5F5E5A;
+    --gray-200: #B4B2A9;
+    --gray-100: #D3D1C7;
+    --gray-50:  #F1EFE8;
+    --bg: #ffffff;
+    --bg2: #f8f7f4;
+    --text: #1a1a18;
+    --text2: #5F5E5A;
+    --border: rgba(0,0,0,0.1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --blue-900: #B5D4F4;
+      --blue-800: #85B7EB;
+      --blue-600: #378ADD;
+      --blue-50:  #042C53;
+      --blue-100: #0C447C;
+      --teal-50:  #04342C;
+      --teal-100: #085041;
+      --teal-400: #5DCAA5;
+      --amber-50:  #412402;
+      --amber-100: #633806;
+      --amber-400: #EF9F27;
+      --coral-50:  #4A1B0C;
+      --coral-100: #712B13;
+      --coral-400: #F0997B;
+      --gray-50:  #2C2C2A;
+      --gray-100: #444441;
+      --gray-200: #5F5E5A;
+      --bg:  #1a1a18;
+      --bg2: #222220;
+      --text: #e8e6df;
+      --text2: #9c9a92;
+      --border: rgba(255,255,255,0.1);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  /* ── Header ── */
+  .hero {
+    background: var(--blue-800);
+    padding: 48px 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--blue-600);
+    opacity: 0.25;
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-200);
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero p {
+    font-size: 15px;
+    color: var(--blue-100);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Nav tabs ── */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 0 40px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn.active {
+    color: var(--blue-600);
+    border-bottom-color: var(--blue-600);
+  }
+  .tab-btn:hover:not(.active) { color: var(--text); }
+
+  /* ── Content panels ── */
+  .panel { display: none; padding: 36px 40px 48px; }
+  .panel.active { display: block; }
+
+  /* ── Section title ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Timeline (Past) ── */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -25px; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--blue-400);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--blue-400);
+  }
+  .tl-date {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--blue-600);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .tl-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .tl-desc {
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .tl-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 5px;
+  }
+  .tag-blue   { background: var(--blue-50);  color: var(--blue-800); }
+  .tag-teal   { background: var(--teal-50);  color: var(--teal-600); }
+  .tag-amber  { background: var(--amber-50); color: var(--amber-600); }
+  .tag-coral  { background: var(--coral-50); color: var(--coral-600); }
+
+  /* ── Cards grid ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .card p {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+  .card-accent-blue  { border-left: 3px solid var(--blue-400); }
+  .card-accent-teal  { border-left: 3px solid var(--teal-400); }
+  .card-accent-amber { border-left: 3px solid var(--amber-400); }
+  .card-accent-coral { border-left: 3px solid var(--coral-400); }
+
+  /* ── Upcoming schedule ── */
+  .schedule { display: flex; flex-direction: column; gap: 14px; }
+  .sch-item {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    align-items: start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bg2);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .sch-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue-600);
+    line-height: 1.4;
+  }
+  .sch-body { min-width: 0; }
+  .sch-event {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .sch-detail {
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  /* ── TTC map ── */
+  .ttc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .ttc-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ttc-flag { font-size: 22px; }
+  .ttc-region {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .ttc-city {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ttc-note {
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .dot-active { background: var(--teal-400); }
+  .dot-planned { background: var(--amber-400); }
+
+  /* ── USA strategy ── */
+  .usa-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .usa-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .usa-list li strong { color: var(--text); display: block; margin-bottom: 2px; font-size: 13px; }
+  .usa-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: var(--blue-50);
+    color: var(--blue-800);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ── Emotii partner ── */
+  .partner-card {
+    background: var(--bg2);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .partner-logo {
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #5a3abf, #8b5cf6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    color: white;
+    font-weight: 700;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+  }
+  .partner-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .partner-sub {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 12px;
+  }
+  .partner-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .partner-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--blue-50);
+    color: var(--blue-800);
+  }
+
+  /* ── Stat bar ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .stat {
+    background: var(--bg2);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blue-600);
+    margin-bottom: 4px;
+  }
+  .stat-label { font-size: 12px; color: var(--text2); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 24px; }
+    .hero h1 { font-size: 24px; }
+    .tab-bar { padding: 0 16px; }
+    .panel { padding: 24px 20px 36px; }
+    .sch-item { grid-template-columns: 1fr; gap: 8px; }
+    .partner-card { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">IEG Co., Ltd. — Global Business Division</div>
+  <h1>Global Business Roadmap</h1>
+  <p>Track record · Upcoming engagements · Expansion strategy</p>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('overview', this)">Overview</button>
+  <button class="tab-btn" onclick="switchTab('track', this)">Track Record</button>
+  <button class="tab-btn" onclick="switchTab('pipeline', this)">Pipeline</button>
+  <button class="tab-btn" onclick="switchTab('schedule', this)">Schedule</button>
+  <button class="tab-btn" onclick="switchTab('usa', this)">USA Strategy</button>
+  <button class="tab-btn" onclick="switchTab('partner', this)">Partnership</button>
+</div>
+
+<!-- OVERVIEW -->
+<div class="panel active" id="panel-overview">
+  <div class="stats">
+    <div class="stat"><div class="stat-num">2009</div><div class="stat-label">Founded</div></div>
+    <div class="stat"><div class="stat-num">58</div><div class="stat-label">Employees</div></div>
+    <div class="stat"><div class="stat-num">₩5B</div><div class="stat-label">2024 Investment</div></div>
+    <div class="stat"><div class="stat-num">IPO</div><div class="stat-label">Target: 2 years</div></div>
+    <div class="stat"><div class="stat-num">#1</div><div class="stat-label">Korea Tech Training</div></div>
+  </div>
+
+  <div class="section-title">Core solution portfolio</div>
+  <div class="cards">
+    <div class="card card-accent-blue">
+      <div class="card-icon" style="background:var(--blue-50)">🏭</div>
+      <h3>Smart Factory Testbeds</h3>
+      <p>PLC, MPS practice systems deployed at KoreaTech, Polytechnic, KIRIA.</p>
+    </div>
+    <div class="card card-accent-teal">
+      <div class="card-icon" style="background:var(--teal-50)">💻</div>
+      <h3>Digital Learning Platform</h3>
+      <p>Online content platform + VR / AR / Digital Twin solutions.</p>
+    </div>
+    <div class="card card-accent-amber">
+      <div class="card-icon" style="background:var(--amber-50)">⚙️</div>
+      <h3>Semiconductor Training</h3>
+      <p>Manufacturing practice equipment for advanced technical institutes.</p>
+    </div>
+    <div class="card card-accent-coral">
+      <div class="card-icon" style="background:var(--coral-50)">🤖</div>
+      <h3>Physical AI</h3>
+      <p>Delivered to Jeonbuk National University, February 2026.</p>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:32px">Domestic recognition — international delegation visits</div>
+  <div class="cards">
+    <div class="card"><h3>🇰🇪 Kenya</h3><p>Benchmarking visit to IEG Seongnam HQ</p></div>
+    <div class="card"><h3>🇰🇿 Kazakhstan</h3><p>Government delegation, smart factory</p></div>
+    <div class="card"><h3>🇸🇻 El Salvador</h3><p>Technical education delegation</p></div>
+    <div class="card"><h3>🇺🇿 Uzbekistan</h3><p>Vocational training review visit</p></div>
+    <div class="card"><h3>🇩🇰 Denmark</h3><p>Expected — upcoming visit</p></div>
+  </div>
+</div>
+
+<!-- TRACK RECORD -->
+<div class="panel" id="panel-track">
+  <div class="section-title">International project history</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-date">2016</div>
+      <div class="tl-title">Samarkand Vocational Training Center — Uzbekistan</div>
+      <div class="tl-desc">PLC equipment supply to vocational training center in Samarkand.</div>
+      <span class="tl-tag tag-blue">Equipment Supply</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Various</div>
+      <div class="tl-title">Samsung · Hyundai Mobis · LG — Korea</div>
+      <div class="tl-desc">Technical training equipment for in-house employee training centers of major Korean conglomerates.</div>
+      <span class="tl-tag tag-teal">Corporate Training</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Mar 2025</div>
+      <div class="tl-title">EDCF Project — Konza, Kenya</div>
+      <div class="tl-desc">EDCF project completion: lab equipment and furniture delivered to Konza technology city (March 2025).</div>
+      <span class="tl-tag tag-coral">ODA Project</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Apr 2025</div>
+      <div class="tl-title">Hannover Messe — Germany</div>
+      <div class="tl-desc">DX Labeler showcase at the world's leading industrial trade fair.</div>
+      <span class="tl-tag tag-amber">Exhibition</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Oct 2025</div>
+      <div class="tl-title">GITEX — Dubai, UAE</div>
+      <div class="tl-desc">DX Labeler exhibition targeting Middle Eastern enterprise markets.</div>
+      <span class="tl-tag tag-amber">Exhibition</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Nov 2025</div>
+      <div class="tl-title">GESS Dubai — UAE</div>
+      <div class="tl-desc">Technical education equipment showcase for Gulf region buyers.</div>
+      <span class="tl-tag tag-amber">Exhibition</span>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Feb 2026</div>
+      <div class="tl-title">Physical AI — Jeonbuk National University</div>
+      <div class="tl-desc">Physical AI system supply and integration for university research program.</div>
+      <span class="tl-tag tag-blue">Equipment Supply</span>
+    </div>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div class="panel" id="panel-pipeline">
+  <div class="section-title">KOICA IBS &amp; EDCF — development cooperation</div>
+  <div class="cards" style="margin-bottom:32px">
+    <div class="card card-accent-coral">
+      <h3>🇵🇭 Philippines — KOICA IBS</h3>
+      <p>Coordination channel established. Negotiations underway for a technical education project under Korea's ODA framework.</p>
+      <span class="tl-tag tag-coral" style="margin-top:10px;display:inline-block">In Negotiation</span>
+    </div>
+    <div class="card card-accent-blue">
+      <h3>EDCF Pipeline</h3>
+      <p>Positioning IEG as a key equipment and solutions provider for Economic Development Cooperation Fund projects.</p>
+      <span class="tl-tag tag-blue" style="margin-top:10px;display:inline-block">Early Stage</span>
+    </div>
+  </div>
+
+  <div class="section-title">Commercial — Hyundai &amp; Kia TTC / STC sites</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:20px">Establishing Technical Training Centers and Skills Training Centers near EV/Hybrid manufacturing plants to train pre-employment candidates aligned with OEM production needs.</p>
+  <div class="ttc-grid">
+    <div class="ttc-item">
+      <div class="ttc-flag">🇺🇿</div>
+      <div class="ttc-region">Central Asia</div>
+      <div class="ttc-city">Jizzakh, Uzbekistan</div>
+      <div class="ttc-note"><span class="status-dot dot-planned"></span>TTC planned</div>
+    </div>
+    <div class="ttc-item">
+      <div class="ttc-flag">🇰🇿</div>
+      <div class="ttc-region">Central Asia</div>
+      <div class="ttc-city">Kostanay, Kazakhstan</div>
+      <div class="ttc-note"><span class="status-dot dot-planned"></span>TTC planned</div>
+    </div>
+    <div class="ttc-item">
+      <div class="ttc-flag">🇮🇳</div>
+      <div class="ttc-region">South Asia</div>
+      <div class="ttc-city">Andhra Pradesh, India</div>
+      <div class="ttc-note"><span class="status-dot dot-planned"></span>STC planned</div>
+    </div>
+    <div class="ttc-item">
+      <div class="ttc-flag">🇮🇩</div>
+      <div class="ttc-region">Southeast Asia</div>
+      <div class="ttc-city">Cikarang, Indonesia</div>
+      <div class="ttc-note"><span class="status-dot dot-planned"></span>TTC planned</div>
+    </div>
+    <div class="ttc-item">
+      <div class="ttc-flag">🇺🇸</div>
+      <div class="ttc-region">North America</div>
+      <div class="ttc-city">Georgia, USA</div>
+      <div class="ttc-note"><span class="status-dot dot-active"></span>Active outreach</div>
+    </div>
+    <div class="ttc-item">
+      <div class="ttc-flag">🇺🇸</div>
+      <div class="ttc-region">North America</div>
+      <div class="ttc-city">Alabama, USA</div>
+      <div class="ttc-note"><span class="status-dot dot-active"></span>Active outreach</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="panel" id="panel-schedule">
+  <div class="section-title">Upcoming engagements — in chronological order</div>
+  <div class="schedule">
+    <div class="sch-item">
+      <div class="sch-date">12 June 2025</div>
+      <div class="sch-body">
+        <div class="sch-event">🇩🇰 Denmark Delegation — Inbound Visit</div>
+        <div class="sch-detail">Inbound visit from Danish delegation to IEG Seongnam HQ for benchmarking and potential collaboration.</div>
+      </div>
+      <span class="tl-tag tag-teal">Delegation</span>
+    </div>
+    <div class="sch-item">
+      <div class="sch-date">30 June 2025</div>
+      <div class="sch-body">
+        <div class="sch-event">🇲🇾 FCoEE Malaysia — Delegation Visit</div>
+        <div class="sch-detail">Future Centre of Excellence in Engineering Education (FCoEE), Malaysia — inbound delegation to IEG facilities.</div>
+      </div>
+      <span class="tl-tag tag-blue">Delegation</span>
+    </div>
+    <div class="sch-item">
+      <div class="sch-date">Summer 2026</div>
+      <div class="sch-body">
+        <div class="sch-event">🇺🇸 HI-TEC 26 Conference — Austin, Texas</div>
+        <div class="sch-detail">Exhibition booth secured within the HI-TEC 2026 conference trade show. Key milestone for U.S. market launch.</div>
+      </div>
+      <span class="tl-tag tag-amber">Conference</span>
+    </div>
+  </div>
+</div>
+
+<!-- USA STRATEGY -->
+<div class="panel" id="panel-usa">
+  <div class="section-title">United States market entry strategy</div>
+  <ul class="usa-list">
+    <li>
+      <div class="usa-icon">🎪</div>
+      <div>
+        <strong>HI-TEC 2026 — Austin, TX</strong>
+        Exhibition booth secured for Summer 2026 conference trade show. Flagship U.S. market debut event.
+      </div>
+    </li>
+    <li>
+      <div class="usa-icon">✅</div>
+      <div>
+        <strong>SACA &amp; UL Certification</strong>
+        Active evaluation underway to ensure U.S. product compliance for market entry.
+      </div>
+    </li>
+    <li>
+      <div class="usa-icon">🤝</div>
+      <div>
+        <strong>Amatrol Distributor Outreach</strong>
+        Collaboration inquiry emails dispatched to key U.S. distributors in the technical training equipment space.
+      </div>
+    </li>
+    <li>
+      <div class="usa-icon">🏫</div>
+      <div>
+        <strong>Community College Partnerships</strong>
+        Partnership proposals sent to community colleges in Georgia and Alabama — aligned with Hyundai/Kia plant regions.
+      </div>
+    </li>
+    <li>
+      <div class="usa-icon">📱</div>
+      <div>
+        <strong>LinkedIn &amp; TikTok Marketing</strong>
+        Active brand-building and product awareness channels currently in operation.
+      </div>
+    </li>
+    <li>
+      <div class="usa-icon">🛒</div>
+      <div>
+        <strong>TikTok Shop USA — Launch Preparation</strong>
+        U.S. legal entity or local representative currently being sourced to enable TikTok Shop USA launch.
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- PARTNERSHIP -->
+<div class="panel" id="panel-partner">
+  <div class="section-title">Strategic technology partnership</div>
+  <div class="partner-card" style="margin-bottom:32px">
+    <div class="partner-logo">Em</div>
+    <div>
+      <div class="partner-name">Emotii</div>
+      <div class="partner-sub">UK-based technology startup · Real-time language &amp; communication solutions</div>
+      <div class="partner-tags">
+        <span class="partner-tag">Language Barrier</span>
+        <span class="partner-tag">Cross-cultural Communication</span>
+        <span class="partner-tag">TTC Integration</span>
+        <span class="partner-tag">Global Deployment</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Role in IEG's TTC operations</div>
+  <div class="cards">
+    <div class="card card-accent-blue">
+      <h3>Language bridge</h3>
+      <p>Enables real-time communication between local trainees, instructors, and IEG's Korean technical staff — regardless of language.</p>
+    </div>
+    <div class="card card-accent-teal">
+      <h3>Reduced onboarding friction</h3>
+      <p>Emotii's technology integration is expected to significantly cut onboarding time and improve training quality at each global site.</p>
+    </div>
+    <div class="card card-accent-amber">
+      <h3>Scalable across all sites</h3>
+      <p>One unified technology layer across Uzbekistan, Kazakhstan, India, Indonesia, and U.S. TTC locations.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
